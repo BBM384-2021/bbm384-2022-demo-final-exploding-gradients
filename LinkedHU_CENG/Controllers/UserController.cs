@@ -7,11 +7,17 @@ using Microsoft.AspNetCore.Http;
 
 
 
-namespace LinkedHU_CENG.Controllers 
+namespace LinkedHU_CENG.Controllers
 {
     public class UserController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext(); 
+        private readonly ApplicationDbContext db;
+
+        public UserController(ApplicationDbContext db)
+        {
+            this.db = db;
+        }
+
         public IActionResult Index()
         {
             return View(db.Users.ToList());
