@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-
 namespace LinkedHU_CENG.Models
 {
     public class User
