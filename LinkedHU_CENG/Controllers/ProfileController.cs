@@ -2,15 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 
-
 namespace LinkedHU_CENG.Controllers
 {
     public class ProfileController : Controller
     {
+        private readonly ApplicationDbContext db;
+
+        public ProfileController(ApplicationDbContext db)
+        {
+            this.db = db;
+        }
         public IActionResult Index()
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
+
 
                 if (HttpContext.Session.GetString("UserID") != null)
                 {
@@ -30,7 +34,7 @@ namespace LinkedHU_CENG.Controllers
                 }
 
                 return RedirectToAction("Index", "Home");
-            }   
+           
         }
     }
 }

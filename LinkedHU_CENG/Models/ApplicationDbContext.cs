@@ -4,14 +4,17 @@ namespace LinkedHU_CENG.Models
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext() { }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
+
 
         // db bağlantısı için connection stringi burda giriyoruz
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql("User ID=postgres;Password=12345;Server=localhost;Port=5432;Database=UserDB;Integrated Security=true;Pooling=true;");
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //        => optionsBuilder.UseNpgsql("Server=localhost;port=5432;Database=LinkedHU_CENG;User Id=postgres;Password=burak2001");
 
+    //
     }
 }
