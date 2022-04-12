@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace LinkedHU_CENG.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
