@@ -1,0 +1,6 @@
+*.cache
+*.suo
+LinkedHU_CENG.GeneratedMSBuildEditorConfig.editorconfig
+LinkedHU_CENG.csproj.nuget.dgspec.json
+LinkedHU_CENG.csproj.nuget.g.props
+project.assets.json
