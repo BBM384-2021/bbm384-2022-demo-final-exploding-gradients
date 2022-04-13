@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace LinkedHU_CENG.Controllers
 {
+
     public class UserController : Controller
     {
         private readonly ApplicationDbContext db;
