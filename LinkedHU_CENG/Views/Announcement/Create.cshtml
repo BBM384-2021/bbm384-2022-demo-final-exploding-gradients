@@ -1,0 +1,18 @@
+﻿@model LinkedHU_CENG.Models.Announcement
+@{
+    ViewData["Title"] = "Announcement";
+}
+
+<form asp-controller="Announcement" asp-action= "Create" method="post">
+	<div class= "px-xl-3">
+		<div class="border p-3 mt-4">
+		<div class="mb-3 ">
+			<h3 class="text-primary">Share Announcement</h3>
+			<input asp-for="Content" class="form-control" />
+			<span asp-validation-for="Content" class="text-danger"></span>
+		</div>
+		<button type="submit">Share</button>
+	</div>
+	</div>
+	
+</form>
