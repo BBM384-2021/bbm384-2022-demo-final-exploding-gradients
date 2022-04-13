@@ -51,9 +51,6 @@ namespace LinkedHU_CENG.Controllers
         [HttpPost]
         public ActionResult Edit(User user)
         {
-            
-
-            ViewData["User"] = user;
 
             if (ModelState.IsValid)
             {
