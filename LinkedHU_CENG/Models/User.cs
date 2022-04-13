@@ -1,11 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LinkedHU_CENG.Models
 {
     public class User
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
+
+        //public string CreatedAt { get; set; } = DateTime.Now.ToString("yyyy-MM-dd");
 
         [Required]
         [Display(Name = "Name")]
