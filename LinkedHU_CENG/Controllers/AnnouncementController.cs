@@ -28,6 +28,11 @@ namespace LinkedHU_CENG.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = HttpContext.Session.GetInt32("UserID");
+                announcement.UserId = userId;
+                var user = _db.Users.Find(userId);
+                announcement.UserName = user.Name + " " + user.Surname;
+
                 _db.Announcements.Add(announcement);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Home");
