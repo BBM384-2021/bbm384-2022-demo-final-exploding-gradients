@@ -38,11 +38,56 @@ namespace LinkedHU_CENG.Controllers
                 ModelState.AddModelError("", "Some Error Occured!");
 
             }
-            return PartialView(post);
+            return View(post);
 
         }
 
+        // GET
+        public ActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var post = _db.Posts.Find(id);
 
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return View(post);
+        }
+
+        // POST
+        [HttpPost]
+        public ActionResult Edit(Post post)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Posts.Update(post);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Some error occured!");
+            }
+            return View(post);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            var post = _db.Posts.Find(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            _db.Posts.Remove(post);
+            _db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
 
     }
 }
