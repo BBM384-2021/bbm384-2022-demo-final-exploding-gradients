@@ -80,10 +80,13 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
 
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item href="#"" asp-controller="Profile" asp-action="Index">View Profile </a>
-            <a class="dropdown-item href="#"" asp-controller="Profile" asp-action="Edit">Edit Profile</a>
+            <a class="dropdown-item asp-controller="Profile" asp-action="Index">View Profile </a>
+            <a class="dropdown-item asp-controller="Profile" asp-action="Edit">Edit Profile</a>
+
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Send Report</a>
+            <a class="dropdown-item" >Send Report</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" asp-controller="User" asp-action="Logout">Log out</a>
           </div>
           </ul>
     </div>

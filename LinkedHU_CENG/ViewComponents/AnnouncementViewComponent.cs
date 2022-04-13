@@ -18,6 +18,7 @@ namespace LinkedHU_CENG.ViewComponents
         {
 
             IEnumerable<Announcement> mc = await _db.Announcements.ToListAsync();
+            ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
             return View(mc);
         }
     }

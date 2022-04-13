@@ -25,10 +25,14 @@ namespace LinkedHU_CENG.Controllers
 
         [HttpPost]
         public IActionResult Create(Post post)
-
         {
             if (ModelState.IsValid)
             {
+                var userId = HttpContext.Session.GetInt32("UserID");
+                post.UserId = userId;
+                var user = _db.Users.Find(userId);
+                post.UserName = user.Name + " " + user.Surname;
+
                 _db.Posts.Add(post);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Home");
