@@ -25,7 +25,11 @@
                     {
                         <div class = "card">
                              <div class="custom-margin1">
-                                  <div class="dropdown text-end">
+                                  
+                                <div id="wrapperDiv">
+                                <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a href= #><i class="bi bi-chat-right-text"></i></a> </div>
+<div id="div2" style="padding:5px;float:right;color:#ffffff"> <a href= #> <i class="bi bi-share"></i></a></div>
+<div id="div2" style="padding:5px;float:right;color:#ffffff"> <div class="dropdown text-end">
           <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Edit</a>
           <div class="dropdown-menu dropdown-menu-end">
               <a asp-controller="Post" asp-action="Update" asp-route-id="@obj.PostId"
@@ -35,7 +39,9 @@
                             class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Delete</a>
                        
          </div>
-                    </div>
+                    </div></div>
+</div>
+
                        
                             <h5>@obj.UserName</h5>
             <small class="text-muted"> @obj.CreatedAt</small>
