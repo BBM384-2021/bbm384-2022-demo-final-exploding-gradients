@@ -1,17 +1,19 @@
 ﻿using LinkedHU_CENG.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 
 namespace LinkedHU_CENG.Controllers
 {
     public class ProfileController : Controller
     {
         private readonly ApplicationDbContext db;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public ProfileController(ApplicationDbContext db)
+        public ProfileController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
-            this.db = db;
+            this.db = context;
+            this.webHostEnvironment = hostEnvironment;
         }
+
         public IActionResult Index()
         {
 
@@ -35,6 +37,57 @@ namespace LinkedHU_CENG.Controllers
 
                 return RedirectToAction("Index", "Home");
            
+        }
+
+        public ActionResult Edit()
+        {
+            var user = db.Users.FirstOrDefault(u => u.UserId.Equals(HttpContext.Session.GetInt32("UserID")) && u.Email.Equals(HttpContext.Session.GetString("Email")));
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(User user)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string uniqueFileName = UploadedFile(user);
+                user.ProfilePicturePath = uniqueFileName;
+
+                db.Users.Update(user);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Profile");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Some error occured!");
+            }
+
+
+            return View();
+        }
+
+        private string UploadedFile(User user)
+        {
+            string uniqueFileName = null;
+
+            if (user.ProfilePicture != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + user.ProfilePicture.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    user.ProfilePicture.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
     }
 }

@@ -28,6 +28,11 @@ namespace LinkedHU_CENG.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = HttpContext.Session.GetInt32("UserID");
+                announcement.UserId = userId;
+                var user = _db.Users.Find(userId);
+                announcement.UserName = user.Name + " " + user.Surname;
+
                 _db.Announcements.Add(announcement);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Home");
@@ -41,7 +46,7 @@ namespace LinkedHU_CENG.Controllers
         }
 
         // GET
-        public ActionResult Edit(int? id)
+        public ActionResult Update(int? id)
         {
             if (id == null || id == 0)
             {
@@ -59,7 +64,7 @@ namespace LinkedHU_CENG.Controllers
 
         // POST
         [HttpPost]
-        public ActionResult Edit(Announcement announcement)
+        public ActionResult Update(Announcement announcement)
         {
             if (ModelState.IsValid)
             {

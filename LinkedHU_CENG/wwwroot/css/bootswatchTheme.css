@@ -3709,8 +3709,11 @@ fieldset:disabled .btn {
     }
 
 .btn-outline-info {
+    width: 120px;
     color: #6cc3d5;
     border-color: #6cc3d5;
+    border-radius: 0.4rem;
+
 }
 
     .btn-outline-info:hover {
@@ -4289,10 +4292,11 @@ fieldset:disabled .btn {
 
 .btn-group,
 .btn-group-vertical {
-    position: relative;
+    position: center;
     display: -ms-inline-flexbox;
     display: inline-flex;
     vertical-align: middle;
+    margin-top: -25px;
 }
 
     .btn-group > .btn,
@@ -12675,5 +12679,32 @@ legend {
     margin-right: 2em;
     margin-bottom: 3em;
     margin-left: 2em;*/ /* copied from opposite side (right) */
-    padding: 10px;
+    padding: 30px;
+}
+
+.box-shadow1 {
+    box-shadow: 10px 10px 8px #888888;
+}
+
+Bootstrap have an example of a footer that sticks to the bottom of the page here: https://getbootstrap.com/examples/sticky-footer/
+
+Here is the CSS:
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
 }
