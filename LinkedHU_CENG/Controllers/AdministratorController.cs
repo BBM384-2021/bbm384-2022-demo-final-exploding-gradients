@@ -4,6 +4,7 @@ using LinkedHU_CENG.Models;
 
 namespace LinkedHU_CENG.Controllers
 {
+
     public class AdministratorController : Controller
     {
 
