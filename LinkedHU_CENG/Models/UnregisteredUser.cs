@@ -57,6 +57,8 @@ namespace LinkedHU_CENG.Models
         public IFormFile? ProfilePicture { get; set; }
 
         public string? ProfilePicturePath { get; set; }
+
+        public string? Title { get; set; }
     }
 
 }
