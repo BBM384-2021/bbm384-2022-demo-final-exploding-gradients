@@ -56,7 +56,7 @@ namespace LinkedHU_CENG.Controllers
             {
                 db.Users.Update(user);
                 db.SaveChanges();
-                return RedirectToAction("Edit", "Profile");
+                return RedirectToAction("Index", "Profile");
             }
             else
             {
