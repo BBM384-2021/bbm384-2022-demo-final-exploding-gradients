@@ -1,4 +1,5 @@
-﻿@{
+﻿@using LinkedHU_CENG.Models
+@{
     ViewData["Title"] = "Index";
     var user = ViewData["User"] as User;
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -50,11 +51,21 @@
                                         <li class="list-group-item justify-content-between align-items-center flex-wrap">
                                             <h6 class="mb-0">Email Address</h6>
                                             <h6 class="text-secondary h6-custom">@user.Email</h6>
-                                        </li>
-                                        <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0">Location</h6>
-                                            <h6 class="text-secondary h6-custom">##Buraya location</h6>
-                                        </li>
+                                            </li>
+                                            @if (@user.Location == null)
+                                            {
+                                                <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                                <h6 class="mb-0">Location</h6>
+                                                <h6 class="text-secondary h6-custom">You can add your location information.</h6>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                                <h6 class="mb-0">Location</h6>
+                                                <h6 class="text-secondary h6-custom">@user.Location</h6>
+                                                </li>
+                                            }
                                         <li class="list-group-item justify-content-between align-items-center flex-wrap">
                                             <h6 class="mb-0">Birth Date</h6>
                                             <h6 class="text-secondary h6-custom">@user.BirthDate</h6>
@@ -63,17 +74,32 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h6 align="center" ; class="align-items-center mb-3">About Me</h6>
-                                <div class="card-aboutme col">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0 h6-custom">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lacus sem, facilisis bibendum vestibulum sit amet, porttitor at quam. Integer convallis diam sit amet laoreet porttitor.</h6>
-                                        </li>
-                                    </ul>
+                        <div class="col-sm-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                @if (@user.About == null)
+                                {
+                                    <h6 align="center"; class="align-items-center mb-3">About Me</h6>
+                                    <div class="card-aboutme col">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                            <h6 class="mb-0 h6-custom">You can write about your years of experience, industry, or skills. People also talk about their achievements or previous job experiences.</h6>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <h6 align="center"; class="align-items-center mb-3">About Me</h6>
+                                    <div class="card-aboutme col">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                            <h6 class="mb-0 h6-custom">@user.About</h6>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                }
+                                
                                 </div>
                             </div>
                         </div>

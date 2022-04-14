@@ -8,7 +8,7 @@ namespace LinkedHU_CENG.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
-        //public string CreatedAt { get; set; } = DateTime.Now.ToString("yyyy-MM-dd");
+        public string CreatedAt { get; set; } = DateTime.Now.ToString("yyyy-MM-dd");
 
         [Required]
         [Display(Name = "Name")]
@@ -41,6 +41,16 @@ namespace LinkedHU_CENG.Models
         [Display(Name = "BirthDate")]
         [DataType(DataType.Date)]
         public string BirthDate { get; set; }
+
+        [Display(Name = "About Me")]
+        public string? About { get; set; }
+
+        [Display(Name = "Location")]
+        public string? Location { get; set; }
+
+        [Display(Name = "Second Email")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Email is not valid")]
+        public string? SecondEmail { get; set; }
     }
 
     public enum Role

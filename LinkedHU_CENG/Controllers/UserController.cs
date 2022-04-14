@@ -79,5 +79,20 @@ namespace LinkedHU_CENG.Controllers
             return View();
         }
 
+
+        public IActionResult Logout()
+        {
+            if (HttpContext.Session.GetString("UserID") != null)
+            {
+                HttpContext.Session.Clear();
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
     }
 }

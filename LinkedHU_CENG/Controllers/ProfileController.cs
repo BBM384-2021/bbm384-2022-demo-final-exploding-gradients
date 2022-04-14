@@ -1,6 +1,5 @@
 ﻿using LinkedHU_CENG.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 
 namespace LinkedHU_CENG.Controllers
 {
@@ -35,6 +34,37 @@ namespace LinkedHU_CENG.Controllers
 
                 return RedirectToAction("Index", "Home");
            
+        }
+
+        public ActionResult Edit()
+        {
+            var user = db.Users.FirstOrDefault(u => u.UserId.Equals(HttpContext.Session.GetInt32("UserID")) && u.Email.Equals(HttpContext.Session.GetString("Email")));
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(User user)
+        {
+
+            if (ModelState.IsValid)
+            {
+                db.Users.Update(user);
+                db.SaveChanges();
+                return RedirectToAction("Edit", "Profile");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Some error occured!");
+            }
+
+
+            return View();
         }
     }
 }
