@@ -1,11 +1,9 @@
-﻿@model LinkedHU_CENG.Models.Administrator
-
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-
 <div style="display:block; width:100%;">
-    @await Component.InvokeAsync("UnregisteredViewComponent")
+    @await Component.InvokeAsync("ReportedUserViewComponent")
 </div>
+

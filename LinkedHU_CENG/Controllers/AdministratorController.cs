@@ -4,6 +4,7 @@ using LinkedHU_CENG.Models;
 
 namespace LinkedHU_CENG.Controllers
 {
+
     public class AdministratorController : Controller
     {
 
@@ -16,14 +17,22 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (HttpContext.Session.GetString("Admin_UserName") == null)
+            {
+                return RedirectToAction("Login", "Administrator");
+            }
+            else
+            {
+                return View();
+            }
+            
         }
 
 
         [HttpGet]
         public IActionResult Login()
         {
-            if (HttpContext.Session.GetString("UserName") == null)
+            if (HttpContext.Session.GetString("Admin_UserName") == null)
             {
                 return View();
             }
@@ -40,7 +49,7 @@ namespace LinkedHU_CENG.Controllers
             var info = db.Administrators.FirstOrDefault(u => u.UserName.Equals(administrator.UserName) && u.Password.Equals(administrator.Password));
             if (info != null)
             {
-                HttpContext.Session.SetString("UserName", info.UserName);
+                HttpContext.Session.SetString("Admin_UserName", info.UserName);
 
                 return RedirectToAction("Index", "Administrator");
             }
@@ -50,10 +59,10 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult Logout()
         {
-            if (HttpContext.Session.GetString("UserName") != null)
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
-                HttpContext.Session.Clear();
-
+                //HttpContext.Session.Clear();
+                HttpContext.Session.Remove("Admin_UserName");
                 return RedirectToAction("Index", "Administrator");
             }
             else
@@ -64,33 +73,22 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult VerifyAccounts()
         {
-            if (HttpContext.Session.GetString("UserName") != null)
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
-                HttpContext.Session.Clear();
-
-                return RedirectToAction("VerifyAccounts", "Administrator");
+                return View();
             }
-            else
-            {
-                return View("VerifyAccounts");
-            }
+            return RedirectToAction("Index", "Administrator");
         }
 
         public IActionResult VerifyAnAccount(int id)
         {
-            if (HttpContext.Session.GetString("UserName") != null)
-            {
-                HttpContext.Session.Clear();
-
-                return RedirectToAction("VerifyAccounts", "Administrator");
-            }
-            else
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
                 if (ModelState.IsValid)
                 {
                     var unregisteredUser = db.UnregisteredUsers.Find(id);
                     User user = new User() { Name = unregisteredUser.Name, Surname = unregisteredUser.Surname, Password = unregisteredUser.Password, Email = unregisteredUser.Email, Role = unregisteredUser.Role, BirthDate = unregisteredUser.BirthDate, PhoneNum = unregisteredUser.PhoneNum };
-     
+
                     db.UnregisteredUsers.Remove(unregisteredUser);
 
                     db.Users.Add(user);
@@ -101,10 +99,28 @@ namespace LinkedHU_CENG.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Administrator");
+
                 }
-                return RedirectToAction("VerifyAccounts", "Administrator");
+            }
+            else
+            {
+                
+                return RedirectToAction("Index", "Administrator");
 
             }
+        }
+
+        [HttpGet]
+        public IActionResult ReportedUser()
+        {
+
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Administrator");
+
         }
     }
 }
