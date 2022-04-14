@@ -16,11 +16,11 @@
 <table class="table table-bordered table-striped" style="width:100%">
 
        
-        @foreach(var obj in Model)
+       @foreach(var obj in Model.OrderByDescending(a=>a.AnnouncementId))
         {
              
            
-                <div class="card shadow">
+                <div class="card border p-3 mt-4  custom-shadow1">
                     <div class="custom-margin1">
                         <div class="text-end">
                              @if(sessionUserID == obj.UserId)
