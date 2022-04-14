@@ -58,7 +58,9 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetString("UserID") != null)
             {
-                HttpContext.Session.Clear();
+                //HttpContext.Session.Clear();
+                HttpContext.Session.Remove("UserID");
+                HttpContext.Session.Remove("Email");
 
                 return RedirectToAction("Index", "Home");
             }
