@@ -4,20 +4,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LinkedHU_CENG.ViewComponents
 {
-    [ViewComponent(Name = "UnregisteredViewComponent")] //Solution
-    public class UnregisteredViewComponent : ViewComponent
+    [ViewComponent(Name = "OwnedPostViewComponent")] //Solution
+    public class OwnedPostViewComponent : ViewComponent
     {
 
         private readonly ApplicationDbContext _db;
 
-        public UnregisteredViewComponent(ApplicationDbContext db)
+        public OwnedPostViewComponent(ApplicationDbContext db)
         {
             _db = db;
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
 
-            IEnumerable<UnregisteredUser> mc = await _db.UnregisteredUsers.ToListAsync();
+            IEnumerable<Post> mc = await _db.Posts.ToListAsync();
+            ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
             return View(mc);
         }
     }

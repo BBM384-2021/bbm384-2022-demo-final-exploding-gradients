@@ -48,7 +48,7 @@ namespace LinkedHU_CENG.Controllers
             {
                 HttpContext.Session.SetInt32("UserID", info.UserId);
                 HttpContext.Session.SetString("Email", info.Email);
-                return RedirectToAction("Index", "Profile");
+                return RedirectToAction("Index", "Home");
             }
             return View();
         }
@@ -58,7 +58,9 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetString("UserID") != null)
             {
-                HttpContext.Session.Clear();
+                //HttpContext.Session.Clear();
+                HttpContext.Session.Remove("UserID");
+                HttpContext.Session.Remove("Email");
 
                 return RedirectToAction("Index", "Home");
             }
