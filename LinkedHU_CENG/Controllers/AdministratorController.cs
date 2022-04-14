@@ -4,6 +4,7 @@ using LinkedHU_CENG.Models;
 
 namespace LinkedHU_CENG.Controllers
 {
+
     public class AdministratorController : Controller
     {
 
@@ -105,6 +106,15 @@ namespace LinkedHU_CENG.Controllers
                 return RedirectToAction("VerifyAccounts", "Administrator");
 
             }
+        }
+
+        [HttpGet]
+        public IActionResult ReportedUser()
+        {
+
+
+                return View();
+
         }
     }
 }

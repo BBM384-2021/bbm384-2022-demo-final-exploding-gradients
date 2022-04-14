@@ -18,7 +18,6 @@ namespace LinkedHU_CENG.ViewComponents
         {
 
             IEnumerable<UnregisteredUser> mc = await _db.UnregisteredUsers.ToListAsync();
-            ViewData["SessionUserName"] = HttpContext.Session.GetInt32("UserName");
             return View(mc);
         }
     }
