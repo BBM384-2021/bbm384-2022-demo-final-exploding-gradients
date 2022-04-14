@@ -10,10 +10,10 @@
             <tr>
                 <th>
                     Report ID
-			    </th>
+                </th>
                 <th>
                     Name Surname
-			    </th>
+                </th>
                 <th>
                     Sender User
                 </th>
@@ -23,17 +23,17 @@
                 <th>
                     Created at
                 </th>
-		    </tr>
-	    </thead>
+            </tr>
+        </thead>
         <tbody>
-            @foreach(var obj in Model)
-            { 
-               <tr>
-                   <td> @obj.ReportId </td>
-                   <td> @obj.ReportUserName </td>
-                   <td> @obj.UserId </td>
-                   <td> @obj.Detail </td>
-                   <td> @obj.CreatedAt </td>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td> @obj.ReportId </td>
+                    <td> @obj.ReportUserName </td>
+                    <td> @obj.UserId </td>
+                    <td> @obj.Detail </td>
+                    <td> @obj.CreatedAt </td>
                 </tr>
             }
         </tbody>
