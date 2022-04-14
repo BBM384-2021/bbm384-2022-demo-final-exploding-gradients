@@ -17,7 +17,7 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetString("UserID") == null)
             {
-                return View();
+                return View("WelcomePage");
             }
             else
             {
