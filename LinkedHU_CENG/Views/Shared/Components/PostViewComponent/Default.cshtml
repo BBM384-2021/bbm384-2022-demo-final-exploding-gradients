@@ -33,10 +33,10 @@
           <a class="dropdown-toggle my-2 my-sm-0" href="#" role="button" data-bs-toggle="dropdown">Edit</a>
 
           <div class="dropdown-menu dropdown-menu-end">
-              <a asp-controller="Announcement" asp-action="Update" asp-route-id="@obj.PostId"
+              <a asp-controller="Post" asp-action="Update" asp-route-id="@obj.PostId"
                             class="dropdown-item mx-2 w-75"> <i class="bi bi-pencil-square"></i> Update</a>
              
-             <a asp-controller="Announcement" asp-action="Delete" asp-route-id="@obj.PostId"
+             <a asp-controller="Post" asp-action="Delete" asp-route-id="@obj.PostId"
                             class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Delete</a>
                        
          </div>
