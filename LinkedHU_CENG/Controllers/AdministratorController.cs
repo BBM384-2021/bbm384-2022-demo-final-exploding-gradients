@@ -24,7 +24,7 @@ namespace LinkedHU_CENG.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if (HttpContext.Session.GetString("UserName") == null)
+            if (HttpContext.Session.GetString("Admin_UserName") == null)
             {
                 return View();
             }
@@ -41,7 +41,7 @@ namespace LinkedHU_CENG.Controllers
             var info = db.Administrators.FirstOrDefault(u => u.UserName.Equals(administrator.UserName) && u.Password.Equals(administrator.Password));
             if (info != null)
             {
-                HttpContext.Session.SetString("UserName", info.UserName);
+                HttpContext.Session.SetString("Admin_UserName", info.UserName);
 
                 return RedirectToAction("Index", "Administrator");
             }
@@ -51,10 +51,10 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult Logout()
         {
-            if (HttpContext.Session.GetString("UserName") != null)
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
-                HttpContext.Session.Clear();
-
+                //HttpContext.Session.Clear();
+                HttpContext.Session.Remove("Admin_UserName");
                 return RedirectToAction("Index", "Administrator");
             }
             else
@@ -65,9 +65,10 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult VerifyAccounts()
         {
-            if (HttpContext.Session.GetString("UserName") != null)
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
-                HttpContext.Session.Clear();
+                //HttpContext.Session.Clear();
+                HttpContext.Session.Remove("Admin_UserName");
 
                 return RedirectToAction("VerifyAccounts", "Administrator");
             }
@@ -79,9 +80,10 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult VerifyAnAccount(int id)
         {
-            if (HttpContext.Session.GetString("UserName") != null)
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
-                HttpContext.Session.Clear();
+                //HttpContext.Session.Clear();
+                HttpContext.Session.Remove("Admin_UserName");
 
                 return RedirectToAction("VerifyAccounts", "Administrator");
             }
