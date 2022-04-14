@@ -46,7 +46,7 @@ namespace LinkedHU_CENG.Controllers
         }
 
         // GET
-        public ActionResult Edit(int? id)
+        public ActionResult Update(int? id)
         {
             if (id == null || id == 0)
             {
@@ -64,7 +64,7 @@ namespace LinkedHU_CENG.Controllers
 
         // POST
         [HttpPost]
-        public ActionResult Edit(Announcement announcement)
+        public ActionResult Update(Announcement announcement)
         {
             if (ModelState.IsValid)
             {
