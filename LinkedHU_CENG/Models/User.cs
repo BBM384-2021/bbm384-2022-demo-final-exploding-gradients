@@ -41,6 +41,22 @@ namespace LinkedHU_CENG.Models
         [Display(Name = "BirthDate")]
         [DataType(DataType.Date)]
         public string BirthDate { get; set; }
+
+        [Display(Name = "About Me")]
+        public string? About { get; set; }
+
+        [Display(Name = "Location")]
+        public string? Location { get; set; }
+
+        [Display(Name = "Second Email")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Email is not valid")]
+        public string? SecondEmail { get; set; }
+
+        [Display(Name = "Profile Picture")]
+        [NotMapped]
+        public IFormFile? ProfilePicture { get; set; }
+
+        public string? ProfilePicturePath { get; set; }
     }
 
     public enum Role
