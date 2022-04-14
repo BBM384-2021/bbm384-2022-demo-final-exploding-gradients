@@ -107,5 +107,19 @@ namespace LinkedHU_CENG.Controllers
 
             }
         }
+
+        [HttpGet]
+        public IActionResult ReportedUser()
+        {
+
+
+            if (HttpContext.Session.GetString("UserID") == null)
+            {
+                return View();
+            }
+
+            return RedirectToAction("Index", "Home");
+
+        }
     }
 }

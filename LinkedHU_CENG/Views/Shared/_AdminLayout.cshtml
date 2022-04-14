@@ -62,7 +62,7 @@ body {
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
   <div class="container-fluid">
-    <a class="navbar-brand" asp-area="" asp-controller="Adminsi" asp-action="Index">LinkedHU_CENG</a>
+    <a class="navbar-brand" asp-area="" asp-controller="Administrator" asp-action="Index">LinkedHU_CENG</a>
 
   </div>
 </nav>
@@ -75,7 +75,7 @@ body {
   <a href="#">Password Requests</a>
   <a href="#">Email Merge Requests</a>
   <a href="#">Get User Details</a>
-  <a href="#">Reported Users</a>
+  <a asp-area="" asp-controller="Administrator" asp-action="ReportedUser">Reported Users</a>
 </div>
 
 <div id="main">
