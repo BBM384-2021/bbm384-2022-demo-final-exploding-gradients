@@ -13,9 +13,9 @@ namespace LinkedHU_CENG.Controllers
     {
         private readonly ApplicationDbContext db;
 
-        public UserController(ApplicationDbContext db)
+        public UserController(ApplicationDbContext context)
         {
-            this.db = db;
+            this.db = context;
         }
 
         public IActionResult Index()
@@ -92,6 +92,5 @@ namespace LinkedHU_CENG.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-
     }
 }
