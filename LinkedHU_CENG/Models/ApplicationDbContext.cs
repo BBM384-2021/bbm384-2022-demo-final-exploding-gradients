@@ -12,6 +12,7 @@ namespace LinkedHU_CENG.Models
         public DbSet<Administrator> Administrators { get; set; }
 
         public DbSet<UnregisteredUser> UnregisteredUsers { get; set; }
+        public DbSet<Report> Reports { get; set; }
 
         // db bağlantısı için connection stringi burda giriyoruz
         //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
