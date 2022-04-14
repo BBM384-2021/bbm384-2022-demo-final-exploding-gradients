@@ -14,9 +14,9 @@ namespace LinkedHU_CENG.Controllers
     {
         private readonly ApplicationDbContext db;
 
-        public UserController(ApplicationDbContext db)
+        public UserController(ApplicationDbContext context)
         {
-            this.db = db;
+            this.db = context;
         }
 
         public IActionResult Index()
@@ -24,33 +24,7 @@ namespace LinkedHU_CENG.Controllers
             return View(db.Users.ToList());
         }
 
-        public IActionResult Register()
-        {
-            if (HttpContext.Session.GetString("UserID") == null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
 
-        [HttpPost]
-        public IActionResult Register(User usr)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(usr);
-                db.SaveChanges();
-                return RedirectToAction("Login");
-            }
-            else 
-            {
-                ModelState.AddModelError("", "Some Error Occured!");
-            }
-            return View();
-        }
 
         [HttpGet]
         public IActionResult Login()
@@ -93,6 +67,5 @@ namespace LinkedHU_CENG.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LinkedHU_CENG.Models
 {
-    public class User
+    public class UnregisteredUser
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
@@ -20,7 +20,7 @@ namespace LinkedHU_CENG.Models
 
         [Required]
         [Display(Name = "Password")]
-        [DataType(DataType.Password)]  
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
@@ -59,10 +59,4 @@ namespace LinkedHU_CENG.Models
         public string? ProfilePicturePath { get; set; }
     }
 
-    public enum Role
-    {
-        Academician,
-        Graduate,
-        Student
-    }
 }
