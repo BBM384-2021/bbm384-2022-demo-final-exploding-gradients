@@ -48,7 +48,7 @@ namespace LinkedHU_CENG.Controllers
             {
                 HttpContext.Session.SetInt32("UserID", info.UserId);
                 HttpContext.Session.SetString("Email", info.Email);
-                return RedirectToAction("Index", "Profile");
+                return RedirectToAction("Index", "Home");
             }
             return View();
         }
