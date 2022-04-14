@@ -12,14 +12,15 @@
 	</div>
     <br /><br />
 
+
 <table class="table table-bordered table-striped" style="width:100%">
 
        
-        @foreach(var obj in Model)
+       @foreach(var obj in Model.OrderByDescending(a=>a.AnnouncementId))
         {
              
            
-                <div class="card shadow">
+                <div class="card border p-3 mt-4  custom-shadow1">
                     <div class="custom-margin1">
                         <div class="text-end">
                              @if(sessionUserID == obj.UserId)
@@ -34,27 +35,24 @@
              <a asp-controller="Announcement" asp-action="Delete" asp-route-id="@obj.AnnouncementId"
                             class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Delete</a>
                        
-
-</div>
-</div>
+         </div>
+                    </div>
                        
                            
 				        
                     }
                         </div>
                        
-                        <h3>@obj.UserName</h3>
-
+                        <h5>@obj.UserName</h5>
             <small class="text-muted"> @obj.CreatedAt</small>
-
-            <p>@obj.Content</p>
-
-
+             <br/> <br/>
+            <h6>@obj.Content</h6>
+     
                     
         </div>
-                    </div>
+   </div>
             
-          <br/>
+           <br/>
         }
 
 </table>
