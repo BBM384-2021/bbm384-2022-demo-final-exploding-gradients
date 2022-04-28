@@ -15,14 +15,7 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("UserID") == null)
-            {
-                return View("WelcomePage");
-            }
-            else
-            {
-                return View("LoggedIn"); ;
-            }
+            return View();
         }
 
         public IActionResult Privacy()
