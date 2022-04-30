@@ -23,6 +23,13 @@ namespace LinkedHU_CENG.Controllers
             }
             else
             {
+                List<User> users = db.Users.ToList();
+                List<UnregisteredUser> unregisteredUsers = db.UnregisteredUsers.ToList();
+                List<Report> reports = db.Reports.ToList();
+                ViewData["User"] = users;
+                ViewData["UnregisteredUser"] = unregisteredUsers;
+                ViewData["Report"] = reports;
+
                 return View();
             }
             
