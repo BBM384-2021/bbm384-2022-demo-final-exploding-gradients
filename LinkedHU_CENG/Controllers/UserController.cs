@@ -29,7 +29,7 @@ namespace LinkedHU_CENG.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if (HttpContext.Session.GetString("UserID") == null)
+            if (HttpContext.Session.GetInt32("UserID") == null)
             {
                 return View();
             }
@@ -56,7 +56,7 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult Logout()
         {
-            if (HttpContext.Session.GetString("UserID") != null)
+            if (HttpContext.Session.GetInt32("UserID") != null)
             {
                 //HttpContext.Session.Clear();
                 HttpContext.Session.Remove("UserID");
@@ -72,22 +72,19 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult Delete(int id)
         {
-            if (HttpContext.Session.GetString("UserID") != null)
+            if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                
-                var user = db.Users.Find(id);
-                if (user == null)
-                {
-                    return NotFound();
-                }
-                db.Users.Remove(user);
+                var deleteUser = db.Users.Find(id);
+                DeleteRequest request = new DeleteRequest();
+                request.UserId = id;
+                request.Name = deleteUser.Name;
+                request.Email = deleteUser.Email;
+                request.Surname = deleteUser.Surname;
+                request.Role = deleteUser.Role;
+                db.DeleteRequests.Add(request);
                 db.SaveChanges();
 
-                //HttpContext.Session.Clear();
-                HttpContext.Session.Remove("UserID");
-                HttpContext.Session.Remove("Email");
-
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Profile");
             }
             else
             {
