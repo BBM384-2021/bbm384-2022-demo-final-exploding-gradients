@@ -13,6 +13,7 @@ namespace LinkedHU_CENG.Models
 
         public DbSet<UnregisteredUser> UnregisteredUsers { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<DeleteRequest> DeleteRequests { get; set; }
 
         // db bağlantısı için connection stringi burda giriyoruz
         //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
