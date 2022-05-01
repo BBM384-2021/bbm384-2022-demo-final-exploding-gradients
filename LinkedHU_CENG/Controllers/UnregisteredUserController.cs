@@ -62,6 +62,8 @@ namespace LinkedHU_CENG.Controllers
             return RedirectToAction("VerifyAccounts", "Administrator");
         }
 
+        
+
 
         private string Encrypt(string clearText)
         {

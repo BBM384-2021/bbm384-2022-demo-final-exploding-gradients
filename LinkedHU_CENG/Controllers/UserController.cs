@@ -92,7 +92,33 @@ namespace LinkedHU_CENG.Controllers
             }
         }
 
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult ForgetPassword(ForgetPassword forgetUser)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = db.Users.Where(m => m.Email.Equals(forgetUser.Email)).FirstOrDefault();
+                if (user != null)
+                {
+                    forgetUser.Name = user.Name;
+                    forgetUser.Surname = user.Surname;
+                    db.ForgetPasswords.Add(forgetUser);
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Some Error Occured!");
+            }
+            return View();
+        }
 
 
         private string Encrypt(string clearText)
