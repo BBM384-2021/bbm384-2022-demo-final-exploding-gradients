@@ -15,7 +15,7 @@ namespace LinkedHU_CENG.Controllers
         public IActionResult Index()
         {
 
-            if (HttpContext.Session.GetString("UserID") != null)
+            if (HttpContext.Session.GetInt32("UserID") != null)
             {
                 return View();
             }
@@ -27,7 +27,7 @@ namespace LinkedHU_CENG.Controllers
         [HttpPost]
         public IActionResult ReportRequest(Report report)
         {
-            if (HttpContext.Session.GetString("UserID") != null)
+            if (HttpContext.Session.GetInt32("UserID") != null)
             {
                 if (ModelState.IsValid)
                 {
