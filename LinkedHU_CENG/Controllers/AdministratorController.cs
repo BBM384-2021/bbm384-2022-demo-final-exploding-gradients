@@ -144,6 +144,8 @@ namespace LinkedHU_CENG.Controllers
 
             if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
+                List<Report> reports = db.Reports.ToList();
+                ViewData["Report"] = reports;
                 return View();
             }
             return RedirectToAction("Index", "Administrator");
@@ -249,6 +251,10 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
+
+                List<DeleteRequest> requests = db.DeleteRequests.ToList();
+                ViewData["DeleteRequest"] = requests;
+
                 return View();
             }
             return RedirectToAction("Index", "Administrator");
@@ -328,6 +334,8 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
+                List<ForgetPassword> requests = db.ForgetPasswords.ToList();
+                ViewData["ForgetPassword"] = requests;
                 return View();
             }
             return RedirectToAction("Index", "Administrator");
