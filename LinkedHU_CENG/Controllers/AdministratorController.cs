@@ -26,6 +26,23 @@ namespace LinkedHU_CENG.Controllers
             }
             else
             {
+                List<User> users = db.Users.ToList();
+                List<UnregisteredUser> unregisteredUsers = db.UnregisteredUsers.ToList();
+                List<Report> reports = db.Reports.ToList();
+                List<DeleteRequest> deleteRequests = db.DeleteRequests.ToList();
+                List<ForgetPassword> passwordRequests = db.ForgetPasswords.ToList();
+                List<Post> posts = db.Posts.ToList();
+                List<Announcement> announcements = db.Announcements.ToList();
+                //List<MergeRequest> mergeRequests = db.MergeRequest.ToList();
+                ViewData["User"] = users;
+                ViewData["UnregisteredUser"] = unregisteredUsers;
+                ViewData["Report"] = reports;
+                ViewData["DeleteRequest"] = deleteRequests;
+                ViewData["PasswordRequest"] = passwordRequests;
+                ViewData["Post"] = posts;
+                ViewData["Announcement"] = announcements;
+                ViewData["SystemVersion"] = "V02052022_release_1";
+                //  ViewData["MergeReports"] = mergeRequests;
                 return View();
             }
             
