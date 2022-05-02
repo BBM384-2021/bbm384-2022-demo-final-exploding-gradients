@@ -143,7 +143,7 @@ namespace LinkedHU_CENG.Controllers
             return clearText;
         }
 
-        private string Decrypt(string cipherText)
+        private string Decrypt(string cipherText) // bu fonksiyonu nerede kullanıcaz bilmiyorum ama kaybetmemek adına buraya ekledim
         {
             string EncryptionKey = "MAKV2SPBNI99212";
             byte[] cipherBytes = Convert.FromBase64String(cipherText);

@@ -17,6 +17,7 @@ namespace LinkedHU_CENG.Controllers
             this.db = context;
         }
 
+
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("Admin_UserName") == null)
@@ -29,6 +30,8 @@ namespace LinkedHU_CENG.Controllers
             }
             
         }
+
+
 
 
         [HttpGet]
@@ -44,7 +47,6 @@ namespace LinkedHU_CENG.Controllers
             }
         }
 
-
         public IActionResult Login(Administrator administrator)
         {
 
@@ -57,6 +59,9 @@ namespace LinkedHU_CENG.Controllers
             }
             return View();
         }
+
+
+
 
 
         public IActionResult Logout()
@@ -72,6 +77,9 @@ namespace LinkedHU_CENG.Controllers
                 return RedirectToAction("Index", "Administrator");
             }
         }
+
+
+
 
         public IActionResult VerifyAccounts()
         {
@@ -92,7 +100,6 @@ namespace LinkedHU_CENG.Controllers
                     User user = new User() { Name = unregisteredUser.Name, Surname = unregisteredUser.Surname, Password = unregisteredUser.Password, Email = unregisteredUser.Email, Role = unregisteredUser.Role, BirthDate = unregisteredUser.BirthDate, PhoneNum = unregisteredUser.PhoneNum };
 
                     db.UnregisteredUsers.Remove(unregisteredUser);
-
                     db.Users.Add(user);
                     db.SaveChanges();
 
@@ -107,11 +114,12 @@ namespace LinkedHU_CENG.Controllers
             }
             else
             {
-                
                 return RedirectToAction("Index", "Administrator");
-
             }
         }
+
+
+
 
         [HttpGet]
         public IActionResult ReportedUser()
@@ -136,17 +144,14 @@ namespace LinkedHU_CENG.Controllers
             {
                 List<BannedUser> bannedUsers = db.BannedUsers.ToList();
                 ViewData["bannedUsers"] = bannedUsers;
-
-                
                 List<User> users = new List<User>();
                 ViewData["users"] = users;
+
                 return View();
             }
             return RedirectToAction("Index", "Administrator");
 
         }
-
-
 
         [HttpPost]
         public IActionResult BannedUserSearch()
@@ -160,14 +165,11 @@ namespace LinkedHU_CENG.Controllers
                 
                 ViewData["users"] = users;
                 ViewData["bannedUsers"] = bannedUsers;
+
                 return View("BannedUser");
             }
             return RedirectToAction("Index", "Administrator");
-
         }
-
-
-
 
         public IActionResult BannedUserAccept(int id)
         {
@@ -186,27 +188,20 @@ namespace LinkedHU_CENG.Controllers
                     db.SaveChanges();
 
                     return RedirectToAction("BannedUser", "Administrator");
-
                 }
                 else
                 {
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
-
                 }
             }
             else
             {
-
                 return RedirectToAction("Index", "Administrator");
-
             }
         }
 
-
-
         public IActionResult BannedUserRevert(int id)
-
         {
             if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
@@ -222,18 +217,18 @@ namespace LinkedHU_CENG.Controllers
                 {
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
-
                 }
             }
             else
             {
-
                 return RedirectToAction("Index", "Administrator");
-
             }
         }
 
-public IActionResult DeleteUser()
+
+
+
+        public IActionResult DeleteUser()
         {
             if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
@@ -242,8 +237,7 @@ public IActionResult DeleteUser()
             return RedirectToAction("Index", "Administrator");
         }
 
-
-        public IActionResult DeleteUserAccept(int id)
+        public IActionResult DeleteUserAccept(int id) // kullanıcının post ve announcementlarını da siliyor
         {
             if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
@@ -278,19 +272,13 @@ public IActionResult DeleteUser()
                 {
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
-
                 }
             }
             else
             {
-
                 return RedirectToAction("Index", "Administrator");
-
             }
         }
-
-
-
 
         public IActionResult DeleteUserRequest(int id)
         {
@@ -308,19 +296,17 @@ public IActionResult DeleteUser()
                 {
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
-
                 }
             }
             else
             {
-
                 return RedirectToAction("Index", "Administrator");
-
             }
         }
 
 
 
+        
         public IActionResult ForgetPassword()
         {
             if (HttpContext.Session.GetString("Admin_UserName") != null)
@@ -346,17 +332,13 @@ public IActionResult DeleteUser()
                 {
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
-
                 }
             }
             else
             {
-
                 return RedirectToAction("Index", "Administrator");
-
             }
         }
-
 
         public IActionResult ForgetPasswordAccept(int id)
         {
@@ -367,15 +349,14 @@ public IActionResult DeleteUser()
                     var request = db.ForgetPasswords.Where(m => m.ID.Equals(id)).FirstOrDefault();
                     var user = db.Users.Where(m => m.Email.Equals(request.Email)).FirstOrDefault();
                     RandomNumberGenerator generator = new RandomNumberGenerator();
-                    string pass = generator.RandomPassword();
-
+                    string pass = generator.RandomPassword();  // kullanıcıya gönderilecek parolayı yaratıyor, aşağıda fonksiyonu mevcut, ortak bir dosyaya kaydedilse daha iyi olur
 
                     System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
                     mail.To.Add("mobilmurat4@gmail.com"); // buraya maili göndereceğimiz adres user.Email gelecek
                     mail.From = new MailAddress("explodinggradient2022@gmail.com", "Email head", System.Text.Encoding.UTF8);
                     mail.Subject = "Password Request for" + user.Name;
                     mail.SubjectEncoding = System.Text.Encoding.UTF8;
-                    mail.Body = "\nYour new password is : " + pass;
+                    mail.Body = "\nYour new password is : " + pass; // şuraya güzel bir yazı yazılabilir
                     mail.BodyEncoding = System.Text.Encoding.UTF8;
                     mail.IsBodyHtml = true;
                     mail.Priority = MailPriority.High;
@@ -393,7 +374,7 @@ public IActionResult DeleteUser()
                         RedirectToAction("Index", "Administrator");
                     }
 
-                    user.Password = Encrypt(pass);
+                    user.Password = Encrypt(pass); // parolayı veritabanında da güncelliyor
                     db.Users.Update(user);
 
                     db.ForgetPasswords.Remove(request);
@@ -406,14 +387,11 @@ public IActionResult DeleteUser()
                 {
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
-
                 }
             }
             else
             {
-
                 return RedirectToAction("Index", "Administrator");
-
             }
         }
 
@@ -445,7 +423,7 @@ public IActionResult DeleteUser()
     }
 
 
-    public class RandomNumberGenerator
+    public class RandomNumberGenerator   // bu sınıfı bi düzgünlestirmek lazım
     {
         // Generate a random number between two numbers    
         public int RandomNumber(int min, int max)

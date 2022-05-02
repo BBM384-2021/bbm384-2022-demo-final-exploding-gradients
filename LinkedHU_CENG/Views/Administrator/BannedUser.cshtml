@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     var userModel = ViewData["users"] as List<User>;
     var banModel = ViewData["bannedUsers"] as List<BannedUser>;
 
@@ -12,12 +11,12 @@
     <div class="container p-3">
 
         <form asp-controller="Administrator" asp-action="BannedUserSearch">
-          <label for="fname">First name:</label><br>
-          <input type="text" id="fname" name="SearchName" value="John"><br>
-          <label for="lname">Last name:</label><br>
-          <input type="text" id="lname" name="SearchSurname" value="Doe"><br><br>
-          <input type="submit" value="Submit">
-        </form> 
+            <label for="fname">First name:</label><br>
+            <input type="text" id="fname" name="SearchName" value="John"><br>
+            <label for="lname">Last name:</label><br>
+            <input type="text" id="lname" name="SearchSurname" value="Doe"><br><br>
+            <input type="submit" value="Submit">
+        </form>
 
         <br /><br />
 
@@ -61,7 +60,7 @@
                                         <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Options</a>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a asp-controller="Administrator" asp-action="BannedUserAccept" asp-route-id="@obj.UserId"
-                                           class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Ban User</a>
+                                   class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Ban User</a>
                                         </div>
                                     </div>
                                 }
@@ -71,10 +70,10 @@
                                         <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Options</a>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a asp-controller="Administrator" asp-action="BannedUserRevert" asp-route-id="@obj.UserId"
-                                           class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Unbanned</a>
+                                   class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Unbanned</a>
                                         </div>
                                     </div>
-                                    
+
                                 }
                             }
                         </td>
@@ -86,7 +85,7 @@
     </div>
 
 
-        <div class="container p-3">
+    <div class="container p-3">
 
         <br /><br />
 
