@@ -184,6 +184,7 @@ namespace LinkedHU_CENG.Controllers
                     db.SaveChanges();
 
                     return RedirectToAction("BannedUser", "Administrator");
+
                 }
                 else
                 {
@@ -203,6 +204,7 @@ namespace LinkedHU_CENG.Controllers
 
 
         public IActionResult BannedUserRevert(int id)
+
         {
             if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
@@ -228,5 +230,93 @@ namespace LinkedHU_CENG.Controllers
 
             }
         }
+
+public IActionResult DeleteUser()
+        {
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Administrator");
+        }
+
+
+        public IActionResult DeleteUserAccept(int id)
+        {
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    List<Post> posts = db.Posts.Where(m => m.UserId == id).ToList<Post>();
+                    List<Announcement> announcements = db.Announcements.Where(m => m.UserId == id).ToList<Announcement>();
+                    foreach (var post in posts)
+                    {
+                        db.Posts.Remove(post);
+                    }
+                    foreach (var announcement in announcements)
+                    {
+                        db.Announcements.Remove(announcement);
+                    }
+                    var deleteRequest = db.DeleteRequests.Find(id);
+                    db.DeleteRequests.Remove(deleteRequest);
+                    var deleteUser = db.Users.Find(id);
+                    db.Users.Remove(deleteUser);
+
+                    if (HttpContext.Session.GetInt32("UserID") == id)
+                    {
+                        HttpContext.Session.Remove("UserID");
+                        HttpContext.Session.Remove("Email");
+                    }
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("DeleteUser", "Administrator");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Administrator");
+
+                }
+            }
+            else
+            {
+
+                return RedirectToAction("Index", "Administrator");
+
+            }
+        }
+
+
+
+
+        public IActionResult DeleteUserRequest(int id)
+        {
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    var deleteRequest = db.DeleteRequests.Find(id);
+                    db.DeleteRequests.Remove(deleteRequest);
+                    db.SaveChanges();
+
+                    return RedirectToAction("DeleteUser", "Administrator");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Administrator");
+
+                }
+            }
+            else
+            {
+
+                return RedirectToAction("Index", "Administrator");
+
+            }
+        }
+
+
     }
 }

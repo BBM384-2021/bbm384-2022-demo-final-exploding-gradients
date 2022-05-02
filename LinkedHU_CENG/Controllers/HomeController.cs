@@ -7,15 +7,16 @@ namespace LinkedHU_CENG.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+         
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
         public IActionResult Index()
-        { 
-            if (HttpContext.Session.GetString("UserID") == null)
+
+        {
+            if (HttpContext.Session.GetInt32("UserID") == null)
             {
                 return View("WelcomePage");
             }
