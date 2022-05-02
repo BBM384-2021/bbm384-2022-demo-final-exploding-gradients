@@ -126,8 +126,112 @@ namespace LinkedHU_CENG.Controllers
 
 
 
+        [HttpGet]
+        public IActionResult BannedUser()
+        {
 
-        public IActionResult DeleteUser()
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                List<BannedUser> bannedUsers = db.BannedUsers.ToList();
+                ViewData["bannedUsers"] = bannedUsers;
+
+                
+                List<User> users = new List<User>();
+                ViewData["users"] = users;
+                return View();
+            }
+            return RedirectToAction("Index", "Administrator");
+
+        }
+
+
+
+        [HttpPost]
+        public IActionResult BannedUserSearch()
+        {
+            string name = HttpContext.Request.Form["SearchName"];
+            string surname = HttpContext.Request.Form["SearchSurname"];
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                List<BannedUser> bannedUsers = db.BannedUsers.ToList();
+                List<User> users = db.Users.Where(m=> m.Name.Equals(name) && m.Surname.Equals(surname)).ToList();
+                
+                ViewData["users"] = users;
+                ViewData["bannedUsers"] = bannedUsers;
+                return View("BannedUser");
+            }
+            return RedirectToAction("Index", "Administrator");
+
+        }
+
+
+
+
+        public IActionResult BannedUserAccept(int id)
+        {
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    var user = db.Users.Find(id);
+                    BannedUser bannedUser = new BannedUser();
+                    bannedUser.UserId = user.UserId;
+                    bannedUser.Name = user.Name;
+                    bannedUser.Surname = user.Surname;
+                    bannedUser.Email = user.Email;
+
+                    db.BannedUsers.Add(bannedUser);
+                    db.SaveChanges();
+
+                    return RedirectToAction("BannedUser", "Administrator");
+
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Administrator");
+
+                }
+            }
+            else
+            {
+
+                return RedirectToAction("Index", "Administrator");
+
+            }
+        }
+
+
+
+        public IActionResult BannedUserRevert(int id)
+
+        {
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    var user = db.BannedUsers.Find(id);
+                    db.BannedUsers.Remove(user);
+                    db.SaveChanges();
+
+                    return RedirectToAction("BannedUser", "Administrator");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Administrator");
+
+                }
+            }
+            else
+            {
+
+                return RedirectToAction("Index", "Administrator");
+
+            }
+        }
+
+public IActionResult DeleteUser()
         {
             if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
@@ -212,7 +316,6 @@ namespace LinkedHU_CENG.Controllers
 
             }
         }
-
 
 
     }
