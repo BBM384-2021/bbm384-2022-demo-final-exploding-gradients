@@ -1,0 +1,37 @@
+﻿@model IEnumerable<LinkedHU_CENG.Models.Advertisement>
+
+@{
+    var sessionUserID = ViewData["SessionUserId"] as Int32?;
+}
+
+<div class="container p-3">
+    <br /><br />
+
+
+    <table class="table table-bordered table-striped" style="width:100%">
+
+
+        @foreach (var obj in Model.OrderByDescending(a => a.AdvertisementId))
+        {
+
+            <div class="card border p-3 mt-4  custom-shadow1">
+                <div class="custom-margin1">
+                    <h3>@obj.Title</h3>
+                    <h6>@obj.Company</h6>
+                    <h6>@obj.Type</h6>
+                    <h6>@obj.Location</h6>
+                    <small class="text-muted">@obj.UserName @obj.CreatedAt</small>
+                    <br> <br/>
+                    <h6>@obj.Description</h6>
+				    <br> 
+                    <form asp-controller="Application" asp-action="Create" method="post">
+                        <center><input type="submit" value="Apply" class="btn btn-info" style="float: right; margin-top: -10px; margin-bottom: 50px;" /></center>
+                    </form>
+                </div>
+            </div>
+            <br/>
+            
+        }
+
+    </table>
+</div>
