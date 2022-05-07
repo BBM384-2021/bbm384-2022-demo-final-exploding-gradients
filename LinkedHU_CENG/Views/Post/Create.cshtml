@@ -3,13 +3,33 @@
     ViewData["Title"] = "Post";
 }
 
-<form asp-controller="Post" asp-action="Create" method="post">
+<form asp-controller="Post" asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="border p-3 mt-4 custom-margin1 custom-shadow1">
         <div class="mb-3 ">
             <h3 class="text-primary">Share Post</h3>
             <input asp-for="Content" class="form-control" />
             <span asp-validation-for="Content" class="text-danger"></span>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="PostImage" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="PostImage" type="file" accept=".jpeg,jpg,.png,.gif,.mp4" />
+                    </div>
+                    <span asp-validation-for="PostImage" class="text-danger"></span>
+                </div>
+            </div>
         </div>
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Share</button>
     </div>
 </form>
+
+@section scripts{
+<script type="text/javascript">
+
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+}

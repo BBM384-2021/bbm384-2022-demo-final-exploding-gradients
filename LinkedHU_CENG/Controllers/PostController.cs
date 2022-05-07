@@ -5,10 +5,12 @@ namespace LinkedHU_CENG.Controllers
     public class PostController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public PostController(ApplicationDbContext db)
+        public PostController(ApplicationDbContext db, IWebHostEnvironment hostEnvironment)
         {
             _db = db;
+            this.webHostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -32,7 +34,20 @@ namespace LinkedHU_CENG.Controllers
                 post.UserId = userId;
                 var user = _db.Users.Find(userId);
                 post.UserName = user.Name + " " + user.Surname;
+                post.UserProfilePicture = user.ProfilePicturePath;
 
+                string uniqueFileName = UploadedFile(post);
+                string[] name = uniqueFileName.Split(".");
+
+                if(name[1] == "mp4")
+                {
+                    post.PostVideoPath = uniqueFileName;
+                }
+                else
+                {
+                    post.PostImagePath = uniqueFileName;
+                }
+                
                 _db.Posts.Add(post);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Home");
@@ -69,6 +84,21 @@ namespace LinkedHU_CENG.Controllers
         {
             if (ModelState.IsValid)
             {
+                string uniqueFileName = UploadedFile(post);
+                if (uniqueFileName != null)
+                {
+                    string[] name = uniqueFileName.Split(".");
+
+                    if (name[1] == "mp4")
+                    {
+                        post.PostVideoPath = uniqueFileName;
+                    }
+                    else
+                    {
+                        post.PostImagePath = uniqueFileName;
+                    }
+                }
+
                 _db.Posts.Update(post);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Home");
@@ -93,5 +123,35 @@ namespace LinkedHU_CENG.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        private string UploadedFile(Post post)
+        {
+            string uniqueFileName = null;
+
+            if (post.PostImage!= null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "postImages");
+
+
+                if (post.PostImagePath != null && System.IO.File.Exists(Path.Combine(uploadsFolder, post.PostImagePath)))
+                {
+                    System.IO.File.Delete(Path.Combine(uploadsFolder, post.PostImagePath));
+                    post.PostImagePath = null;
+                }
+
+                if (post.PostVideoPath != null && System.IO.File.Exists(Path.Combine(uploadsFolder, post.PostVideoPath)))
+                {
+                    System.IO.File.Delete(Path.Combine(uploadsFolder, post.PostVideoPath));
+                    post.PostVideoPath = null;
+                }
+
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + post.PostImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    post.PostImage.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
     }
 }
