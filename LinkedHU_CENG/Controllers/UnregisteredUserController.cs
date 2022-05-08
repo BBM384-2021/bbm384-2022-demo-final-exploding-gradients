@@ -37,9 +37,18 @@ namespace LinkedHU_CENG.Controllers
         {
             if (ModelState.IsValid)
             {
-                usr.Password = Encrypt(usr.Password);
-                db.UnregisteredUsers.Add(usr);
-                db.SaveChanges();
+                var user1 = db.Users.FirstOrDefault(u => u.Email.Equals(usr.Email));
+                var user2 = db.Users.FirstOrDefault(u => u.Email.Equals(usr.SecondEmail));
+                var user3 = db.Users.FirstOrDefault(u => u.PhoneNum.Equals(usr.PhoneNum));
+
+                //if user did not register with the same email and phone number before
+                if (user1 == null && user2 == null && user3 == null)
+                {
+                    usr.Password = Encrypt(usr.Password);
+                    db.UnregisteredUsers.Add(usr);
+                    db.SaveChanges();
+                }
+                //ELSE we need to give WARNING
                 return RedirectToAction("Login", "User");
             }
             else

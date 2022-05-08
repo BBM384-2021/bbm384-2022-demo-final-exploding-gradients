@@ -34,8 +34,16 @@
                             </div>
                         }
                     </div>
-
-                    <h5>@obj.UserName</h5>
+                    @if (obj.UserProfilePicture == null)
+                    {
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @obj.UserName
+                    }
+                    else
+                    {
+                        <img src="~/profilePictures/@obj.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @obj.UserName
+                    }
+                    @*<h5>@obj.UserName</h5>*@
+                    <br /> <br />
                     <small class="text-muted"> @obj.CreatedAt</small>
                     <br /> <br />
                     <h6>@obj.Content</h6>
