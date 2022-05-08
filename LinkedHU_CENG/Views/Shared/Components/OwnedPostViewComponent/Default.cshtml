@@ -52,9 +52,10 @@
                     <small class="text-muted"> @obj.CreatedAt</small>
                     <br /> <br />
                     <h6>@obj.Content</h6>
+
                     @if (obj.PostImagePath != null)
                     {
-                        <img src="~/postImages/@obj.PostImagePath" class="col-sm-10" asp-append-version="true" width="250px" height="500px" />
+                        <img src="~/postImages/@obj.PostImagePath" class="col-sm-10 center" asp-append-version="true" width="300" height=auto />
                     }
                     @if (obj.PostVideoPath != null)
                     {
@@ -63,6 +64,7 @@
                             Your browser does not support the video tag.
                         </video>
                     }
+
                     <br />
                 </div>
             </div>
