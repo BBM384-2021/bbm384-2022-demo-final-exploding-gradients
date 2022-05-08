@@ -59,6 +59,13 @@ namespace LinkedHU_CENG.Models
         public string? ProfilePicturePath { get; set; }
 
         public string? Title { get; set; }
+
+
+        public override string ToString()
+        {
+            return this.UserId + "," + this.Name + "," + this.Surname + "," + this.Email + "," + this.PhoneNum
+                + "," + this.Role + "," + this.BirthDate + "," + this.About + "," + this.Location + ",";
+        }
     }
 
     public enum Role

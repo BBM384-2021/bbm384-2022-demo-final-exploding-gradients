@@ -143,6 +143,10 @@ namespace LinkedHU_CENG.Controllers
             return clearText;
         }
 
+        public static string GetAllColumns()
+        {
+            return "UserId,Name,Surname,Email,PhoneNum,Role,Birthdate,About Me,Location";
+        }
         private string Decrypt(string cipherText) // bu fonksiyonu nerede kullanıcaz bilmiyorum ama kaybetmemek adına buraya ekledim
         {
             string EncryptionKey = "MAKV2SPBNI99212";
