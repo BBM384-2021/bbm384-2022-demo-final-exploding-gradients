@@ -420,6 +420,44 @@ namespace LinkedHU_CENG.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult ExportUserDetails()
+        {
+
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                List<User> users = db.Users.ToList();
+                ViewData["Users"] = users;
+                return View();
+            }
+            return RedirectToAction("Index", "Administrator");
+
+        }
+
+        public IActionResult ExportUserDetailsASCSV()
+        {
+
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                List<User> users = db.Users.ToList();
+                string csv = string.Empty;
+                string columnsOfUsers = UserController.GetAllColumns();
+                csv += columnsOfUsers + ',';
+                csv += "\r\n";
+                foreach (User user in users)
+                {
+                    csv += user.ToString() + "\r\n";
+                    System.Diagnostics.Debug.WriteLine(user.ToString());
+                }
+
+                return File(Encoding.UTF32.GetBytes(csv.ToString()), "text/csv", "UsersDetails.csv");
+            }
+            return RedirectToAction("Index", "Administrator");
+
+        }
+
+
+
 
         private string Encrypt(string clearText)
         {
