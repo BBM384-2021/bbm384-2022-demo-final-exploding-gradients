@@ -36,16 +36,19 @@ namespace LinkedHU_CENG.Controllers
                 post.UserName = user.Name + " " + user.Surname;
                 post.UserProfilePicture = user.ProfilePicturePath;
 
-                string uniqueFileName = UploadedFile(post);
-                string[] name = uniqueFileName.Split(".");
+                if(post.PostImage != null)
+                {
+                    string uniqueFileName = UploadedFile(post);
+                    string[] name = uniqueFileName.Split(".");
 
-                if(name[1] == "mp4")
-                {
-                    post.PostVideoPath = uniqueFileName;
-                }
-                else
-                {
-                    post.PostImagePath = uniqueFileName;
+                    if (name[1] == "mp4")
+                    {
+                        post.PostVideoPath = uniqueFileName;
+                    }
+                    else
+                    {
+                        post.PostImagePath = uniqueFileName;
+                    }
                 }
                 
                 _db.Posts.Add(post);
