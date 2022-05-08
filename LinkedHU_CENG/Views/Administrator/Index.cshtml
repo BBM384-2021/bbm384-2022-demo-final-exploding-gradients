@@ -3,4 +3,135 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var user = ViewData["User"] as List<User>;
+    var unregisteredUser = ViewData["UnregisteredUser"] as List<UnregisteredUser>;
+    var report = ViewData["Report"] as List<Report>;
+    var deleteRequests = ViewData["DeleteRequest"] as List<DeleteRequest>;
+    var passwordRequests = ViewData["PasswordRequest"] as List<ForgetPassword>;
+    var posts = ViewData["Post"] as List<Post>;
+    var announcements = ViewData["Announcement"] as List<Announcement>;
+    var systemVersion = ViewData["SystemVersion"];
 }
+
+
+
+<div class="col">
+    <div class="card-profile">
+        <div class="card">
+            <div class="d-flex flex-column align-items-center text-center">
+                <h1>Welcome to the system administrator</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row gutters-sm">
+        <div class="col-sm-6 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 align="center" ; class="align-items-center mb-3">Admin Panel Statistics</h6>
+                    <div class="card-aboutme col">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Number of Users Waiting for Approval : @unregisteredUser.Count </h6>
+                            </li>
+                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Number of Account Deletion Requests : @deleteRequests.Count </h6>
+                            </li>
+                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Number of Password Requests : @passwordRequests.Count </h6>
+                            </li>
+                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Number of Email Merge Requests : buraya merge request countu </h6>
+                            </li>
+                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Number of Users Reported : @report.Count </h6>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 align="center" ; class="align-items-center mb-3">Admin Panel Statistics</h6>
+                    <div class="card-aboutme col">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Number of Users Registered in the System : @unregisteredUser.Count </h6>
+                            </li>
+                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Number of Active Advertisements in the System : advert count sayısı </h6>
+                            </li>
+                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Number of Posts in the System : @posts.Count </h6>
+                            </li>
+                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Number of Announcements in the System : @announcements.Count </h6>
+                            </li>
+                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">System Version Number : @systemVersion </h6>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="card-profile">
+        <div class="card">
+            <h6 align="center" ; class="align-items-center mb-3">Last 5 Users</h6>
+            <div class="d-flex flex-column align-items-center text-center">
+                <table class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Surname
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Phone Number
+                            </th>
+                            <th>
+                                Birthdate
+                            </th>
+                            <th>
+                                Role
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var obj in user.Take(5))
+                        {
+                            <tr>
+                                <td> @obj.Name </td>
+                                <td> @obj.Surname </td>
+                                <td> @obj.Email </td>
+                                <td> @obj.PhoneNum </td>
+                                <td> @obj.BirthDate </td>
+                                <td> @obj.Role </td>
+
+                                <td>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>

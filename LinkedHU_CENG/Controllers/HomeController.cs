@@ -14,8 +14,9 @@ namespace LinkedHU_CENG.Controllers
         }
 
         public IActionResult Index()
+
         {
-            if (HttpContext.Session.GetString("UserID") == null)
+            if (HttpContext.Session.GetInt32("UserID") == null)
             {
                 return View("WelcomePage");
             }

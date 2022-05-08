@@ -18,7 +18,7 @@ namespace LinkedHU_CENG.Controllers
         {
 
 
-                if (HttpContext.Session.GetString("UserID") != null)
+                if (HttpContext.Session.GetInt32("UserID") != null)
                 {
                     var user = db.Users.FirstOrDefault(
                         u => u.UserId.Equals(HttpContext.Session.GetInt32("UserID")) && u.Email.Equals(HttpContext.Session.GetString("Email")));

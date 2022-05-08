@@ -1,9 +1,43 @@
 ﻿@{
-    ViewData["Title"] = "Index";
+    var reports = ViewData["Report"] as List<Report>;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<div class="container p-3">
 
-<div style="display:block; width:100%;">
-    @await Component.InvokeAsync("ReportedUserViewComponent")
+    <br /><br />
+
+    <table class="table table-bordered table-striped" style="width:100%">
+
+        <thead>
+            <tr>
+                <th>
+                    Report ID
+                </th>
+                <th>
+                    Name Surname
+                </th>
+                <th>
+                    Sender User
+                </th>
+                <th>
+                    Detail
+                </th>
+                <th>
+                    Created at
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in reports)
+            {
+                <tr>
+                    <td> @obj.ReportId </td>
+                    <td> @obj.ReportUserName </td>
+                    <td> @obj.UserId </td>
+                    <td> @obj.Detail </td>
+                    <td> @obj.CreatedAt </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-
