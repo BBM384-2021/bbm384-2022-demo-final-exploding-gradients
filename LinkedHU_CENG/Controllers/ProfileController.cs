@@ -58,7 +58,22 @@ namespace LinkedHU_CENG.Controllers
             if (ModelState.IsValid)
             {
                 string uniqueFileName = UploadedFile(user);
-                user.ProfilePicturePath = uniqueFileName;
+                if(uniqueFileName != null)
+                {
+                    user.ProfilePicturePath = uniqueFileName;
+                }
+
+                var posts = db.Posts.Where(x => x.UserId == user.UserId).ToList();
+                foreach(Post post in posts)
+                {
+                    post.UserProfilePicture = user.ProfilePicturePath;
+                }
+
+                var announcements = db.Announcements.Where(x => x.UserId == user.UserId).ToList();
+                foreach (Announcement announcement in announcements)
+                {
+                    announcement.UserProfilePicture = user.ProfilePicturePath;
+                }
 
                 db.Users.Update(user);
                 db.SaveChanges();
@@ -79,7 +94,13 @@ namespace LinkedHU_CENG.Controllers
 
             if (user.ProfilePicture != null)
             {
-                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "profilePictures");
+
+                if (user.ProfilePicturePath != null && System.IO.File.Exists(Path.Combine(uploadsFolder, user.ProfilePicturePath)))
+                {
+                    System.IO.File.Delete(Path.Combine(uploadsFolder, user.ProfilePicturePath));
+                }
+
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + user.ProfilePicture.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
