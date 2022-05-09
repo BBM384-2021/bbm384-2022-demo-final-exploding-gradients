@@ -1,5 +1,6 @@
 ﻿using LinkedHU_CENG.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinkedHU_CENG.Controllers
 {
@@ -57,6 +58,14 @@ namespace LinkedHU_CENG.Controllers
 
             if (ModelState.IsValid)
             {
+                var oldUser = db.Users.AsNoTracking().Where(x => x.UserId.Equals(user.UserId)).ToList()[0];
+                int sameMail = 0;
+                if (user.SecondEmail != null)
+                {
+                    sameMail = db.Users.AsNoTracking().Where(x => (x.Email == user.SecondEmail) || (x.SecondEmail == user.SecondEmail)).ToList().Count;
+                }
+
+
                 string uniqueFileName = UploadedFile(user);
                 if(uniqueFileName != null)
                 {
@@ -75,6 +84,28 @@ namespace LinkedHU_CENG.Controllers
                     announcement.UserProfilePicture = user.ProfilePicturePath;
                 }
 
+                if(user.SecondEmail != null)
+                {
+                    var oneUserMoreRequest = db.MergeEmailRequests.AsNoTracking().Where(x=> x.UserId == user.UserId).ToList();
+                    if(oneUserMoreRequest.Count > 0)
+                    {
+                        user.SecondEmail = oldUser.SecondEmail; // burası silinmeli
+                        // mailiniz güncellenmedi daha önce request etmiş uyarısı
+                    }
+                    else if (sameMail == 0)
+                    {
+                        
+                        MergeEmailRequest newRequest = new MergeEmailRequest();
+                        newRequest.UserId = user.UserId;
+                        newRequest.Email = user.Email;
+                        newRequest.Name = user.Name;
+                        newRequest.Surname = user.Surname;
+                        newRequest.SecondEmail = user.SecondEmail;
+                        db.MergeEmailRequests.Add(newRequest);
+                    }
+                }
+                user.SecondEmail = oldUser.SecondEmail;
+
                 db.Users.Update(user);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Profile");
@@ -87,6 +118,9 @@ namespace LinkedHU_CENG.Controllers
 
             return View();
         }
+
+
+        
 
         private string UploadedFile(User user)
         {
