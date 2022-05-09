@@ -459,6 +459,70 @@ namespace LinkedHU_CENG.Controllers
 
 
 
+        [HttpGet]
+        public IActionResult MergeEmailRequest()
+        {
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                List<MergeEmailRequest> requests = db.MergeEmailRequests.ToList();
+                ViewData["MergeEmailRequest"] = requests;
+                return View();
+            }
+            return RedirectToAction("Index", "Administrator");
+        }
+
+        public IActionResult MergeEmailRequestAccept(int id)
+        {
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    var request = db.MergeEmailRequests.Find(id);
+                    var user = db.Users.Find(id);
+                    user.SecondEmail = request.SecondEmail;
+                    db.Users.Update(user);
+                    db.MergeEmailRequests.Remove(request);
+                    db.SaveChanges();
+                    return RedirectToAction("MergeEmailRequest", "Administrator");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Administrator");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Administrator");
+            }
+        }
+
+        public IActionResult MergeEmailRequestRevert(int id)
+        {
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    var request = db.MergeEmailRequests.Find(id);
+                    db.MergeEmailRequests.Remove(request);
+                    db.SaveChanges();
+                    return RedirectToAction("MergeEmailRequest", "Administrator");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Administrator");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Administrator");
+            }
+        }
+
+
+
+
         private string Encrypt(string clearText)
         {
             string EncryptionKey = "MAKV2SPBNI99212";
