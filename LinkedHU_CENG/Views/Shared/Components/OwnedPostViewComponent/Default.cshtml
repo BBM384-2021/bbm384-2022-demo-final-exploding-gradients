@@ -52,19 +52,23 @@
                     <small class="text-muted"> @obj.CreatedAt</small>
                     <br /> <br />
                     <h6>@obj.Content</h6>
-
+                     <br />
                     @if (obj.PostImagePath != null)
                     {
-                        <img src="~/postImages/@obj.PostImagePath" class="col-sm-10 center" asp-append-version="true" width="300" height=auto />
+                        <img src="~/postUploads/@obj.PostImagePath" class="col-sm-10 center" asp-append-version="true" width="300" height=auto />
                     }
                     @if (obj.PostVideoPath != null)
                     {
                         <video width="320" height="240" controls="controls">
-                            <source src="~/postImages/@obj.PostVideoPath" type="video/mp4">
+                            <source src="~/postUploads/@obj.PostVideoPath" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     }
-
+                    @if (obj.PostPdfPath != null)
+                    {
+                        <embed src="~/postUploads/@obj.PostPdfPath" height="500px" width="100%" />
+                        <a href="~/postUploads/@obj.PostPdfPath">See & Download</a>
+                    }
                     <br />
                 </div>
             </div>

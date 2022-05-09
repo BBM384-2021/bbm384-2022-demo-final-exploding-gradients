@@ -10,6 +10,7 @@
     @Html.HiddenFor(model => model.UserName)
     @Html.HiddenFor(model => model.PostImagePath)
     @Html.HiddenFor(model => model.PostVideoPath)
+    @Html.HiddenFor(model => model.PostPdfPath)
     @Html.HiddenFor(model => model.UserProfilePicture)
     <div class="text-center">
         <div class="border p-3 mt-4 custom-margin1 custom-shadow1">
@@ -21,25 +22,29 @@
                 <div class="custom-margin2">
                     @if (!string.IsNullOrEmpty(Model.PostImagePath))
                     {
-                        <img src="~/postImages/@Model.PostImagePath" class="col-sm-10" asp-append-version="true" width="300" height=auto />
+                        <img src="~/postUploads/@Model.PostImagePath" class="col-sm-10 center" asp-append-version="true" width="300" height=auto />
                     }
                     @if (!string.IsNullOrEmpty(Model.PostVideoPath))
                     {
                         <video width="320" height="240" controls="controls">
-                            <source src="~/postImages/@Model.PostVideoPath" type="video/mp4">
+                            <source src="~/postUploads/@Model.PostVideoPath" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.PostPdfPath))
+                    {
+                        <embed src="~/postUploads/@Model.PostPdfPath" height="500px" width="100%" />
                     }
                 </div>
 
                 <br /> <br />
                 <div class="col-md-1">
                     <div class="form-group">
-                        <label asp-for="PostImage" class="control-label"></label>
+                        <label asp-for="PostUpload" class="control-label"></label>
                         <div class="custom-file">
-                            <input asp-for="PostImage" type="file" accept=".jpeg,jpg,.png,.gif,.mp4, .pdf" />
+                            <input asp-for="PostUpload" type="file" accept=".jpeg,jpg,.png,.gif,.mp4,.pdf" />
                         </div>
-                        <span asp-validation-for="PostImage" class="text-danger"></span>
+                        <span asp-validation-for="PostUpload" class="text-danger"></span>
                     </div>
                 </div>
             </div>
