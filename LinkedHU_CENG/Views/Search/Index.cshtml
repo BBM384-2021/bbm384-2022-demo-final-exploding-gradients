@@ -1,0 +1,66 @@
+﻿@{
+    var nameSurname = ViewData["NameSurname"] as List<User>;
+    var name = ViewData["Name"] as List<User>;
+    var surname = ViewData["Surname"] as List<User>;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<List<User>> arrayList = new List<List<User>> { nameSurname, name, surname };
+    var sessionUserID = ViewData["SessionUserId"] as Int32?;
+}
+
+
+
+<div class="row ">
+
+    <div class="container p-3">
+
+        <table class="table table-bordered table-striped" style="width:100%">
+            
+            <tbody>
+                @foreach (var usrList in arrayList)
+                {
+                    @foreach (var usr in usrList)
+                    {
+                        @*<tr>
+                            <td> @usr.Name </td>
+                            <td> @usr.Surname </td>
+                            <td> @usr.Email </td>
+                            </tr>*@
+
+
+
+
+                        <div class="card border p-3 mt-4  custom-shadow1">
+                            <div class="custom-margin1">
+                                <div class="text-end">
+                                    <div id="wrapperDiv">
+                                        <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a  asp-controller="Search" asp-action="ViewProfile" asp-route-id="@usr.UserId"><i class="bi bi-chat-right-text"></i>View Profile</a> </div>
+                                        <div id="div2" style="padding:5px;float:right;color:#ffffff"> <a href=#> <i class="bi bi-share"></i></a></div>
+                                        @if (sessionUserID == usr.UserId)
+                                        {
+                                            <div></div>
+                                        }
+                                    </div>
+                                </div>
+                                @if (usr.ProfilePicturePath == null)
+                                {
+                                    <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @usr.Name
+                                }
+                                else
+                                {
+                                    <img src="@usr.ProfilePicturePath" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @usr.Name
+                                }
+                                @*<h5>@obj.UserName</h5>*@
+                                <br /> <br />
+                                <small class="text-muted"> @usr.CreatedAt</small>
+                                <br /> <br />
+                                
+                            </div>
+                        </div>
+                    }
+
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
