@@ -5,6 +5,7 @@ namespace LinkedHU_CENG.Models
     public class Administrator
     {
         [Key]
+        [Required(ErrorMessage = "Username field is required.")]
         public string UserName { get; set; }
 
 
