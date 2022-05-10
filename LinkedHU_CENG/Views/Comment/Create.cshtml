@@ -1,0 +1,18 @@
+﻿@model LinkedHU_CENG.Models.ViewModels.PostCommentViewModel
+@Html.HiddenFor(Model => Model.post)
+
+<form asp-controller="Comment" asp-action="Create" method="post">
+    <div class="mb-3 ">
+        <h3 class="text-primary">Share Comment</h3>
+        <input asp-for="@Model.comment.Content" class="form-control" />
+        <span asp-validation-for="@Model.comment.Content" class="text-danger"></span>
+    </div>
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Share</button>
+</form>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}
+

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LinkedHU_CENG.Models;
 using Microsoft.EntityFrameworkCore;
+using LinkedHU_CENG.Models.ViewModels;
 
 namespace LinkedHU_CENG.ViewComponents
 {
@@ -18,8 +19,20 @@ namespace LinkedHU_CENG.ViewComponents
         {
           
             IEnumerable<Post> mc = await _db.Posts.ToListAsync();
+            List<PostCommentViewModel> viewModels = new List<PostCommentViewModel>();
+
+            foreach (Post post in mc)
+            {
+                PostCommentViewModel viewModel = new PostCommentViewModel();
+                List<Comment> postComments = await _db.Comments.Where(s => s.PostId == post.PostId).ToListAsync();
+                viewModel.comments = postComments;
+                viewModel.post = post;
+
+                viewModels.Add(viewModel);
+            }
+
             ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
-            return View(mc);
+            return View(viewModels);
         }
     }
 }
