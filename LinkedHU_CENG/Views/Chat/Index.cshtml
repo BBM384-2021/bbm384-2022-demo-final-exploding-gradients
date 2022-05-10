@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Chat>
+
+
+
+<div style="display:block; width:100%;">
+
+    <div style="width:400px;margin-left:100px; float: left;">
+        <div style="width:400px; margin-top:10px;">
+            <div style="width:200px;height:20px;">
+                <form class="align-items-center  d-flex">
+                    <input class=" form-control me-sm-2" type="text" placeholder="search an user">
+                    <button class="btn btn-info my-2 my-sm-0" style="width:40px; height:40px;" type="submit"><i class="bi bi-search"></i></button>
+                </form>
+
+            </div>
+
+
+            <div class="container" style="width:10px;height:20px;">
+                <a asp-controller="Chat" asp-action="Create" asp-route-id="new-chat"
+                   class="mx-2 w-75">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" class="bi bi-plus-square" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="container card h-100" style=" margin-top:10px; padding:5px">
+            @if (Model.Any())
+            {@foreach (var obj in Model)
+                {
+
+                    <div class="drill_cursor container menu-item-depth-3" style="padding:10px;height:100px;" onclick='alert(@obj.SenderId);'>
+                        @if (obj.SenderProfilePicture == null)
+                        {
+                            <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @obj.SenderUserName <div class="text-muted" style="font-size:10px;"> @obj.CreatedAt</div>
+                        }
+                        else
+                        {
+                            <img src="~/profilePictures/@obj.SenderProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @obj.SenderUserName
+                        }
+
+                        <div>
+                            @obj.Content
+                        </div>
+                        <br /> <br /> <br /> <br />
+                    </div>
+                }
+            }
+            else
+            {
+
+                <div class="container" style="padding:10px;height:100px;">
+                    There is no chat.
+                    <br />
+                    Start new chat.
+                    @*                    <a asp-controller="Post" asp-action="Create" asp-route-id="@obj.PostId"
+                        class="dropdown-item mx-2 w-75"> <i class="bi bi-pencil-square"></i> Update</a>*@
+                </div>
+            }
+        </div>
+    </div>
+    <div style="width:650px; float: left; margin-left:100px;margin-top:40px;padding:5px;display: inline-block;">
+    </div>
+</div>
+<div>
+    <partial name="~/Views/Chat/_NewChat.cshtml" />
+</div>
+
+@section scripts{
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script type="text/javascript">
+
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+} 

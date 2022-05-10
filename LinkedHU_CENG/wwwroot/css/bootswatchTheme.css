@@ -12719,3 +12719,18 @@ body {
     margin-right: auto;
     width: 50%;
 }
+
+.chat{
+    margin-left: 500px;
+    margin-right: 500px;
+}
+
+.chat-users {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.chat-message-box {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+

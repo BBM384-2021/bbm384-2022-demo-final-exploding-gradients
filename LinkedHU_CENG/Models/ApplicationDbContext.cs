@@ -16,6 +16,7 @@ namespace LinkedHU_CENG.Models
         public DbSet<BannedUser> BannedUsers { get; set; }
         public DbSet<DeleteRequest> DeleteRequests { get; set; }
         public DbSet<ForgetPassword> ForgetPasswords { get; set; }
+        public DbSet<Chat> Chats { get; set; }
 
         // db bağlantısı için connection stringi burda giriyoruz
         //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
