@@ -36,7 +36,7 @@ namespace LinkedHU_CENG.Controllers
                 post.UserName = user.Name + " " + user.Surname;
                 post.UserProfilePicture = user.ProfilePicturePath;
 
-                if(post.PostImage != null)
+                if(post.PostUpload != null)
                 {
                     string uniqueFileName = UploadedFile(post);
                     string[] name = uniqueFileName.Split(".");
@@ -44,6 +44,10 @@ namespace LinkedHU_CENG.Controllers
                     if (name[1] == "mp4")
                     {
                         post.PostVideoPath = uniqueFileName;
+                    }
+                    else if (name[1] == "pdf")
+                    {
+                        post.PostPdfPath = uniqueFileName;
                     }
                     else
                     {
@@ -96,6 +100,10 @@ namespace LinkedHU_CENG.Controllers
                     {
                         post.PostVideoPath = uniqueFileName;
                     }
+                    else if(name[1] == "pdf")
+                    {
+                        post.PostPdfPath = uniqueFileName;
+                    }
                     else
                     {
                         post.PostImagePath = uniqueFileName;
@@ -130,9 +138,9 @@ namespace LinkedHU_CENG.Controllers
         {
             string uniqueFileName = null;
 
-            if (post.PostImage!= null)
+            if (post.PostUpload != null)
             {
-                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "postImages");
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "postUploads");
 
 
                 if (post.PostImagePath != null && System.IO.File.Exists(Path.Combine(uploadsFolder, post.PostImagePath)))
@@ -147,11 +155,17 @@ namespace LinkedHU_CENG.Controllers
                     post.PostVideoPath = null;
                 }
 
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + post.PostImage.FileName;
+                if (post.PostPdfPath != null && System.IO.File.Exists(Path.Combine(uploadsFolder, post.PostPdfPath)))
+                {
+                    System.IO.File.Delete(Path.Combine(uploadsFolder, post.PostPdfPath));
+                    post.PostPdfPath = null;
+                }
+
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + post.PostUpload.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    post.PostImage.CopyTo(fileStream);
+                    post.PostUpload.CopyTo(fileStream);
                 }
             }
             return uniqueFileName;

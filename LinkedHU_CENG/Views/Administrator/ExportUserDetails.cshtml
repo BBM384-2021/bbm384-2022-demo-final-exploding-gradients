@@ -1,0 +1,54 @@
+﻿@{
+    var users = ViewData["Users"] as List<User>;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Surname
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Phone Number
+                </th>
+                <th>
+                    Birthdate
+                </th>
+                <th>
+                    Role
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in users)
+            {
+                <tr>
+                    <td> @obj.Name </td>
+                    <td> @obj.Surname </td>
+                    <td> @obj.Email </td>
+                    <td> @obj.PhoneNum </td>
+                    <td> @obj.BirthDate </td>
+                    <td> @obj.Role </td>
+
+                    
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<div style="margin: auto;
+  width: 20%;">
+    <a asp-controller="Administrator" asp-action="ExportUserDetailsASCSV" 
+       class="btn btn-danger mx-2" style="margin: auto;  width: 90%; border: 3px solid gray; padding: 10px;">  Export User</a>
+
+</div>

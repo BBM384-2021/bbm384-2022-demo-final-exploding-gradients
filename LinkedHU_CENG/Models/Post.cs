@@ -22,12 +22,14 @@ namespace LinkedHU_CENG.Models
         [Display(Name = "Content")]
         public string Content { get; set; }
 
-        [Display(Name = "Post Image (maximum size 28mb)")]
+        [Display(Name = "Post Upload (maximum size 28mb)")]
         [NotMapped]
-        public IFormFile? PostImage { get; set; }
+        public IFormFile? PostUpload { get; set; }
 
         public string? PostImagePath { get; set; }
 
         public string? PostVideoPath { get; set; }
+
+        public string? PostPdfPath { get; set; }
     }
 }
