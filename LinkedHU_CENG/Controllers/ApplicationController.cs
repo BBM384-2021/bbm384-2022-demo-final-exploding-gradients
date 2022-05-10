@@ -14,11 +14,15 @@ namespace LinkedHU_CENG.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            List<Application> applications = db.Applications.ToList();
+            ViewData["Application"] = applications;
             return View();
         }
 
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
+            var advertisement = db.Advertisements.Find(id);
+            ViewData["Advertisement"] = advertisement;
             return View();
         }
 
@@ -31,7 +35,7 @@ namespace LinkedHU_CENG.Controllers
                 application.UserId = userId;
                 db.Applications.Add(application);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Application");
+                return RedirectToAction("Create", "Advertisement");
             }
             else
             {

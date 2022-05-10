@@ -24,7 +24,7 @@
                     <br> <br/>
                     <h6>@obj.Description</h6>
 				    <br> 
-                    <center><input type="button" value="Apply" onclick="@("window.location.href='" + @Url.Action("Create", "Application",  new { advertisement = @obj }) + "'");" /></center>
+                    <center><input type="button" value="Apply" onclick="@("window.location.href='" + @Url.Action("Create", "Application",  new { id = @obj.AdvertisementId }) + "'");" /></center>
                 </div>
             </div>
             <br/>
