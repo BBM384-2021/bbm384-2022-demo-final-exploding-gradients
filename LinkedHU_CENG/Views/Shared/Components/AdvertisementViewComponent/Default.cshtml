@@ -24,9 +24,7 @@
                     <br> <br/>
                     <h6>@obj.Description</h6>
 				    <br> 
-                    <form asp-controller="Application" asp-action="Create" method="post">
-                        <center><input type="submit" value="Apply" class="btn btn-info" style="float: right; margin-top: -10px; margin-bottom: 50px;" /></center>
-                    </form>
+                    <center><input type="button" value="Apply" onclick="@("window.location.href='" + @Url.Action("Create", "Application",  new { advertisement = @obj }) + "'");" /></center>
                 </div>
             </div>
             <br/>

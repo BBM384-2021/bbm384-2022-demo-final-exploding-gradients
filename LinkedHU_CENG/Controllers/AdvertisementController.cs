@@ -34,7 +34,7 @@ namespace LinkedHU_CENG.Controllers
 
                 db.Advertisements.Add(advertisement);
                 db.SaveChanges();
-                return RedirectToAction("Create", "Advertisement");
+                return RedirectToAction("Index", "Advertisement");
             }
             else
             {
@@ -86,7 +86,7 @@ namespace LinkedHU_CENG.Controllers
             db.Advertisements.Remove(advertisement);
             db.SaveChanges();
 
-            return RedirectToAction("Create", "Advertisement");
+            return RedirectToAction("Index", "Advertisement");
         }
     }
 }
