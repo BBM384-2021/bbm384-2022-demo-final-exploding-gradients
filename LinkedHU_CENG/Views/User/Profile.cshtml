@@ -1,12 +1,10 @@
-﻿@using LinkedHU_CENG.Models
-@{
+﻿@{
     ViewData["Title"] = "Index";
     var user = ViewData["User"] as User;
     var posts = ViewData["Posts"] as List<Post>;
     Layout = "~/Views/Shared/_Layout.cshtml";
     var sessionUserID = ViewData["SessionUserId"] as Int32?;
 }
-@model LinkedHU_CENG.Models.Post
 
 
 

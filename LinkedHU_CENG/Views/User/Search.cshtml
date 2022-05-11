@@ -20,15 +20,7 @@
                 {
                     @foreach (var usr in usrList)
                     {
-                        @*<tr>
-                            <td> @usr.Name </td>
-                            <td> @usr.Surname </td>
-                            <td> @usr.Email </td>
-                            </tr>*@
-
-
-
-
+                       
                         <div class="card border p-3 mt-4  custom-shadow1" style="width:50%; margin:auto">
                                 
                                 <div style="width:25%; height: 100px; float: left; background: green;">
@@ -49,7 +41,7 @@
                                 </div>
 
                                 <div id="wrapperDiv" style="height:100px; width:20%;margin-left:80%; background-color:#00F0FF;">
-                                     <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a  asp-controller="Search" asp-action="ViewProfile" asp-route-id="@usr.UserId"><i class="bi bi-chat-right-text"></i>View Profile</a> </div>
+                                     <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a  asp-controller="User" asp-action="ViewProfile" asp-route-id="@usr.UserId"><i class="bi bi-chat-right-text"></i>View Profile</a> </div>
                                      <div id="div2" style="padding:5px;float:right;color:#ffffff"> <a href=#> <i class="bi bi-share"></i></a></div>
                
                                 </div>
