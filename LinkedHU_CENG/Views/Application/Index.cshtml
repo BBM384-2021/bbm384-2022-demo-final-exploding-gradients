@@ -1,0 +1,34 @@
+﻿@model IEnumerable<LinkedHU_CENG.Models.Application>
+
+@{
+    ViewData["Title"] = "Index";
+    var sessionUserID = ViewData["SessionUserId"] as Int32?;
+}
+
+<div class="col-sm-6 mb-3">
+    <div class="card h-100">
+        <div class="card-body">
+            <h6 align="center" ; class="align-items-center mb-3"><b>My Applications</b></h6>
+                       @foreach(var obj in Model.OrderByDescending(a => a.ApplicationId))
+                       {
+                        @if(sessionUserID == obj.UserId)
+                        {
+                            <div class = "card">
+                                <div class="custom-margin1">
+                                    <div id="wrapperDiv">
+                                        <div id="div3" style="padding:5px;float:right;color:#ffffff"> <a href= #><i class="bi bi-chat-right-text"></i></a> 
+                                        </div>
+                                        <div id="div2" style="padding:5px;float:right;color:#ffffff"> <a href= #> <i class="bi bi-share"></i></a>
+                                        </div>
+                                    </div>
+                                    <h3>@obj.AdvertisementTitle</h3>
+                                    <h6>@obj.Company</h6>
+                                    <small class="text-muted">@obj.UserName @obj.CreatedAt</small>
+				                    <br> 
+                                </div>
+                            </div>
+                        }
+                       }
+        </div>
+    </div>
+</div>
