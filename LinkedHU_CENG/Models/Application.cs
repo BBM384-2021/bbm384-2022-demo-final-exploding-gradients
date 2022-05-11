@@ -8,10 +8,8 @@ namespace LinkedHU_CENG.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ApplicationId { get; set; }
         public int AdvertisementId { get; set; }
-        [Required]
         [Display(Name = "Title")]
         public string? AdvertisementTitle { get; set; }
-        [Required]
         [Display(Name = "Company")]
         public string? Company { get; set; }
         public int? UserId { get; set; }

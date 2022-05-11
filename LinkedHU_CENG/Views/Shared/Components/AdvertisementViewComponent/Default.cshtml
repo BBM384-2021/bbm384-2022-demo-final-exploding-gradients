@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LinkedHU_CENG.Models.Advertisement>
+﻿@model List<LinkedHU_CENG.Models.ViewModels.AdvertisementViewModel>
 
 @{
     var sessionUserID = ViewData["SessionUserId"] as Int32?;
@@ -11,20 +11,19 @@
     <table class="table table-bordered table-striped" style="width:100%">
 
 
-        @foreach (var obj in Model.OrderByDescending(a => a.AdvertisementId))
+        @foreach (var obj in Model.OrderByDescending(a => a.Advertisement.AdvertisementId))
         {
-
             <div class="card border p-3 mt-4  custom-shadow1">
                 <div class="custom-margin1">
-                    <h3>@obj.Title</h3>
-                    <h6>@obj.Company</h6>
-                    <h6>@obj.Type</h6>
-                    <h6>@obj.Location</h6>
-                    <small class="text-muted">@obj.UserName @obj.CreatedAt</small>
+                    <h3>@obj.Advertisement.Title</h3>
+                    <h6>@obj.Advertisement.Company</h6>
+                    <h6>@obj.Advertisement.Type</h6>
+                    <h6>@obj.Advertisement.Location</h6>
+                    <small class="text-muted">@obj.Advertisement.UserName @obj.Advertisement.CreatedAt</small>
                     <br> <br/>
-                    <h6>@obj.Description</h6>
+                    <h6>@obj.Advertisement.Description</h6>
 				    <br> 
-                    <center><input type="button" value="Apply" onclick="@("window.location.href='" + @Url.Action("Create", "Application",  new { id = @obj.AdvertisementId }) + "'");" /></center>
+                    <center><input type="button" value="Apply" onclick="@("window.location.href='" + @Url.Action("Create", "Application",  obj) + "'");" /></center>
                 </div>
             </div>
             <br/>

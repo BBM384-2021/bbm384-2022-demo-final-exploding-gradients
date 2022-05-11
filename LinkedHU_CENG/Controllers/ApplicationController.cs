@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LinkedHU_CENG.Models;
+using LinkedHU_CENG.Models.ViewModels;
 
 namespace LinkedHU_CENG.Controllers
 {
@@ -22,43 +23,32 @@ namespace LinkedHU_CENG.Controllers
             return View();
         }
 
-        public IActionResult Create(int id)
+        public IActionResult Create(AdvertisementViewModel viewModel)
         {
-            var advertisement = db.Advertisements.Find(id);
-            ViewData["Advertisement"] = advertisement;
-            return View();
+            viewModel.Advertisement = db.Advertisements.Find(viewModel.AdvertisementId);
+            return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult CreateApplication(int id)
+        public IActionResult CreateApplication(AdvertisementViewModel viewModel)
         {
-            var ResumeFile = HttpContext.Request.Form["ResumeFile"];
-            if (ModelState.IsValid)
+            Application application = viewModel.Application;
+            int advertisementId = viewModel.AdvertisementId;
+
+            var userId = HttpContext.Session.GetInt32("UserID");
+            application.UserId = userId;
+            var user = db.Users.Find(userId);
+            application.UserName = user.Name + " " + user.Surname;
+            application.AdvertisementId = advertisementId;
+
+            if (application.Resume != null)
             {
-                IFormFile a = ResumeFile;
-                var advertisement = db.Advertisements.Find(id);
-                Application newApplication = new Application();
-                newApplication.AdvertisementId = advertisement.AdvertisementId;
-                newApplication.Company = advertisement.Company;
-                newApplication.AdvertisementTitle = advertisement.Title;
-                newApplication.Resume = (IFormFile) ResumeFile;
-
-                string uniqueResumeFileName = UploadedResume(newApplication);
-                newApplication.ResumePath = uniqueResumeFileName;
-
-                var userId = HttpContext.Session.GetInt32("UserID");
-                newApplication.UserId = userId;
-                var user = db.Users.Find(userId);
-                newApplication.UserName = user.Name + " " + user.Surname;
-
-                db.Applications.Add(newApplication);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Advertisement");
+                string uniqueFileName = UploadedResume(application);
+                application.ResumePath = uniqueFileName;
             }
-            else
-            {
-                ModelState.AddModelError("", "Some Error Occured!");
-            }
+
+            db.Applications.Add(application);
+            db.SaveChanges();
             return RedirectToAction("Index", "Advertisement");
         }
 
@@ -66,7 +56,7 @@ namespace LinkedHU_CENG.Controllers
         {
             string uniqueFileName = null;
 
-            string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "resumes");
+            string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Resumes");
             uniqueFileName = Guid.NewGuid().ToString() + "_" + application.Resume.FileName;
             string filePath = Path.Combine(uploadsFolder, uniqueFileName);
             using (var fileStream = new FileStream(filePath, FileMode.Create))
