@@ -25,14 +25,14 @@
                     <div id="wrapperDiv">
                         <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a href=#><i class="bi bi-chat-right-text"></i></a> </div>
                         <div id="div2" style="padding:5px;float:right;color:#ffffff">
-                                <button onclick="copyText()"> <i class="bi bi-share"></i></button>
-                                <script>
-                                    function copyText() {
-                                        navigator.clipboard.writeText
-                                            ("https://localhost:7263/Post/ViewPost/" + @obj.post.PostId );
-                                    }
-                                </script>
-                            </div>
+                            <button onclick="copyText()"> <i class="bi bi-share"></i></button>
+                            <script>
+                                function copyText() {
+                                    navigator.clipboard.writeText
+                                        ("https://localhost:7263/Post/ViewPost/" + @obj.post.PostId );
+                                }
+                            </script>
+                        </div>
                         <div id="div2" style="padding:5px;float:right;color:#ffffff">
                             <div class="dropdown text-end">
                                 <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Edit</a>
@@ -49,11 +49,15 @@
                     </div>
                     @if (obj.post.UserProfilePicture == null)
                     {
-                        <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @obj.post.UserName
+                        <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                        <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId"
+               class="dropdown-item mx-2 w-75">  @obj.post.UserName</a>
                     }
                     else
                     {
-                        <img src="~/profilePictures/@obj.post.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @obj.post.UserName
+                        <img src="~/profilePictures/@obj.post.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                        <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId"
+               class="dropdown-item mx-2 w-75">  @obj.post.UserName</a>
                     }
                     @*<h5>@obj.post.UserName</h5>*@
                     <br /> <br />
@@ -81,7 +85,12 @@
                     <div>
                         @*                <partial name="~/Views/Comment/Create.cshtml" model="@obj" />*@
                         @* @Html.Partial("~/Views/Comment/Create.cshtml", model = obj)*@
-                        @await Component.InvokeAsync("CommentViewComponent", new {obj.post.PostId})
+                        @{
+                            bool takeAll = false;
+                        }
+                        @await Component.InvokeAsync("CommentViewComponent", new {obj.postId, takeAll})
+                        <a asp-controller="Post" asp-action="ViewPost" asp-route-id="@obj.postId"> Click here to see more comments.</a>
+
                     </div>
                 </div>
 

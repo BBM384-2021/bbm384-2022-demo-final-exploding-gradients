@@ -13,9 +13,17 @@ namespace LinkedHU_CENG.ViewComponents
         {
             _db = db;
         }
-        public async Task<IViewComponentResult> InvokeAsync(int postId)
+        public async Task<IViewComponentResult> InvokeAsync(int postId, bool takeAll)
         {
-            IEnumerable<Comment> mc = await _db.Comments.Where(t => t.PostId == postId).ToListAsync();
+            IEnumerable<Comment> mc;
+            if (takeAll)
+            {
+                mc = await _db.Comments.Where(t => t.PostId == postId).OrderByDescending(s => s.CreatedAt).ToListAsync();
+            }
+            else
+            {
+               mc = await _db.Comments.Where(t => t.PostId == postId).OrderByDescending(s => s.CreatedAt).Take(3).ToListAsync();
+            }
             ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
             return View(mc);
         }
