@@ -29,33 +29,33 @@
 
 
 
-                        <div class="card border p-3 mt-4  custom-shadow1">
-                            <div class="custom-margin1">
-                                <div class="text-end">
-                                    <div id="wrapperDiv">
-                                        <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a  asp-controller="Search" asp-action="ViewProfile" asp-route-id="@usr.UserId"><i class="bi bi-chat-right-text"></i>View Profile</a> </div>
-                                        <div id="div2" style="padding:5px;float:right;color:#ffffff"> <a href=#> <i class="bi bi-share"></i></a></div>
-                                        @if (sessionUserID == usr.UserId)
-                                        {
-                                            <div></div>
-                                        }
-                                    </div>
-                                </div>
+                        <div class="card border p-3 mt-4  custom-shadow1" style="width:50%; margin:auto">
+                                
+                                <div style="width:25%; height: 100px; float: left; background: green;">
                                 @if (usr.ProfilePicturePath == null)
                                 {
-                                    <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @usr.Name
+                                    <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="100%" width="100%" asp-append-version="true" />
                                 }
                                 else
                                 {
-                                    <img src="@usr.ProfilePicturePath" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @usr.Name
+                                    <img src="~/profilePictures/@usr.ProfilePicturePath" class="rounded-circle" height="100%" width="100%" asp-append-version="true" /> 
                                 }
-                                @*<h5>@obj.UserName</h5>*@
-                                <br /> <br />
-                                <small class="text-muted"> @usr.CreatedAt</small>
-                                <br /> <br />
+                                </div>
+
+                                <div style="height:100px; width:30%; margin-left:30%; background-color:#F000FF;">
+                                    <p> @usr.Name @usr.Surname</p>
+                                    <p> @usr.Title</p>
+                                    <p> @usr.Location</p>
+                                </div>
+
+                                <div id="wrapperDiv" style="height:100px; width:20%;margin-left:80%; background-color:#00F0FF;">
+                                     <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a  asp-controller="Search" asp-action="ViewProfile" asp-route-id="@usr.UserId"><i class="bi bi-chat-right-text"></i>View Profile</a> </div>
+                                     <div id="div2" style="padding:5px;float:right;color:#ffffff"> <a href=#> <i class="bi bi-share"></i></a></div>
+               
+                                </div>
+                                
                                 
                             </div>
-                        </div>
                     }
 
                 }
