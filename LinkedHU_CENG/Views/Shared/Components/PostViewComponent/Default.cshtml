@@ -69,7 +69,9 @@
                     }
                 </div>
                 <div>
-                    @Html.Partial("~/Views/Comment/Create.cshtml", obj)
+                    <partial name="~/Views/Comment/Create.cshtml" model="@obj" />
+                   @* @Html.Partial("~/Views/Comment/Create.cshtml", model = obj)*@
+                    @await Component.InvokeAsync("CommentViewComponent", new {obj.postId})
                 </div>
             </div>
 

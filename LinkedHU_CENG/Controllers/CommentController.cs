@@ -50,35 +50,15 @@ namespace LinkedHU_CENG.Controllers
             return View();
         }
 
-        // GET: CommentController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CommentController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         public ActionResult Delete(int? id)
         {
-            var post = _db.Posts.Find(id);
-            if (post == null)
+            var comment = _db.Comments.Find(id);
+            if (comment == null)
             {
                 return NotFound();
             }
-            _db.Posts.Remove(post);
+            _db.Comments.Remove(comment);
             _db.SaveChanges();
 
             return RedirectToAction("Index", "Home");
