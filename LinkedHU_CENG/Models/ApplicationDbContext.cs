@@ -10,7 +10,6 @@ namespace LinkedHU_CENG.Models
         public DbSet<Post> Posts { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Administrator> Administrators { get; set; }
-
         public DbSet<UnregisteredUser> UnregisteredUsers { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<BannedUser> BannedUsers { get; set; }
@@ -18,11 +17,7 @@ namespace LinkedHU_CENG.Models
         public DbSet<ForgetPassword> ForgetPasswords { get; set; }
         public DbSet<Advertisement> Advertisements { get; set; }
         public DbSet<Application> Applications { get; set; }
-
-        // db bağlantısı için connection stringi burda giriyoruz
-        //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //        => optionsBuilder.UseNpgsql("Server=localhost;port=5432;Database=LinkedHU_CENG;User Id=postgres;Password=burak2001");
-
-        //
+        public DbSet<MergeEmailRequest> MergeEmailRequests { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }

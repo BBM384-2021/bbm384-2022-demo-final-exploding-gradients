@@ -32,6 +32,7 @@ namespace LinkedHU_CENG.Controllers
                 announcement.UserId = userId;
                 var user = _db.Users.Find(userId);
                 announcement.UserName = user.Name + " " + user.Surname;
+                announcement.UserProfilePicture = user.ProfilePicturePath;
 
                 _db.Announcements.Add(announcement);
                 _db.SaveChanges();

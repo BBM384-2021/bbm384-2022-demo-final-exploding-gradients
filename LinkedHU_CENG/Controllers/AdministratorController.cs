@@ -268,6 +268,7 @@ namespace LinkedHU_CENG.Controllers
                 {
                     List<Post> posts = db.Posts.Where(m => m.UserId == id).ToList<Post>();
                     List<Announcement> announcements = db.Announcements.Where(m => m.UserId == id).ToList<Announcement>();
+                    List<Comment> comments = db.Comments.Where(m => m.UserId == id).ToList<Comment>();
                     foreach (var post in posts)
                     {
                         db.Posts.Remove(post);
@@ -276,6 +277,11 @@ namespace LinkedHU_CENG.Controllers
                     {
                         db.Announcements.Remove(announcement);
                     }
+                    foreach (var comment in comments)
+                    {
+                        db.Comments.Remove(comment);
+                    }
+
                     var deleteRequest = db.DeleteRequests.Find(id);
                     db.DeleteRequests.Remove(deleteRequest);
                     var deleteUser = db.Users.Find(id);
@@ -419,6 +425,108 @@ namespace LinkedHU_CENG.Controllers
                 return RedirectToAction("Index", "Administrator");
             }
         }
+
+        [HttpGet]
+        public IActionResult ExportUserDetails()
+        {
+
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                List<User> users = db.Users.ToList();
+                ViewData["Users"] = users;
+                return View();
+            }
+            return RedirectToAction("Index", "Administrator");
+
+        }
+
+        public IActionResult ExportUserDetailsASCSV()
+        {
+
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                List<User> users = db.Users.ToList();
+                string csv = string.Empty;
+                string columnsOfUsers = UserController.GetAllColumns();
+                csv += columnsOfUsers + ',';
+                csv += "\r\n";
+                foreach (User user in users)
+                {
+                    csv += user.ToString() + "\r\n";
+                    System.Diagnostics.Debug.WriteLine(user.ToString());
+                }
+
+                return File(Encoding.UTF32.GetBytes(csv.ToString()), "text/csv", "UsersDetails.csv");
+            }
+            return RedirectToAction("Index", "Administrator");
+
+        }
+
+
+
+
+        [HttpGet]
+        public IActionResult MergeEmailRequest()
+        {
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                List<MergeEmailRequest> requests = db.MergeEmailRequests.ToList();
+                ViewData["MergeEmailRequest"] = requests;
+                return View();
+            }
+            return RedirectToAction("Index", "Administrator");
+        }
+
+        public IActionResult MergeEmailRequestAccept(int id)
+        {
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    var request = db.MergeEmailRequests.Find(id);
+                    var user = db.Users.Find(id);
+                    user.SecondEmail = request.SecondEmail;
+                    db.Users.Update(user);
+                    db.MergeEmailRequests.Remove(request);
+                    db.SaveChanges();
+                    return RedirectToAction("MergeEmailRequest", "Administrator");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Administrator");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Administrator");
+            }
+        }
+
+        public IActionResult MergeEmailRequestRevert(int id)
+        {
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    var request = db.MergeEmailRequests.Find(id);
+                    db.MergeEmailRequests.Remove(request);
+                    db.SaveChanges();
+                    return RedirectToAction("MergeEmailRequest", "Administrator");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Administrator");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Administrator");
+            }
+        }
+
+
 
 
         private string Encrypt(string clearText)

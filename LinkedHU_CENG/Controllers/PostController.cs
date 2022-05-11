@@ -1,14 +1,17 @@
 ﻿using LinkedHU_CENG.Models;
 using Microsoft.AspNetCore.Mvc;
+
 namespace LinkedHU_CENG.Controllers
 {
     public class PostController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public PostController(ApplicationDbContext db)
+        public PostController(ApplicationDbContext db, IWebHostEnvironment hostEnvironment)
         {
             _db = db;
+            this.webHostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -32,7 +35,27 @@ namespace LinkedHU_CENG.Controllers
                 post.UserId = userId;
                 var user = _db.Users.Find(userId);
                 post.UserName = user.Name + " " + user.Surname;
+                post.UserProfilePicture = user.ProfilePicturePath;
 
+                if(post.PostUpload != null)
+                {
+                    string uniqueFileName = UploadedFile(post);
+                    string[] name = uniqueFileName.Split(".");
+
+                    if (name[1] == "mp4")
+                    {
+                        post.PostVideoPath = uniqueFileName;
+                    }
+                    else if (name[1] == "pdf")
+                    {
+                        post.PostPdfPath = uniqueFileName;
+                    }
+                    else
+                    {
+                        post.PostImagePath = uniqueFileName;
+                    }
+                }
+                
                 _db.Posts.Add(post);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Home");
@@ -69,6 +92,25 @@ namespace LinkedHU_CENG.Controllers
         {
             if (ModelState.IsValid)
             {
+                string uniqueFileName = UploadedFile(post);
+                if (uniqueFileName != null)
+                {
+                    string[] name = uniqueFileName.Split(".");
+
+                    if (name[1] == "mp4")
+                    {
+                        post.PostVideoPath = uniqueFileName;
+                    }
+                    else if(name[1] == "pdf")
+                    {
+                        post.PostPdfPath = uniqueFileName;
+                    }
+                    else
+                    {
+                        post.PostImagePath = uniqueFileName;
+                    }
+                }
+
                 _db.Posts.Update(post);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Home");
@@ -93,5 +135,63 @@ namespace LinkedHU_CENG.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        private string UploadedFile(Post post)
+        {
+            string uniqueFileName = null;
+
+            if (post.PostUpload != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "postUploads");
+
+
+                if (post.PostImagePath != null && System.IO.File.Exists(Path.Combine(uploadsFolder, post.PostImagePath)))
+                {
+                    System.IO.File.Delete(Path.Combine(uploadsFolder, post.PostImagePath));
+                    post.PostImagePath = null;
+                }
+
+                if (post.PostVideoPath != null && System.IO.File.Exists(Path.Combine(uploadsFolder, post.PostVideoPath)))
+                {
+                    System.IO.File.Delete(Path.Combine(uploadsFolder, post.PostVideoPath));
+                    post.PostVideoPath = null;
+                }
+
+                if (post.PostPdfPath != null && System.IO.File.Exists(Path.Combine(uploadsFolder, post.PostPdfPath)))
+                {
+                    System.IO.File.Delete(Path.Combine(uploadsFolder, post.PostPdfPath));
+                    post.PostPdfPath = null;
+                }
+
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + post.PostUpload.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    post.PostUpload.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
+
+        public IActionResult ViewPost(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var post = _db.Posts.Find(id);
+                ViewData["post"] = post;
+                ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
+                return View("ViewPost");
+
+            }
+            else
+            {
+                ModelState.AddModelError("", "Some error occured!");
+            }
+            return View();
+
+        }
+
+
+
+       
     }
 }

@@ -43,7 +43,7 @@ namespace LinkedHU_CENG.Controllers
         public IActionResult Login(User usr)
         {
             
-            var info = db.Users.FirstOrDefault(u => u.Email.Equals(usr.Email) && u.Password.Equals(Encrypt(usr.Password)));
+            var info = db.Users.FirstOrDefault(u => (u.Email.Equals(usr.Email) || u.SecondEmail.Equals(usr.Email)) && u.Password.Equals(Encrypt(usr.Password)));
             if (info != null)
             {
                 HttpContext.Session.SetInt32("UserID", info.UserId);
@@ -102,7 +102,7 @@ namespace LinkedHU_CENG.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = db.Users.Where(m => m.Email.Equals(forgetUser.Email)).FirstOrDefault();
+                User user = db.Users.Where(m => (m.Email.Equals(forgetUser.Email) || m.SecondEmail.Equals(forgetUser.Email))).FirstOrDefault();
                 if (user != null)
                 {
                     forgetUser.Name = user.Name;
@@ -143,6 +143,10 @@ namespace LinkedHU_CENG.Controllers
             return clearText;
         }
 
+        public static string GetAllColumns()
+        {
+            return "UserId,Name,Surname,Email,PhoneNum,Role,Birthdate,About Me,Location";
+        }
         private string Decrypt(string cipherText) // bu fonksiyonu nerede kullanıcaz bilmiyorum ama kaybetmemek adına buraya ekledim
         {
             string EncryptionKey = "MAKV2SPBNI99212";

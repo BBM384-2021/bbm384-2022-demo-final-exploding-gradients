@@ -3,13 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LinkedHU_CENG.Models
 {
-    public class Post
+    public class Comment
     {
-
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int PostId { get; set; }
+        public int CommentId { get; set; }
 
         public int? UserId { get; set; }
+
+        public int? PostId { get; set; }
 
         public string? UserName { get; set; }
 
@@ -22,14 +23,6 @@ namespace LinkedHU_CENG.Models
         [Display(Name = "Content")]
         public string Content { get; set; }
 
-        [Display(Name = "Post Upload (maximum size 28mb)")]
-        [NotMapped]
-        public IFormFile? PostUpload { get; set; }
 
-        public string? PostImagePath { get; set; }
-
-        public string? PostVideoPath { get; set; }
-
-        public string? PostPdfPath { get; set; }
     }
 }
