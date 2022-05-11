@@ -24,7 +24,15 @@
 
                     <div id="wrapperDiv">
                         <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a href=#><i class="bi bi-chat-right-text"></i></a> </div>
-                        <div id="div2" style="padding:5px;float:right;color:#ffffff"> <a href=#> <i class="bi bi-share"></i></a></div>
+                        <div id="div2" style="padding:5px;float:right;color:#ffffff">
+                                <button onclick="copyText()"> <i class="bi bi-share"></i></button>
+                                <script>
+                                    function copyText() {
+                                        navigator.clipboard.writeText
+                                            ("https://localhost:7263/Post/ViewPost/" + @obj.PostId );
+                                    }
+                                </script>
+                            </div>
                         <div id="div2" style="padding:5px;float:right;color:#ffffff">
                             <div class="dropdown text-end">
                                 <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Edit</a>
