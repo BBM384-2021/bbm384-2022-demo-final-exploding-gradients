@@ -144,7 +144,15 @@
 
                                             <div id="wrapperDiv">
                                                 <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a href=#><i class="bi bi-chat-right-text"></i></a> </div>
-                                                <div id="div2" style="padding:5px;float:right;color:#ffffff"> <a href=#> <i class="bi bi-share"></i></a></div>
+                                                <div id="div2" style="padding:5px;float:right;color:#ffffff">
+                                                    <button onclick="copyText()"> <i class="bi bi-share"></i></button>
+                                                    <script>
+                                                        function copyText() {
+                                                            navigator.clipboard.writeText
+                                                                ("https://localhost:7263/Post/ViewPost/" + @obj.PostId );
+                                                        }
+                                                    </script>
+                                                </div>
                                                 <div id="div2" style="padding:5px;float:right;color:#ffffff">
                                                     @if (sessionUserID == user.UserId)
                                                     {
@@ -189,6 +197,11 @@
                                             }
 
                                             <br />
+                                            @{
+                                                bool takeAll = false;
+                                            }
+                                            @await Component.InvokeAsync("CommentViewComponent", new {obj.PostId, takeAll})
+                                            <a asp-controller="Post" asp-action="ViewPost" asp-route-id="@obj.PostId"> Click here to see more comments.</a>
                                         </div>
                                     </div>
                                     <br />

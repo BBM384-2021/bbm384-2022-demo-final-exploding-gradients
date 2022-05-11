@@ -1,4 +1,5 @@
-﻿@*
+﻿@using LinkedHU_CENG.Models.ViewModels
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -14,14 +15,14 @@
                 <div id="wrapperDiv">
                     <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a href=#><i class="bi bi-chat-right-text"></i></a> </div>
                     <div id="div2" style="padding:5px;float:right;color:#ffffff">
-                                <button onclick="copyText()"> <i class="bi bi-share"></i></button>
-                                <script>
-                                    function copyText() {
-                                        navigator.clipboard.writeText
-                                            ("https://localhost:7263/Post/ViewPost/" + post.PostId );
-                                    }
-                                </script>
-                            </div>
+                        <button onclick="copyText()"> <i class="bi bi-share"></i></button>
+                        <script>
+                            function copyText() {
+                                navigator.clipboard.writeText
+                                    ("https://localhost:7263/Post/ViewPost/" + post.PostId );
+                            }
+                        </script>
+                    </div>
                     @if (sessionUserID == post.UserId)
                     {
                         <div id="div1" style="padding:5px;float:right;color:#ffffff">
@@ -43,11 +44,15 @@
             </div>
             @if (post.UserProfilePicture == null)
             {
-                <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @post.UserName
+                <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@post.UserId"
+               class="dropdown-item mx-2 w-75">  @post.UserName</a>
             }
             else
             {
-                <img src="~/profilePictures/@post.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @post.UserName
+                <img src="~/profilePictures/@post.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@post.UserId"
+               class="dropdown-item mx-2 w-75">  @post.UserName</a>
             }
             @*<h5>@post.UserName</h5>*@
             <br /> <br />
@@ -72,6 +77,17 @@
                 @*<p>See & Download <a href="~/postUploads/@post.PostPdfPath">@post.PostPdfPath</a> here!</p>*@
             }
         </div>
+        @{
+            PostCommentViewModel postCommentViewModel = new PostCommentViewModel();
+            postCommentViewModel.postId = post.PostId;
+
+        }
+        <partial name="~/Views/Comment/Create.cshtml" model=postCommentViewModel />
+        @* @Html.Partial("~/Views/Comment/Create.cshtml", model = obj)*@
+        @{
+            bool takeAll = true;
+        }
+        @await Component.InvokeAsync("CommentViewComponent", new {post.PostId, takeAll})
     </div>
     <br />
 </div>
