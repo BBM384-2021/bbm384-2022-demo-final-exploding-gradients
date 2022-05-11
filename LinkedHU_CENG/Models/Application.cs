@@ -17,7 +17,9 @@ namespace LinkedHU_CENG.Models
         public int? UserId { get; set; }
         public string? UserName { get; set; }
         public string CreatedAt { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        //public IFormFile? Resume { get; set; }
-        //public IFormFile? Certificates { get; set; }
+        [Display(Name = "Resume")]
+        [NotMapped]
+        public IFormFile? Resume { get; set; }
+        public string? ResumePath { get; set; }
     }
 }

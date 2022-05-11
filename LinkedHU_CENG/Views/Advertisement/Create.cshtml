@@ -58,6 +58,15 @@
                                                 <span asp-validation-for="Description" class="text-danger"></span>
                                             </div>
                                             <br />
+                                            <div class="form-group">
+                                                <label class="control-label">Resume</label>
+                                                @Html.EditorFor(x => x.IsResume)
+                                            </div>
+                                            <br /><div class="form-group">
+                                                <label class="control-label">Certificates</label>
+                                                @Html.EditorFor(x => x.IsCertificates)
+                                            </div>
+                                            <br />
                                             <div align="center" class="form-group" style="" width:400px; margin:0 auto;">
                                                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Share</button>
                                             </div>

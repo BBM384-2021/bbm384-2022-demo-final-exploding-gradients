@@ -6,9 +6,12 @@ namespace LinkedHU_CENG.Controllers
     public class ApplicationController : Controller
     {
         private readonly ApplicationDbContext db;
-        public ApplicationController(ApplicationDbContext db)
+        private readonly IWebHostEnvironment webHostEnvironment;
+
+        public ApplicationController(ApplicationDbContext db, IWebHostEnvironment hostEnvironment)
         {
             this.db = db;
+            this.webHostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -27,21 +30,50 @@ namespace LinkedHU_CENG.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Application application)
+        public IActionResult CreateApplication(int id)
         {
+            var ResumeFile = HttpContext.Request.Form["ResumeFile"];
             if (ModelState.IsValid)
             {
+                IFormFile a = ResumeFile;
+                var advertisement = db.Advertisements.Find(id);
+                Application newApplication = new Application();
+                newApplication.AdvertisementId = advertisement.AdvertisementId;
+                newApplication.Company = advertisement.Company;
+                newApplication.AdvertisementTitle = advertisement.Title;
+                newApplication.Resume = (IFormFile) ResumeFile;
+
+                string uniqueResumeFileName = UploadedResume(newApplication);
+                newApplication.ResumePath = uniqueResumeFileName;
+
                 var userId = HttpContext.Session.GetInt32("UserID");
-                application.UserId = userId;
-                db.Applications.Add(application);
+                newApplication.UserId = userId;
+                var user = db.Users.Find(userId);
+                newApplication.UserName = user.Name + " " + user.Surname;
+
+                db.Applications.Add(newApplication);
                 db.SaveChanges();
-                return RedirectToAction("Create", "Advertisement");
+                return RedirectToAction("Index", "Advertisement");
             }
             else
             {
                 ModelState.AddModelError("", "Some Error Occured!");
             }
-            return View(application);
+            return RedirectToAction("Index", "Advertisement");
+        }
+
+        private string UploadedResume(Application application)
+        {
+            string uniqueFileName = null;
+
+            string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "resumes");
+            uniqueFileName = Guid.NewGuid().ToString() + "_" + application.Resume.FileName;
+            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                application.Resume.CopyTo(fileStream);
+            }
+            return uniqueFileName;
         }
     }
 }
