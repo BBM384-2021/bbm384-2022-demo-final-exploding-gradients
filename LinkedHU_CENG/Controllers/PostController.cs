@@ -1,5 +1,6 @@
 ﻿using LinkedHU_CENG.Models;
 using Microsoft.AspNetCore.Mvc;
+
 namespace LinkedHU_CENG.Controllers
 {
     public class PostController : Controller
@@ -170,5 +171,27 @@ namespace LinkedHU_CENG.Controllers
             }
             return uniqueFileName;
         }
+
+        public IActionResult ViewPost(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var post = _db.Posts.Find(id);
+                ViewData["post"] = post;
+                ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
+                return View("ViewPost");
+
+            }
+            else
+            {
+                ModelState.AddModelError("", "Some error occured!");
+            }
+            return View();
+
+        }
+
+
+
+       
     }
 }

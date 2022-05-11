@@ -18,7 +18,16 @@
                     <div class="text-end">
                         <div id="wrapperDiv">
                             <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a href=#><i class="bi bi-chat-right-text"></i></a> </div>
-                            <div id="div2" style="padding:5px;float:right;color:#ffffff"> <a href=#> <i class="bi bi-share"></i></a></div>
+                            <div id="div2" style="padding:5px;float:right;color:#ffffff">
+                                <button onclick="copyText()"> <i class="bi bi-share"></i></button>
+                                <script>
+                                    function copyText() {
+                                        navigator.clipboard.writeText
+                                            ("https://localhost:7263/Post/ViewPost/" + @obj.PostId );
+                                    }
+                                </script>
+                            </div>
+
                             @if (sessionUserID == obj.UserId)
                             {
                                 <div id="div1" style="padding:5px;float:right;color:#ffffff">
@@ -64,7 +73,7 @@
                     }
                     @if (obj.PostPdfPath != null)
                     {
-                        <embed src="~/postUploads/@obj.PostPdfPath" height="500px" width="100%" class="responsive"/>
+                        <embed src="~/postUploads/@obj.PostPdfPath" height="500px" width="100%" class="responsive" />
                         <a href="~/postUploads/@obj.PostPdfPath">See & Download</a>
                         @*<p>See & Download <a href="~/postUploads/@obj.PostPdfPath">@obj.PostPdfPath</a> here!</p>*@
                     }
