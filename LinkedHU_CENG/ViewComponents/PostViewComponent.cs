@@ -27,6 +27,7 @@ namespace LinkedHU_CENG.ViewComponents
                 List<Comment> postComments = await _db.Comments.Where(s => s.PostId == post.PostId).ToListAsync();
                 viewModel.comments = postComments;
                 viewModel.post = post;
+                viewModel.postId = post.PostId;
 
                 viewModels.Add(viewModel);
             }

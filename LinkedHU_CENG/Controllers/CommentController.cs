@@ -28,7 +28,7 @@ namespace LinkedHU_CENG.Controllers
         public IActionResult Create(PostCommentViewModel viewModel)
         {
             Comment comment = viewModel.comment;
-            Post post = viewModel.post;
+            int postID = viewModel.postId;
 
             if (comment.Content != null)
             {
@@ -37,7 +37,7 @@ namespace LinkedHU_CENG.Controllers
                 var user = _db.Users.Find(userId);
                 comment.UserName = user.Name + " " + user.Surname;
                 comment.UserProfilePicture = user.ProfilePicturePath;
-                comment.PostId = post.PostId;
+                comment.PostId = postID;
 
                 _db.Comments.Add(comment);
                 _db.SaveChanges();
