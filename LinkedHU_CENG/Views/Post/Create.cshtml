@@ -1,27 +1,30 @@
 ﻿@model LinkedHU_CENG.Models.Post
 @{
     ViewData["Title"] = "Post";
+    var isUserValid = ViewData["isBanUserValid"] as int?;
 }
 
-<form asp-controller="Post" asp-action="Create" method="post" enctype="multipart/form-data">
-    <div class="border p-3 mt-4 custom-margin1 custom-shadow1">
-        <div class="mb-3 ">
-            <h3 class="text-primary">Share Post</h3>
-            <input asp-for="Content" class="form-control" />
-            <span asp-validation-for="Content" class="text-danger"></span>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="PostUpload" class="control-label"></label>
-                    <div class="custom-file">
-                        <input asp-for="PostUpload" type="file" accept=".jpeg,jpg,.png,.gif,.mp4,.pdf" />
+@if(isUserValid == 1){
+    <form asp-controller="Post" asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="border p-3 mt-4 custom-margin1 custom-shadow1">
+            <div class="mb-3 ">
+                <h3 class="text-primary">Share Post</h3>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="PostUpload" class="control-label"></label>
+                        <div class="custom-file">
+                            <input asp-for="PostUpload" type="file" accept=".jpeg,jpg,.png,.gif,.mp4,.pdf" />
+                        </div>
+                        <span asp-validation-for="PostUpload" class="text-danger"></span>
                     </div>
-                    <span asp-validation-for="PostUpload" class="text-danger"></span>
                 </div>
             </div>
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Share</button>
         </div>
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Share</button>
-    </div>
-</form>
+    </form>
+}
 
 @section scripts{
 <script type="text/javascript">
