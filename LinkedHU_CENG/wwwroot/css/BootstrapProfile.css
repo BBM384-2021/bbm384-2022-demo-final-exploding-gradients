@@ -49,13 +49,13 @@
     --bs-body-font-weight: 400;
     --bs-body-line-height: 1.5;
     --bs-body-color: #888;
-    --bs-body-bg: #fff;
+    --bs-body-bg: #f8f8f8;
 }
 
 body {
     color: #1a202c;
     text-align: left;
-    background-color: #e2e8f0;
+    background-color: #f8f8f8;
 }
 
 .main-body {
