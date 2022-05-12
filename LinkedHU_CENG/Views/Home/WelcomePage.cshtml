@@ -2,6 +2,7 @@
     ViewData["Title"] = "WelcomePage";
     Layout = "~/Views/Shared/_LayoutGuest.cshtml";
     var stateForget = ViewData["ForgetPassword"] as Int32?;
+    var stateChangePassword = ViewData["changePasswordToHome"] as Int32?;
 }
 
 
@@ -34,6 +35,14 @@
     </div>
 </div>
 
+<div id="box-success-password" class="alert alert-dismissible alert-success" style="visibility:hidden; position:fixed; top: 70px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Well done!</strong> Your password has been successfully changed. Please login again.
+</div>
 
 <div id="box-success" class="alert alert-dismissible alert-success" style="visibility:hidden; position:fixed; top: 70px;
     right: 0px;
@@ -104,6 +113,21 @@
             },50);
             setTimeout(()=>{
                 const box = document.getElementById("box-fail");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if (stateChangePassword == 1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-success-password");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-success-password");
 
                 box.style.visibility = "hidden";
             },2500);

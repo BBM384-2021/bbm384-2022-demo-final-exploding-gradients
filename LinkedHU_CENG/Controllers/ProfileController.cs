@@ -25,16 +25,8 @@ namespace LinkedHU_CENG.Controllers
                 {
                     var user = db.Users.FirstOrDefault(
                         u => u.UserId.Equals(HttpContext.Session.GetInt32("UserID")) && u.Email.Equals(HttpContext.Session.GetString("Email")));
-                    //System.Diagnostics.Debug.WriteLine(user.Name);
-                    //System.Diagnostics.Debug.WriteLine(HttpContext.Session.GetInt32("UserID"));
-
-
-
                     ViewData["User"] = user;
-
-                    //System.Diagnostics.Debug.WriteLine("hey");
-                    //System.Diagnostics.Debug.WriteLine(HttpContext.Session.GetString("UserID"));
-                    //System.Diagnostics.Debug.WriteLine(HttpContext.Session.GetString("Email"));
+                    ViewData["changePassword"] = TempData["changePassword"];
                     return View();
                 }
 
@@ -170,12 +162,13 @@ namespace LinkedHU_CENG.Controllers
                     {
                         user.Password = Encrypt(newPassword);
                         db.SaveChanges();
+                        TempData["changePassword"] = 1;
                         return RedirectToAction("Logout", "User");
                     }
                     else
                     {
-                        // WARNING GELMELİ BURAYA
-                        return View();
+                        TempData["changePassword"] = -1;
+                        return RedirectToAction("Index", "Profile");
                     }
                 }
                 else
