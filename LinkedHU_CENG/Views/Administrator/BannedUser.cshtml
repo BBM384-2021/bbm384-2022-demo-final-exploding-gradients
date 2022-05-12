@@ -2,7 +2,8 @@
     var userModel = ViewData["users"] as List<User>;
     var banModel = ViewData["bannedUsers"] as List<BannedUser>;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    ViewData["Title"] = "BanUser";
+    var stateBan = ViewData["stateBan"] as Int32?;
+    var stateUnBan = ViewData["stateUnBan"] as Int32?;
 }
 
 
@@ -114,3 +115,113 @@
         </table>
     </div>
 </div>
+
+
+
+
+
+
+<div id="box-success-ban" class="alert alert-dismissible alert-success" style="visibility:hidden; position:fixed; top: 70px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Well done!</strong> The user has been successfully banned.
+</div>
+
+<div id="box-success-unban" class="alert alert-dismissible alert-success" style="visibility:hidden; position:fixed; top: 70px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Well done!</strong> The user's ban has been successfully removed.
+</div>
+
+
+
+
+<div id="box-fail-ban" class="alert alert-dismissible alert-danger" style="visibility:hidden; position:fixed; top: 70px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Oh snap!</strong> An error occurred in the user ban request.
+</div>
+
+<div id="box-fail-unban" class="alert alert-dismissible alert-danger" style="visibility:hidden; position:fixed; top: 70px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Oh snap!</strong> There was an error requesting to unban the banned user.
+</div>
+
+
+
+@{
+    if (stateBan == 1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-success-ban");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-success-ban");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if (stateUnBan == 1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-success-unban");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-success-unban");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if (stateBan == -1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-fail-ban");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-fail-ban");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if (stateUnBan == -1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-fail-unban");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-fail-unban");
+
+                box.style.visibility = "hidden";
+            },25000);
+        </script>
+    }
+
+}
