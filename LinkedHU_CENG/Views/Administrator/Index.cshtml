@@ -13,38 +13,35 @@
     var systemVersion = ViewData["SystemVersion"];
 }
 
-
-
 <div class="col">
-    <div class="card-profile">
-        <div class="card">
-            <div class="d-flex flex-column align-items-center text-center">
-                <h1>Welcome to the system administrator</h1>
-            </div>
-        </div>
+
+
+
+    <div class="d-flex flex-column align-items-center text-center" style="margin-top:20px;">
+        <h2>Welcome to the system administrator panel</h2>
     </div>
 
-    <div class="row gutters-sm">
+    <div class="row gutters-sm" style="margin-top:20px; font-size:14px;">
         <div class="col-sm-6 mb-3">
             <div class="card h-100">
                 <div class="card-body">
-                    <h6 align="center" ; class="align-items-center mb-3">Admin Panel Statistics</h6>
+                    <h5 align="center" ; class="align-items-center mb-3">Admin Panel Statistics</h5>
                     <div class="card-aboutme col">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Number of Users Waiting for Approval : @unregisteredUser.Count </h6>
+                                Number of Users Waiting for Approval : @unregisteredUser.Count
                             </li>
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Number of Account Deletion Requests : @deleteRequests.Count </h6>
+                                Number of Account Deletion Requests : @deleteRequests.Count
                             </li>
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Number of Password Requests : @passwordRequests.Count </h6>
+                                Number of Password Requests : @passwordRequests.Count
                             </li>
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Number of Email Merge Requests : buraya merge request countu </h6>
+                                Number of Email Merge Requests : buraya merge request countu </>
                             </li>
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Number of Users Reported : @report.Count </h6>
+                                Number of Users Reported : @report.Count
                             </li>
 
                         </ul>
@@ -55,23 +52,23 @@
         <div class="col-sm-6 mb-3">
             <div class="card h-100">
                 <div class="card-body">
-                    <h6 align="center" ; class="align-items-center mb-3">Admin Panel Statistics</h6>
+                    <h5 align="center" ; class="align-items-center mb-3">System Statistics</h5>
                     <div class="card-aboutme col">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Number of Users Registered in the System : @user.Count </h6>
+                                Number of Users Registered in the System : @user.Count
                             </li>
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Number of Active Advertisements in the System : advert count sayısı </h6>
+                                Number of Active Advertisements in the System : advert count sayısı
                             </li>
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Number of Posts in the System : @posts.Count </h6>
+                                Number of Posts in the System : @posts.Count
                             </li>
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">Number of Announcements in the System : @announcements.Count </h6>
+                                Number of Announcements in the System : @announcements.Count
                             </li>
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">System Version Number : @systemVersion </h6>
+                                System Version Number : @systemVersion
                             </li>
 
                         </ul>
@@ -86,7 +83,7 @@
 
     <div class="card-profile">
         <div class="card">
-            <h6 align="center" ; class="align-items-center mb-3">Last 5 Users</h6>
+            <h5 align="center" style="margin-top:10px;" class="align-items-center mb-3">Last 5 Registered Users</h5>
             <div class="d-flex flex-column align-items-center text-center">
                 <table class="table table-bordered table-striped" style="width:100%">
                     <thead>
@@ -112,7 +109,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var obj in user.Take(5))
+                        @foreach (var obj in user.OrderByDescending(x => x.CreatedAt).Take(5))
                         {
                             <tr>
                                 <td> @obj.Name </td>

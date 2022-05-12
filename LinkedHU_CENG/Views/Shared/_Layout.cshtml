@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+        <nav class="navbar navbar-shadow navbar-expand-lg navbar-dark bg-warning">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LinkedHU_CENG</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,8 +21,8 @@
 
 
                 <ul class="navbar-nav abs-center-x">
-                    <form class="align-items-center  d-flex">
-                        <input class=" form-control me-sm-2" type="text" placeholder="Search">
+                    <form asp-controller="User" asp-action="Search" class="align-items-center  d-flex">
+                        <input class=" form-control me-sm-2" type="text" placeholder="Search" name="word" required>
                         <button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </ul>
@@ -35,7 +35,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Advertisements</a>
+                        <a class="nav-link" asp-controller="Advertisement" asp-action="Index">Advertisements</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" asp-controller="Chat" asp-action="Index">

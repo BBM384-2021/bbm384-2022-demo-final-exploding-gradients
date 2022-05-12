@@ -3,7 +3,7 @@
 *@
 @{
 }
-@model IEnumerable<LinkedHU_CENG.Models.Post>
+@model List<LinkedHU_CENG.Models.ViewModels.PostCommentViewModel>
 
 @{
     var sessionUserID = ViewData["SessionUserId"] as Int32?;
@@ -14,65 +14,89 @@
 <table class="table table-bordered table-striped" style="width:100%">
 
 
-    @foreach (var obj in Model.OrderByDescending(a => a.PostId))
+    @foreach (var obj in Model.OrderByDescending(a => a.post.PostId))
     {
 
-        @if (sessionUserID == obj.UserId)
+        @if (sessionUserID == obj.post.UserId)
         {
             <div class="card">
                 <div class="custom-margin1">
 
                     <div id="wrapperDiv">
                         <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a href=#><i class="bi bi-chat-right-text"></i></a> </div>
-                        <div id="div2" style="padding:5px;float:right;color:#ffffff"> <a href=#> <i class="bi bi-share"></i></a></div>
+                        <div id="div2" style="padding:5px;float:right;color:#ffffff">
+                            <button onclick="copyText()"> <i class="bi bi-share"></i></button>
+                            <script>
+                                function copyText() {
+                                    navigator.clipboard.writeText
+                                        ("https://localhost:7263/Post/ViewPost/" + @obj.post.PostId );
+                                }
+                            </script>
+                        </div>
                         <div id="div2" style="padding:5px;float:right;color:#ffffff">
                             <div class="dropdown text-end">
                                 <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Edit</a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a asp-controller="Post" asp-action="Update" asp-route-id="@obj.PostId"
+                                    <a asp-controller="Post" asp-action="Update" asp-route-id="@obj.post.PostId"
                                class="dropdown-item mx-2 w-75"> <i class="bi bi-pencil-square"></i> Update</a>
 
-                                    <a asp-controller="Post" asp-action="Delete" asp-route-id="@obj.PostId"
+                                    <a asp-controller="Post" asp-action="Delete" asp-route-id="@obj.post.PostId"
                                class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Delete</a>
 
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @if (obj.UserProfilePicture == null)
+                    @if (obj.post.UserProfilePicture == null)
                     {
-                        <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @obj.UserName
+                        <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                        <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId"
+               class="dropdown-item mx-2 w-75">  @obj.post.UserName</a>
                     }
                     else
                     {
-                        <img src="~/profilePictures/@obj.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @obj.UserName
+                        <img src="~/profilePictures/@obj.post.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                        <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId"
+               class="dropdown-item mx-2 w-75">  @obj.post.UserName</a>
                     }
-                    @*<h5>@obj.UserName</h5>*@
+                    @*<h5>@obj.post.UserName</h5>*@
                     <br /> <br />
-                    <small class="text-muted"> @obj.CreatedAt</small>
+                    <small class="text-muted"> @obj.post.CreatedAt</small>
                     <br /> <br />
-                    <h6>@obj.Content</h6>
-                     <br />
-                    @if (obj.PostImagePath != null)
+                    <h6>@obj.post.Content</h6>
+                    <br />
+                    @if (obj.post.PostImagePath != null)
                     {
-                        <img src="~/postUploads/@obj.PostImagePath" class="col-sm-10 center" asp-append-version="true" width="300" height=auto />
+                        <img src="~/postUploads/@obj.post.PostImagePath" class="col-sm-10 center" asp-append-version="true" width="300" height=auto />
                     }
-                    @if (obj.PostVideoPath != null)
+                    @if (obj.post.PostVideoPath != null)
                     {
                         <video width="320" height="240" controls="controls">
-                            <source src="~/postUploads/@obj.PostVideoPath" type="video/mp4">
+                            <source src="~/postUploads/@obj.post.PostVideoPath" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     }
-                    @if (obj.PostPdfPath != null)
+                    @if (obj.post.PostPdfPath != null)
                     {
-                        <embed src="~/postUploads/@obj.PostPdfPath" height="500px" width="100%" />
-                        <a href="~/postUploads/@obj.PostPdfPath">See & Download</a>
+                        <embed src="~/postUploads/@obj.post.PostPdfPath" height="500px" width="100%" />
+                        <a href="~/postUploads/@obj.post.PostPdfPath">See & Download</a>
                     }
                     <br />
+                    <div>
+                        @*                <partial name="~/Views/Comment/Create.cshtml" model="@obj" />*@
+                        @* @Html.Partial("~/Views/Comment/Create.cshtml", model = obj)*@
+                        @{
+                            bool takeAll = false;
+                        }
+                        @await Component.InvokeAsync("CommentViewComponent", new {obj.postId, takeAll})
+                        <a asp-controller="Post" asp-action="ViewPost" asp-route-id="@obj.postId"> Click here to see more comments.</a>
+
+                    </div>
                 </div>
+
             </div>
             <br />
+
 
         }
 

@@ -268,6 +268,7 @@ namespace LinkedHU_CENG.Controllers
                 {
                     List<Post> posts = db.Posts.Where(m => m.UserId == id).ToList<Post>();
                     List<Announcement> announcements = db.Announcements.Where(m => m.UserId == id).ToList<Announcement>();
+                    List<Comment> comments = db.Comments.Where(m => m.UserId == id).ToList<Comment>();
                     foreach (var post in posts)
                     {
                         db.Posts.Remove(post);
@@ -276,6 +277,11 @@ namespace LinkedHU_CENG.Controllers
                     {
                         db.Announcements.Remove(announcement);
                     }
+                    foreach (var comment in comments)
+                    {
+                        db.Comments.Remove(comment);
+                    }
+
                     var deleteRequest = db.DeleteRequests.Find(id);
                     db.DeleteRequests.Remove(deleteRequest);
                     var deleteUser = db.Users.Find(id);

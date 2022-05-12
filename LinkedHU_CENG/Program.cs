@@ -1,9 +1,11 @@
 using LinkedHU_CENG.Models;
 using Microsoft.EntityFrameworkCore;
+using LinkedHU_CENG.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSignalR();
 builder.Services.AddControllersWithViews();
 
 var connectionString = builder.Configuration.GetConnectionString("MeryemConnection");
@@ -33,10 +35,14 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.UseSession(); 
+app.UseSession();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints => { 
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+
+    
+});
 
 app.Run();

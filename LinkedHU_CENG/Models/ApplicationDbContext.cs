@@ -15,9 +15,11 @@ namespace LinkedHU_CENG.Models
         public DbSet<BannedUser> BannedUsers { get; set; }
         public DbSet<DeleteRequest> DeleteRequests { get; set; }
         public DbSet<ForgetPassword> ForgetPasswords { get; set; }
+        public DbSet<Advertisement> Advertisements { get; set; }
+        public DbSet<Application> Applications { get; set; }
         public DbSet<MergeEmailRequest> MergeEmailRequests { get; set; }
         public DbSet<Chat> Chats { get; set; }
-
+        public DbSet<Comment> Comments { get; set; }
 
     }
 }

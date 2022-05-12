@@ -1,5 +1,6 @@
 ﻿using LinkedHU_CENG.Models;
 using Microsoft.AspNetCore.Mvc;
+
 namespace LinkedHU_CENG.Controllers
 {
     public class PostController : Controller
@@ -22,7 +23,19 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("UserID") != null)
+            {
+                ViewData["isBanUserValid"] = 1;
+                BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+                if(banUser != null)
+                {
+                    ViewData["isBanUserValid"] = 0;
+                }
+                return View();
+
+            }
+            return RedirectToAction("Index", "Home");
+
         }
 
         [HttpPost]
@@ -170,5 +183,27 @@ namespace LinkedHU_CENG.Controllers
             }
             return uniqueFileName;
         }
+
+        public IActionResult ViewPost(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var post = _db.Posts.Find(id);
+                ViewData["post"] = post;
+                ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
+                return View("ViewPost");
+
+            }
+            else
+            {
+                ModelState.AddModelError("", "Some error occured!");
+            }
+            return View();
+
+        }
+
+
+
+       
     }
 }
