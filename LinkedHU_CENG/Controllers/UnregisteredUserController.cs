@@ -47,7 +47,8 @@ namespace LinkedHU_CENG.Controllers
                     usr.Password = Encrypt(usr.Password);
                     db.UnregisteredUsers.Add(usr);
                     db.SaveChanges();
-                }
+                    TempData["RegisterState"] = 1;
+                    }
                 //ELSE we need to give WARNING
                 return RedirectToAction("Login", "User");
             }
