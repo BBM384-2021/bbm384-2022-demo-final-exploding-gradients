@@ -20,6 +20,7 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetInt32("UserID") == null)
             {
+                ViewData["ForgetPassword"] = TempData["ForgetPassword"];
                 return View("WelcomePage");
             }
             else
