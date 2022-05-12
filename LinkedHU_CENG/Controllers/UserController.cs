@@ -32,6 +32,7 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetInt32("UserID") == null)
             {
+                ViewData["RegisterState"] = TempData["RegisterState"];
                 return View();
             }
             else
@@ -170,13 +171,30 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                System.Diagnostics.Debug.WriteLine(id.ToString());
                 var user = db.Users.Find(id);
                 List<Post> posts = db.Posts.OrderByDescending(x => x.CreatedAt).Where(x => x.UserId == id).ToList();
                 ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
                 ViewData["User"] = user;
                 ViewData["Posts"] = posts;
+                var followState = db.Follows.Where(x => (x.FollowerId == HttpContext.Session.GetInt32("UserID")) && (x.FollowingId == id)).ToList();
+                if (followState.Count > 0) { ViewData["IsFollow"] = 1; }
+                else { ViewData["IsFollow"] = 0; }
+                return View("Profile");
+            }
+            return RedirectToAction("Index", "Home");
+        }
 
+        public IActionResult ViewProfileToFollow()
+        {
+            if (HttpContext.Session.GetInt32("UserID") != null)
+            {
+                int id = (int)TempData["FollowingId"];
+                var user = db.Users.Find(id);
+                List<Post> posts = db.Posts.OrderByDescending(x => x.CreatedAt).Where(x => x.UserId == id).ToList();
+                ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
+                ViewData["User"] = user;
+                ViewData["Posts"] = posts;
+                ViewData["IsFollow"] = TempData["IsFollow"];
                 return View("Profile");
             }
             return RedirectToAction("Index", "Home");

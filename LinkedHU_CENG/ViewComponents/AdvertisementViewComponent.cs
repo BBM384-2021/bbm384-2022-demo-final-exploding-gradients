@@ -23,7 +23,7 @@ namespace LinkedHU_CENG.ViewComponents
             foreach (Advertisement advertisement in mc)
             {
                 AdvertisementViewModel advertisementViewModel = new AdvertisementViewModel();
-                List<Application> applications = await db.Applications.Where(a => a.AdvertisementId == advertisement.AdvertisementId).ToListAsync();
+                List<Application> applications = db.Applications.Where(a => a.AdvertisementId == advertisement.AdvertisementId).ToList();
                 advertisementViewModel.Applications = applications;
                 advertisementViewModel.Advertisement = advertisement;
                 advertisementViewModel.AdvertisementId = advertisement.AdvertisementId;

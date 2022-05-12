@@ -8,55 +8,130 @@
     <br /><br />
 
     <table class="table table-bordered table-striped" style="width:100%">
-
-
         @foreach (var obj in Model.OrderByDescending(a => a.post.PostId))
         {
             <div class="card border p-3 mt-4  custom-shadow1">
                 <div class="custom-margin1">
-                    <div class="text-end">
-                        <div id="wrapperDiv">
-                            <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a href=#><i class="bi bi-chat-right-text"></i></a> </div>
-                            <div id="div2" style="padding:5px;float:right;color:#ffffff">
-                                <button onclick="copyText()"> <i class="bi bi-share"></i></button>
-                                <script>
-                                    function copyText() {
-                                        navigator.clipboard.writeText
-                                            ("https://localhost:7263/Post/ViewPost/" + @obj.post.PostId );
-                                    }
-                                </script>
-                            </div>
 
-                           @if (sessionUserID == obj.post.UserId)
+
+                    <div class="row" style="margin:0px;">
+                        <div class="column" style="width:80%">
+                            @if (obj.post.UserProfilePicture == null)
                             {
-                                <div id="div1" style="padding:5px;float:right;color:#ffffff">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle my-2 my-sm-0" href="#" role="button" data-bs-toggle="dropdown">Edit</a>
+                                <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                                <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId"
+                           class="dropdown-item mx-2 w-75"> @obj.post.UserName</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId" class="dropdown-item mx-2 w-75" style="width:75%; padding:0px; margin:0px;">
+                                    <img src="~/profilePictures/@obj.post.UserProfilePicture" class="rounded-circle" width="50" asp-append-version="true" />
+                                    <span style="margin-left:5px; font-size:18px; text-shadow: 1px 1px black;"> @obj.post.UserName </span>
+                                </a>
+                            }
 
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a asp-controller="Post" asp-action="Update" asp-route-id="@obj.post.PostId"
+                        </div>
+                        <div class="column" style="width:20%">
+                        <div class="row">
+                            <div class="column" style="width:50%;">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle my-2 my-sm-0" href="#" role="button" data-bs-toggle="dropdown"><i class="fa-solid fa-gears"></i>Edit</a>
+
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a asp-controller="Post" asp-action="Update" asp-route-id="@obj.post.PostId"
                                        class="dropdown-item mx-2 w-75"> <i class="bi bi-pencil-square"></i> Update</a>
 
-                                            <a asp-controller="Post" asp-action="Delete" asp-route-id="@obj.post.PostId"
+                                        <a asp-controller="Post" asp-action="Delete" asp-route-id="@obj.post.PostId"
                                        class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Delete</a>
 
-                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="column" style="width:50%;">
+                                <button onclick="copyText()" style="border:none; background:none"><i class="fa-solid fa-share-nodes"></i></button>
+                                    <script>
+                                        function copyText() {
+                                            navigator.clipboard.writeText
+                                                ("https://localhost:7263/Post/ViewPost/" + @obj.post.PostId );
+                                        }
+                                    </script>
+                            </div>
+                         </div>
+                    </div>
+                     </div>
+                    @*
+                        <div class="row">
+                        <div class="column"></div>
+                        <div class="column"></div>
+                        </div>*@
+
+
+                    <div>
+                        <div>
+                            @if (obj.post.UserProfilePicture == null)
+                            {
+                                <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                                <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId"
+                           class="dropdown-item mx-2 w-75">  @obj.post.UserName</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId" class="dropdown-item mx-2 w-75" style="width:75%; padding:0px; margin:0px;">
+                                    <img src="~/profilePictures/@obj.post.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                                    <span> @obj.post.UserName </span>
+                                </a>
                             }
                         </div>
+
+                        <div class="text-end">
+                            <div id="wrapperDiv">
+                                <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a href=#><i class="bi bi-chat-right-text"></i></a> </div>
+                                <div id="div2" style="padding:5px;float:right;color:#ffffff">
+                                    <button onclick="copyText()"> <i class="bi bi-share"></i></button>
+                                    <script>
+                                        function copyText() {
+                                            navigator.clipboard.writeText
+                                                ("https://localhost:7263/Post/ViewPost/" + @obj.post.PostId );
+                                        }
+                                    </script>
+                                </div>
+
+                                @if (sessionUserID == obj.post.UserId)
+                                {
+                                    <div id="div1" style="padding:5px;float:right;color:#ffffff">
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle my-2 my-sm-0" href="#" role="button" data-bs-toggle="dropdown">Edit</a>
+
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a asp-controller="Post" asp-action="Update" asp-route-id="@obj.post.PostId"
+                                           class="dropdown-item mx-2 w-75"> <i class="bi bi-pencil-square"></i> Update</a>
+
+                                                <a asp-controller="Post" asp-action="Delete" asp-route-id="@obj.post.PostId"
+                                           class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Delete</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+
+
                     </div>
                     @if (obj.post.UserProfilePicture == null)
                     {
-                        <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" /> 
+                        <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
                         <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId"
-                                       class="dropdown-item mx-2 w-75">  @obj.post.UserName</a>
+                   class="dropdown-item mx-2 w-75">  @obj.post.UserName</a>
                     }
                     else
                     {
-                        <img src="~/profilePictures/@obj.post.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" /> 
-                        <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId"
-                                       class="dropdown-item mx-2 w-75"> @obj.post.UserName</a>
+                        <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId" class="dropdown-item mx-2 w-75" style="width:75%; padding:0px; margin:0px;">
+                            <img src="~/profilePictures/@obj.post.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                            <span> @obj.post.UserName </span>
+                        </a>
+
                     }
                     @*<h5>@obj.UserName</h5>*@
                     <br /> <br />
@@ -84,12 +159,12 @@
                 </div>
                 <div>
                     <partial name="~/Views/Comment/Create.cshtml" model="@obj" />
-                   @* @Html.Partial("~/Views/Comment/Create.cshtml", model = obj)*@
+                    @* @Html.Partial("~/Views/Comment/Create.cshtml", model = obj)*@
                     @{
                         bool takeAll = false;
                     }
                     @await Component.InvokeAsync("CommentViewComponent", new {obj.postId, takeAll})
-                     <a asp-controller="Post" asp-action="ViewPost" asp-route-id="@obj.postId"> Click here to see more comments.</a>
+                    <a asp-controller="Post" asp-action="ViewPost" asp-route-id="@obj.postId"> Click here to see more comments.</a>
                 </div>
             </div>
 
