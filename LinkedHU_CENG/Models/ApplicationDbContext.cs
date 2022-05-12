@@ -19,5 +19,7 @@ namespace LinkedHU_CENG.Models
         public DbSet<Application> Applications { get; set; }
         public DbSet<MergeEmailRequest> MergeEmailRequests { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Follow> Follows { get; set; }
+
     }
 }
