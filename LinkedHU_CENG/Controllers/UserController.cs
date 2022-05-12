@@ -33,6 +33,7 @@ namespace LinkedHU_CENG.Controllers
             if (HttpContext.Session.GetInt32("UserID") == null)
             {
                 ViewData["RegisterState"] = TempData["RegisterState"];
+                ViewData["LoginState"] = TempData["LoginState"];
                 return View();
             }
             else
@@ -44,15 +45,26 @@ namespace LinkedHU_CENG.Controllers
         
         public IActionResult Login(User usr)
         {
-            
-            var info = db.Users.FirstOrDefault(u => (u.Email.Equals(usr.Email) || u.SecondEmail.Equals(usr.Email)) && u.Password.Equals(Encrypt(usr.Password)));
-            if (info != null)
+            try
             {
-                HttpContext.Session.SetInt32("UserID", info.UserId);
-                HttpContext.Session.SetString("Email", info.Email);
-                return RedirectToAction("Index", "Home");
+                var info = db.Users.FirstOrDefault(u => (u.Email.Equals(usr.Email) || u.SecondEmail.Equals(usr.Email)) && u.Password.Equals(Encrypt(usr.Password)));
+                if (info != null)
+                {
+                    HttpContext.Session.SetInt32("UserID", info.UserId);
+                    HttpContext.Session.SetString("Email", info.Email);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["LoginState"] = 2;
+                    return RedirectToAction("Login", "User");
+                }
             }
-            return View();
+            catch
+            {
+                TempData["LoginState"] = 3;
+            }
+            return RedirectToAction("Login", "User");
         }
 
 
