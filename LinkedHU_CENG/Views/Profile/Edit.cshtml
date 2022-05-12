@@ -45,8 +45,11 @@
                                                 <input asp-for="SecondEmail" class="form-control" />
                                                 <span asp-validation-for="SecondEmail" class="text-danger"></span>
                                             </div>
-
-
+                                            <center>
+                                            <div class="form-group">
+                                            <input asp-controller="User" asp-action="ChangePassword" asp-route-id="@Model.UserId" type="submit" value="Change Password" class="btn btn-danger" margin-bottom: 50px;" />
+                                            </div>
+                                            </center>
                                         </ul>
                                     </div>
                                 </div>
