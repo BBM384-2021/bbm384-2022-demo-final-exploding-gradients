@@ -34,6 +34,8 @@ namespace LinkedHU_CENG.Controllers
                 List<ForgetPassword> passwordRequests = db.ForgetPasswords.ToList();
                 List<Post> posts = db.Posts.ToList();
                 List<Announcement> announcements = db.Announcements.ToList();
+                List<MergeEmailRequest> mergeRequest = db.MergeEmailRequests.ToList();
+                List<Advertisement> advertisements = db.Advertisements.ToList();
                 //List<MergeRequest> mergeRequests = db.MergeRequest.ToList();
                 ViewData["User"] = users;
                 ViewData["UnregisteredUser"] = unregisteredUsers;
@@ -42,6 +44,8 @@ namespace LinkedHU_CENG.Controllers
                 ViewData["PasswordRequest"] = passwordRequests;
                 ViewData["Post"] = posts;
                 ViewData["Announcement"] = announcements;
+                ViewData["MergeEmailRequest"] = mergeRequest;
+                ViewData["Advertisements"] = advertisements;
                 ViewData["SystemVersion"] = "V02052022_release_1";
                 //  ViewData["MergeReports"] = mergeRequests;
                 return View();

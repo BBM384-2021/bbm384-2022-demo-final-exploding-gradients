@@ -32,6 +32,7 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetInt32("UserID") == null)
             {
+                ViewData["RegisterState"] = TempData["RegisterState"];
                 return View();
             }
             else
@@ -170,11 +171,6 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetInt32("UserID") != null)
             {
-
-                System.Diagnostics.Debug.WriteLine("************************");
-                System.Diagnostics.Debug.WriteLine(id.ToString());
-                System.Diagnostics.Debug.WriteLine("************************");
-
                 var user = db.Users.Find(id);
                 List<Post> posts = db.Posts.OrderByDescending(x => x.CreatedAt).Where(x => x.UserId == id).ToList();
                 ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
