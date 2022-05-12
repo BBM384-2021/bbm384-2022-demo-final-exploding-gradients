@@ -4,12 +4,22 @@
     var application = ViewData["Application"] as Application;
 }
 
-<div class="col-sm-6 mb-3" style="margin-left:45px;width:auto">
+<div class="col-sm-6 mb-3" style="margin-left:45px;margin-top:150px;width:auto">
     <div class="card h-100">
         <div class="card-body">
             <h4 align="center" ; class="align-items-center mb-3"><b>Application to @application.Company - @application.AdvertisementTitle</b></h4>
                 <div class="card border p-3 mt-4  custom-shadow1">
                     <div class="custom-margin1">
+                        @if (application.UserProfilePicture == null)
+                        {
+                            <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                        }
+                        else
+                        {
+                            <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@application.UserId" class="dropdown-item mx-2 w-75" style="width:75%; padding:0px; margin:0px;">
+                            <img src="~/profilePictures/@application.UserProfilePicture" class="rounded-circle" width="50" asp-append-version="true" />
+                            </a>
+                        }
                         <h4>@application.UserName</h4> 
                         <h6>Email</h6>
                         <h5>@application.Email</h5>
@@ -17,7 +27,26 @@
                         <h5>@application.PhoneNum</h5>
                         <h6>About</h6>
                         <h5>@application.UserAbout</h5>
-                        
+                        <h6>Resume</h6>
+                        @if (application.ResumePath != null)
+                        {
+                            <a href="~/Resumes/@application.ResumePath">See & Download</a>
+                        }
+                        <h6>Certificate 1</h6>
+                        @if (application.Certificate1Path != null)
+                        {
+                            <a href="~/Certificates/@application.Certificate1Path">See & Download</a>
+                        }
+                        <h6>Certificate 2</h6>
+                        @if (application.Certificate2Path != null)
+                        {
+                            <a href="~/Certificates/@application.Certificate2Path">See & Download</a>
+                        }
+                        <h6>Certificate 3</h6>
+                        @if (application.Certificate3Path != null)
+                        {
+                            <a href="~/Certificates/@application.Certificate3Path">See & Download</a>
+                        }
                         
                      </div>
                 </div>
