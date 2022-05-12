@@ -222,7 +222,8 @@ namespace LinkedHU_CENG.Controllers
                 ViewData["bannedUsers"] = bannedUsers;
                 List<User> users = new List<User>();
                 ViewData["users"] = users;
-
+                ViewData["stateBan"] = TempData["stateBan"];
+                ViewData["stateUnBan"] = TempData["stateUnBan"];
                 return View();
             }
             return RedirectToAction("Index", "Administrator");
@@ -263,11 +264,12 @@ namespace LinkedHU_CENG.Controllers
                     user.IsBannedBefore = true;
                     db.Users.Update(user);
                     db.SaveChanges();
-
+                    TempData["stateBan"] = 1;
                     return RedirectToAction("BannedUser", "Administrator");
                 }
                 else
                 {
+                    TempData["stateBan"] = -1;
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
                 }
@@ -287,11 +289,13 @@ namespace LinkedHU_CENG.Controllers
                     var user = db.BannedUsers.Find(id);
                     db.BannedUsers.Remove(user);
                     db.SaveChanges();
+                    TempData["stateUnBan"] = 1;
 
                     return RedirectToAction("BannedUser", "Administrator");
                 }
                 else
                 {
+                    TempData["stateUnBan"] = 1;
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
                 }
