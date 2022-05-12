@@ -75,6 +75,7 @@ namespace LinkedHU_CENG.Controllers
                 //HttpContext.Session.Clear();
                 HttpContext.Session.Remove("UserID");
                 HttpContext.Session.Remove("Email");
+                TempData["changePasswordToHome"] = TempData["changePassword"];
 
                 return RedirectToAction("Index", "Home");
             }
