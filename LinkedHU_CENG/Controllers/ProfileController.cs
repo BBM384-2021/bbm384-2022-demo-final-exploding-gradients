@@ -142,10 +142,12 @@ namespace LinkedHU_CENG.Controllers
                 {
                     return NotFound();
                 }
+                string oldPassword = "";
+                string newPassword = "";
 
                 ViewData["User"] = user;
 
-                return View(user);
+                return View();
             }
 
             return RedirectToAction("Index", "Home");
@@ -153,8 +155,10 @@ namespace LinkedHU_CENG.Controllers
 
 
         [HttpPost]
-        public ActionResult ChangePasswordRequest(string oldPassword, string newPassword)
+        public ActionResult ChangePasswordRequest()
         {
+            string oldPassword = HttpContext.Request.Form["oldPassword"];
+            string newPassword = HttpContext.Request.Form["newPassword"];
             if (HttpContext.Session.GetInt32("UserID") != null)
             {
                 var user = db.Users.FirstOrDefault(u => u.UserId.Equals(HttpContext.Session.GetInt32("UserID")) && u.Email.Equals(HttpContext.Session.GetString("Email")));
