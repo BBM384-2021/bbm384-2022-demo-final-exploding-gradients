@@ -36,7 +36,15 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("UserID") == null)
+            {
+                return View("PrivacyLoggedIn");
+            }
+            else
+            {
+                return View();
+            }
+           
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
