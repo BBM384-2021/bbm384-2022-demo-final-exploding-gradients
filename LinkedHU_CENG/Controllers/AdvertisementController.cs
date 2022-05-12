@@ -42,6 +42,7 @@ namespace LinkedHU_CENG.Controllers
                     advertisement.UserId = userId;
                     var user = db.Users.Find(userId);
                     advertisement.UserName = user.Name + " " + user.Surname;
+                    advertisement.IsActive = true;
 
                     db.Advertisements.Add(advertisement);
                     db.SaveChanges();
@@ -143,7 +144,7 @@ namespace LinkedHU_CENG.Controllers
             }
         }
 
-        public ActionResult Close(int? id)
+        public ActionResult Close(int id)
         {
             if (HttpContext.Session.GetString("UserID") != null)
             {

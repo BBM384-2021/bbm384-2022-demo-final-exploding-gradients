@@ -34,7 +34,7 @@ namespace LinkedHU_CENG.Models
         public string? Description { get; set; }
         public bool? IsResume { get; set; }
         public bool? IsCertificates { get; set; }
-        public bool IsActive = true;
+        public bool IsActive { get; set; }
     }
 
     public enum Type
