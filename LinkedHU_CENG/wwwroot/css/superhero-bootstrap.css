@@ -3744,20 +3744,20 @@ fieldset:disabled .btn {
 }
 
 .dropdown-menu {
-  position: absolute;
-  z-index: 1000;
-  display: none;
-  min-width: 10rem;
-  padding: 0.5rem 0;
-  margin: 0;
-  font-size: 1rem;
-  color: #ebebeb;
-  text-align: left;
-  list-style: none;
-  background-color: #4e5d6c;
-  background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0;
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #ebebeb;
+    text-align: left;
+    list-style: none;
+    background-color: #ebebeb;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0;
 }
 
 .dropdown-menu[data-bs-popper] {
