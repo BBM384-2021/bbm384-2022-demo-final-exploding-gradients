@@ -48,12 +48,17 @@ namespace LinkedHU_CENG.Controllers
                     db.UnregisteredUsers.Add(usr);
                     db.SaveChanges();
                     TempData["RegisterState"] = 1;
-                    }
+                }
+                else
+                {
+                    TempData["RegisterState"] = 2;
+                }
                 //ELSE we need to give WARNING
                 return RedirectToAction("Login", "User");
             }
             else
             {
+                TempData["RegisterState"] = 3;
                 ModelState.AddModelError("", "Some Error Occured!");
             }
             return View();
@@ -72,7 +77,7 @@ namespace LinkedHU_CENG.Controllers
             return RedirectToAction("VerifyAccounts", "Administrator");
         }
 
-        
+
 
 
         private string Encrypt(string clearText)

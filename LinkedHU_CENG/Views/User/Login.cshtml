@@ -34,27 +34,88 @@
 
 
 
-<div id="box" class="alert alert-dismissible alert-success" style="visibility:hidden; position:fixed; 
-    top: 70px; 
+
+
+
+
+
+
+<div id="box-success" class="alert alert-dismissible alert-success" style="visibility:hidden; position:fixed; top: 70px; 
     right: 0px; 
     width: 40%;
     z-index:9999; 
     border-radius:0px">
   <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-  <strong>Well done!</strong> Successfully registered. You have to wait until the admin approves.</a>.
+  <strong>Well done!</strong> Successfully registered. You have to wait until the admin approves.
 </div>
+
+
+
+<div id="box-fail" class="alert alert-dismissible alert-danger" style="visibility:hidden; position:fixed; top: 70px; 
+    right: 0px; 
+    width: 40%;
+    z-index:9999; 
+    border-radius:0px">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <strong>Oh snap!</strong> There was a problem. You could not register.
+</div>
+
+
+
+<div id="box-sameFail" class="alert alert-dismissible alert-danger" style="visibility:hidden; position:fixed; top: 70px; 
+    right: 0px; 
+    width: 40%;
+    z-index:9999; 
+    border-radius:0px; 
+    background-color:#FFC300">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <strong>Warning!</strong> There are users registered with the same information.
+</div>
+
+
+
 
 @{
     if(stateRegister == 1)
     {
         <script>
             setTimeout(()=>{
-                const box = document.getElementById("box");
+                const box = document.getElementById("box-success");
 
                 box.style.visibility = "visible";
             },50);
             setTimeout(()=>{
-                const box = document.getElementById("box");
+                const box = document.getElementById("box-success");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if(stateRegister == 2)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-sameFail");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-sameFail");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if(stateRegister == 3)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-fail");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-fail");
 
                 box.style.visibility = "hidden";
             },2500);
