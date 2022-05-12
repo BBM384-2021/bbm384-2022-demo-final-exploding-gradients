@@ -53,6 +53,8 @@ namespace LinkedHU_CENG.Controllers
                     return NotFound();
                 }
 
+                ViewData["Date"] = DateTime.Now.AddYears(-18).ToString("yyyy-MM-dd");
+
                 return View(user);
 
             }
