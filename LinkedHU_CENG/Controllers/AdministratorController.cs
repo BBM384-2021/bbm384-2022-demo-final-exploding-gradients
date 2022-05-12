@@ -3,6 +3,7 @@ using LinkedHU_CENG.Models;
 using System.Net.Mail;
 using System.Text;
 using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinkedHU_CENG.Controllers
 {
@@ -155,6 +156,52 @@ namespace LinkedHU_CENG.Controllers
 
 
 
+
+
+        public List<User> Search(string word, string role) {
+            char[] charsToTrim = { '*', ' ', '\'' };
+            string[] wordSearch = word.Trim(charsToTrim).Split(" ");
+            string nameSurnameCommand = $"SELECT * FROM \"Users\" WHERE \"Name\" ILIKE '%{word}%'";
+            if (role == "student")
+            {
+                nameSurnameCommand = $"SELECT * FROM \"Users\" WHERE (\"Name\" ILIKE '%{word}%') and (\"Role\" = '{role}')";
+            }
+            var nameSurnameList = db.Users.FromSqlRaw(nameSurnameCommand).ToList();
+
+            string nameCommand = $"SELECT * FROM \"Users\" WHERE \"Name\" ILIKE '%{wordSearch[0]}%'";
+            if (role == "student")
+            {
+                nameCommand = $"SELECT * FROM \"Users\" WHERE (\"Name\" ILIKE '%{wordSearch[0]}%') and (\"Role\" = '{role}')";
+            }
+            var nameList = db.Users.FromSqlRaw(nameCommand).ToList();
+            var surnameList = new List<User>();
+
+            if (wordSearch.Length > 1)
+            {
+                string surnameCommand = $"SELECT * FROM \"Users\" WHERE \"Surname\" ILIKE '%{wordSearch[1]}%'";
+                if (role == "student")
+                {
+                    surnameCommand = $"SELECT * FROM \"Users\" WHERE (\"Surname\" ILIKE '%{wordSearch[1]}%') and (\"Role\" = '{role}')";
+                }
+                surnameList = db.Users.FromSqlRaw(surnameCommand).ToList();
+            }
+
+            foreach (var usrNameSurname in nameSurnameList)
+            {
+
+                nameList.Remove(usrNameSurname);
+                surnameList.Remove(usrNameSurname);
+            }
+            foreach (var usrNameSurname in nameList)
+            {
+                surnameList.Remove(usrNameSurname);
+            }
+            foreach (var usrNameSurname in nameList) { nameSurnameList.Add(usrNameSurname); }
+            foreach (var usrNameSurname in surnameList) { nameSurnameList.Add(usrNameSurname); }
+
+            return nameSurnameList;
+        }
+
         [HttpGet]
         public IActionResult BannedUser()
         {
@@ -176,11 +223,10 @@ namespace LinkedHU_CENG.Controllers
         public IActionResult BannedUserSearch()
         {
             string name = HttpContext.Request.Form["SearchName"];
-            string surname = HttpContext.Request.Form["SearchSurname"];
             if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
                 List<BannedUser> bannedUsers = db.BannedUsers.ToList();
-                List<User> users = db.Users.Where(m=> m.Name.Equals(name) && m.Surname.Equals(surname)).ToList();
+                List<User> users = Search(name, "all");
                 
                 ViewData["users"] = users;
                 ViewData["bannedUsers"] = bannedUsers;
@@ -202,8 +248,10 @@ namespace LinkedHU_CENG.Controllers
                     bannedUser.Name = user.Name;
                     bannedUser.Surname = user.Surname;
                     bannedUser.Email = user.Email;
-
                     db.BannedUsers.Add(bannedUser);
+
+                    user.IsBannedBefore = true;
+                    db.Users.Update(user);
                     db.SaveChanges();
 
                     return RedirectToAction("BannedUser", "Administrator");
@@ -243,6 +291,94 @@ namespace LinkedHU_CENG.Controllers
                 return RedirectToAction("Index", "Administrator");
             }
         }
+
+
+
+        [HttpGet]
+        public IActionResult StudentRepresentative()
+        {
+
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                List<User> representative = db.Users.Where(x=>x.Role == "studentRepresentative").ToList();
+                ViewData["studentRepresentatives"] = representative;
+                List<User> users = new List<User>();
+                ViewData["users"] = users;
+
+                return View();
+            }
+            return RedirectToAction("Index", "Administrator");
+
+        }
+
+        [HttpPost]
+        public IActionResult StudentRepresentativeSearch()
+        {
+            string name = HttpContext.Request.Form["SearchName"];
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                List<User> studentRepresentatives = db.Users.Where(x=> x.Role == "studentRepresentative").ToList();
+                List<User> students = Search(name, "student");
+                ViewData["users"] = students;
+                ViewData["studentRepresentatives"] = studentRepresentatives;
+
+                return View("StudentRepresentative");
+            }
+            return RedirectToAction("Index", "Administrator");
+        }
+        public IActionResult StudentRepresentativeAccept(int id)
+        {
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    User user = db.Users.Find(id);
+                    user.Role = "studentRepresentative";
+                    db.Users.Update(user);
+                    db.SaveChanges();
+
+                    return RedirectToAction("StudentRepresentative", "Administrator");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Administrator");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Administrator");
+            }
+        }
+
+        public IActionResult StudentRepresentativeRevert(int id)
+        {
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    User user = db.Users.Find(id);
+                    user.Role = "student";
+                    db.Users.Update(user);
+                    db.SaveChanges();
+
+                    return RedirectToAction("StudentRepresentative", "Administrator");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Administrator");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Administrator");
+            }
+        }
+
+
+
+
 
 
 
