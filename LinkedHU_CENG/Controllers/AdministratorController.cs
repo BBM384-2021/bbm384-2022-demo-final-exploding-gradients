@@ -318,7 +318,8 @@ namespace LinkedHU_CENG.Controllers
                 ViewData["studentRepresentatives"] = representative;
                 List<User> users = new List<User>();
                 ViewData["users"] = users;
-
+                ViewData["stateselect"] = TempData["stateselect"];
+                ViewData["stateUnselect"] = TempData["stateUnselect"];
                 return View();
             }
             return RedirectToAction("Index", "Administrator");
@@ -350,11 +351,12 @@ namespace LinkedHU_CENG.Controllers
                     user.Role = "studentRepresentative";
                     db.Users.Update(user);
                     db.SaveChanges();
-
+                    TempData["stateselect"] = 1;
                     return RedirectToAction("StudentRepresentative", "Administrator");
                 }
                 else
                 {
+                    TempData["stateselect"] = 1;
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
                 }
@@ -375,11 +377,13 @@ namespace LinkedHU_CENG.Controllers
                     user.Role = "student";
                     db.Users.Update(user);
                     db.SaveChanges();
+                    TempData["stateUnselect"] = 1;
 
                     return RedirectToAction("StudentRepresentative", "Administrator");
                 }
                 else
                 {
+                    TempData["stateUnselect"] = -1;
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
                 }
@@ -497,6 +501,8 @@ namespace LinkedHU_CENG.Controllers
             {
                 List<ForgetPassword> requests = db.ForgetPasswords.ToList();
                 ViewData["ForgetPassword"] = requests;
+                ViewData["stateAccept"] = TempData["stateAccept"];
+                ViewData["stateRevert"] = TempData["stateRevert"];
                 return View();
             }
             return RedirectToAction("Index", "Administrator");
@@ -511,11 +517,12 @@ namespace LinkedHU_CENG.Controllers
                     var request = db.ForgetPasswords.Where(m=>m.ID.Equals(id)).FirstOrDefault();
                     db.ForgetPasswords.Remove(request);
                     db.SaveChanges();
-
+                    TempData["stateRevert"] = 1;
                     return RedirectToAction("ForgetPassword", "Administrator");
                 }
                 else
                 {
+                    TempData["stateRevert"] = -1;
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
                 }
@@ -557,6 +564,7 @@ namespace LinkedHU_CENG.Controllers
                     }
                     catch (Exception ex)
                     {
+                        TempData["stateAccept"] = -1;
                         RedirectToAction("Index", "Administrator");
                     }
 
@@ -565,12 +573,12 @@ namespace LinkedHU_CENG.Controllers
 
                     db.ForgetPasswords.Remove(request);
                     db.SaveChanges();
-
-
+                    TempData["stateAccept"] = 1;
                     return RedirectToAction("ForgetPassword", "Administrator");
                 }
                 else
                 {
+                    TempData["stateAccept"] = -1;
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
                 }
@@ -627,6 +635,8 @@ namespace LinkedHU_CENG.Controllers
             {
                 List<MergeEmailRequest> requests = db.MergeEmailRequests.ToList();
                 ViewData["MergeEmailRequest"] = requests;
+                ViewData["stateAccept"] = TempData["stateAccept"];
+                ViewData["stateRevert"] = TempData["stateRevert"];
                 return View();
             }
             return RedirectToAction("Index", "Administrator");
@@ -644,10 +654,12 @@ namespace LinkedHU_CENG.Controllers
                     db.Users.Update(user);
                     db.MergeEmailRequests.Remove(request);
                     db.SaveChanges();
+                    TempData["stateAccept"] = 1;
                     return RedirectToAction("MergeEmailRequest", "Administrator");
                 }
                 else
                 {
+                    TempData["stateAccept"] = 1;
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
                 }
@@ -667,10 +679,12 @@ namespace LinkedHU_CENG.Controllers
                     var request = db.MergeEmailRequests.Find(id);
                     db.MergeEmailRequests.Remove(request);
                     db.SaveChanges();
+                    TempData["stateRevert"] = 1;
                     return RedirectToAction("MergeEmailRequest", "Administrator");
                 }
                 else
                 {
+                    TempData["stateRevert"] = -1;
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
                 }
