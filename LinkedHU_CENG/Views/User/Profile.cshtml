@@ -4,6 +4,7 @@
     var posts = ViewData["Posts"] as List<Post>;
     Layout = "~/Views/Shared/_Layout.cshtml";
     var sessionUserID = ViewData["SessionUserId"] as Int32?;
+    var isFollow = ViewData["IsFollow"] as Int32?;
 }
 
 
@@ -49,6 +50,22 @@
                                 {
                                     <p class="text-secondary mb-1">@user.Title</p>
                                 }
+                            </div>
+                            <div class="mt-3">
+                            @{
+                                if (sessionUserID != user.UserId)
+                                    {
+                                    if(isFollow == 1){
+                                        <a asp-controller="Follow" asp-action="UnFollowing" asp-route-id="@user.UserId"
+                                                        class="btn btn-danger mx-2"> UnFollow</a>
+                                    }
+                                    else{
+                                        <a asp-controller="Follow" asp-action="Following" asp-route-id="@user.UserId"
+                                                            class="btn btn-danger mx-2"> Follow</a>
+                                    }
+                                 
+                                }
+                            }
                             </div>
                         </div>
                     </div>
