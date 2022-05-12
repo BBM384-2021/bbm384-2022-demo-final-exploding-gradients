@@ -16,6 +16,15 @@
                 <span asp-validation-for="@Model.Application.Resume" class="text-danger"></span>
             </div>
         }
+        @if (Model.Advertisement.IsCertificates == true) {
+            <div class="form-group">
+                <label asp-for="@Model.certificate.File" class="control-label" ></label>
+                <div class="custom-file">
+                    <input asp-for="@Model.certificate.File" type="file" accept=".pdf"/>
+                </div>
+                <span asp-validation-for="@Model.certificate.File" class="text-danger"></span>
+            </div>
+        }
         <div align="center" class="form-group" style="" width:400px; margin:0 auto;">
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Submit Application</button>
         </div>

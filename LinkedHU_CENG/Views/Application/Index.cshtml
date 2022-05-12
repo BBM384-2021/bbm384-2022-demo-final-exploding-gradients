@@ -1,34 +1,30 @@
-﻿@model IEnumerable<LinkedHU_CENG.Models.Application>
+﻿@model List<LinkedHU_CENG.Models.ViewModels.AdvertisementViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    var applications = ViewData["Application"] as List<Application>;
     var sessionUserID = ViewData["SessionUserId"] as Int32?;
 }
 
+<center>
 <div class="col-sm-6 mb-3">
     <div class="card h-100">
         <div class="card-body">
-            <h6 align="center" ; class="align-items-center mb-3"><b>My Applications</b></h6>
-                       @foreach(var obj in Model.OrderByDescending(a => a.ApplicationId))
-                       {
-                        @if(sessionUserID == obj.UserId)
-                        {
-                            <div class = "card">
-                                <div class="custom-margin1">
-                                    <div id="wrapperDiv">
-                                        <div id="div3" style="padding:5px;float:right;color:#ffffff"> <a href= #><i class="bi bi-chat-right-text"></i></a> 
-                                        </div>
-                                        <div id="div2" style="padding:5px;float:right;color:#ffffff"> <a href= #> <i class="bi bi-share"></i></a>
-                                        </div>
-                                    </div>
-                                    <h3>@obj.AdvertisementTitle</h3>
-                                    <h6>@obj.Company</h6>
-                                    <small class="text-muted">@obj.UserName @obj.CreatedAt</small>
-				                    <br> 
-                                </div>
-                            </div>
-                        }
-                       }
+            <h4 align="center" ; class="align-items-center mb-3"><b>My Applications</b></h4>
+                
+                @foreach (var obj in applications.OrderByDescending(a => a.ApplicationId))
+                {
+                    <div class="card border p-3 mt-4  custom-shadow1">
+                        <div class="custom-margin1">
+                            <h5>@obj.Company</h5> 
+                            <h6>@obj.AdvertisementTitle</h6>
+                            <h6><bold>Application ID:</bold> @obj.ApplicationId <bold> - Application Date:</bold> @obj.CreatedAt</h6>
+                            <center><input type="button" value="View Application" onclick="@("window.location.href='" + @Url.Action("ViewApplication", "Application",  obj) + "'");" /></center>
+                        </div>
+                    </div>
+                    <br/>
+                }
+
         </div>
     </div>
 </div>
+</center>
