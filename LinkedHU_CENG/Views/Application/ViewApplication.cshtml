@@ -1,0 +1,27 @@
+﻿@model List<LinkedHU_CENG.Models.ViewModels.AdvertisementViewModel>
+
+@{
+    var application = ViewData["Application"] as Application;
+}
+
+<div class="col-sm-6 mb-3" style="margin-left:45px;width:auto">
+    <div class="card h-100">
+        <div class="card-body">
+            <h4 align="center" ; class="align-items-center mb-3"><b>Application to @application.Company - @application.AdvertisementTitle</b></h4>
+                <div class="card border p-3 mt-4  custom-shadow1">
+                    <div class="custom-margin1">
+                        <h4>@application.UserName</h4> 
+                        <h6>Email</h6>
+                        <h5>@application.Email</h5>
+                        <h6>Phone Number</h6>
+                        <h5>@application.PhoneNum</h5>
+                        <h6>About</h6>
+                        <h5>@application.UserAbout</h5>
+                        
+                        
+                     </div>
+                </div>
+                <br/>
+        </div>
+    </div>
+</div>

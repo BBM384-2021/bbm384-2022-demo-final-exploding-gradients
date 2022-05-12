@@ -18,8 +18,10 @@ namespace LinkedHU_CENG.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            List<Application> applications = db.Applications.ToList();
+            var userId = HttpContext.Session.GetInt32("UserID");
+            List<Application> applications = db.Applications.Where(a => a.UserId == userId).ToList();
             ViewData["Application"] = applications;
+            ViewData["SessionUserId"] = userId;
             return View();
         }
 
@@ -40,7 +42,14 @@ namespace LinkedHU_CENG.Controllers
             application.UserId = userId;
             var user = db.Users.Find(userId);
             application.UserName = user.Name + " " + user.Surname;
+            application.PhoneNum = user.PhoneNum;
+            application.UserAbout = user.About;
+            application.UserLocation = user.Location;
+            application.Email = user.Email;
             application.AdvertisementId = advertisementId;
+            viewModel.Advertisement = db.Advertisements.Find(viewModel.AdvertisementId);
+            application.AdvertisementTitle = viewModel.Advertisement.Title;
+            application.Company = viewModel.Advertisement.Company;
 
             viewModel.certificate.ApplicationId = application.ApplicationId;
             viewModel.certificate.UserId = userId;
@@ -61,6 +70,15 @@ namespace LinkedHU_CENG.Controllers
             db.Certificates.Add(viewModel.certificate);
             db.SaveChanges();
             return RedirectToAction("Index", "Advertisement");
+        }
+
+        [HttpGet]
+        public IActionResult ViewApplication(Application application)
+        {
+            var userId = HttpContext.Session.GetInt32("UserID");
+            application = db.Applications.Find(application.ApplicationId);
+            ViewData["Application"] = application;
+            return View();
         }
 
         private string UploadedResume(Application application)
