@@ -23,5 +23,18 @@ namespace LinkedHU_CENG.Models
         [NotMapped]
         public IFormFile? Resume { get; set; }
         public string? ResumePath { get; set; }
+        public string? UserProfilePicture { get; set; }
+        [Display(Name = "Certificate")]
+        [NotMapped]
+        public IFormFile? Certificate1 { get; set; }
+        public string? Certificate1Path { get; set; }
+        [Display(Name = "Certificate")]
+        [NotMapped]
+        public IFormFile? Certificate2 { get; set; }
+        public string? Certificate2Path { get; set; }
+        [Display(Name = "Certificate")]
+        [NotMapped]
+        public IFormFile? Certificate3 { get; set; }
+        public string? Certificate3Path { get; set; }
     }
 }

@@ -25,68 +25,133 @@ namespace LinkedHU_CENG.Controllers
         [HttpPost]
         public IActionResult Create(Advertisement advertisement)
         {
-            if (ModelState.IsValid)
+            if (HttpContext.Session.GetString("UserID") != null)
             {
-                var userId = HttpContext.Session.GetInt32("UserID");
-                advertisement.UserId = userId;
-                var user = db.Users.Find(userId);
-                advertisement.UserName = user.Name + " " + user.Surname;
+                if (ModelState.IsValid)
+                {
+                    var userId = HttpContext.Session.GetInt32("UserID");
+                    advertisement.UserId = userId;
+                    var user = db.Users.Find(userId);
+                    advertisement.UserName = user.Name + " " + user.Surname;
 
-                db.Advertisements.Add(advertisement);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Advertisement");
+                    db.Advertisements.Add(advertisement);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Advertisement");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some Error Occured!");
+                }
+                return View(advertisement);
             }
             else
             {
-                ModelState.AddModelError("", "Some Error Occured!");
+                return RedirectToAction("Index", "Home");
             }
-            return View(advertisement);
         }
 
         public ActionResult Update(int? id)
         {
-            if (id == null || id == 0)
+            if (HttpContext.Session.GetString("UserID") != null)
             {
-                return NotFound();
-            }
-            var advertisement = db.Advertisements.Find(id);
+                if (id == null || id == 0)
+                {
+                    return NotFound();
+                }
+                var advertisement = db.Advertisements.Find(id);
 
-            if (advertisement == null)
+                if (advertisement == null)
+                {
+                    return NotFound();
+                }
+
+                return View(advertisement);
+            }
+            else
             {
-                return NotFound();
+                return RedirectToAction("Index", "Home");
             }
-
-            return View(advertisement);
         }
 
 
         [HttpPost]
         public ActionResult Update(Advertisement advertisement)
         {
-            if (ModelState.IsValid)
+            if (HttpContext.Session.GetString("UserID") != null)
             {
-                db.Advertisements.Update(advertisement);
-                db.SaveChanges();
-                return RedirectToAction("Update", "Advertisement");
+                if (ModelState.IsValid)
+                {
+                    db.Advertisements.Update(advertisement);
+                    db.SaveChanges();
+                    return RedirectToAction("Update", "Advertisement");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some error occured!");
+                }
+                return View(advertisement);
             }
             else
             {
-                ModelState.AddModelError("", "Some error occured!");
+                return RedirectToAction("Index", "Home");
             }
-            return View(advertisement);
         }
+
 
         public ActionResult Delete(int? id)
         {
-            var advertisement = db.Advertisements.Find(id);
-            if (advertisement == null)
+            if (HttpContext.Session.GetString("UserID") != null)
             {
-                return NotFound();
-            }
-            db.Advertisements.Remove(advertisement);
-            db.SaveChanges();
+                var advertisement = db.Advertisements.Find(id);
+                if (advertisement == null)
+                {
+                    return NotFound();
+                }
+                db.Advertisements.Remove(advertisement);
+                db.SaveChanges();
 
-            return RedirectToAction("Index", "Advertisement");
+                return RedirectToAction("Index", "Advertisement");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetApplicantsDetails(Advertisement advertisement)
+        {
+
+            if (HttpContext.Session.GetString("UserID") != null)
+            {
+                List<Application> applications = db.Applications.Where(a => a.AdvertisementId == advertisement.AdvertisementId).ToList();
+                ViewData["Application"] = applications;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public ActionResult Close(int? id)
+        {
+            if (HttpContext.Session.GetString("UserID") != null)
+            {
+                var advertisement = db.Advertisements.Find(id);
+                if (advertisement == null)
+                {
+                    return NotFound();
+                }
+                advertisement.IsActive = false;
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Advertisement");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

@@ -28,7 +28,6 @@ namespace LinkedHU_CENG.Controllers
         public IActionResult Create(AdvertisementViewModel viewModel)
         {
             viewModel.Advertisement = db.Advertisements.Find(viewModel.AdvertisementId);
-            viewModel.certificate = new Certificate();
             return View(viewModel);
         }
 
@@ -50,9 +49,7 @@ namespace LinkedHU_CENG.Controllers
             viewModel.Advertisement = db.Advertisements.Find(viewModel.AdvertisementId);
             application.AdvertisementTitle = viewModel.Advertisement.Title;
             application.Company = viewModel.Advertisement.Company;
-
-            viewModel.certificate.ApplicationId = application.ApplicationId;
-            viewModel.certificate.UserId = userId;
+            application.UserProfilePicture = user.ProfilePicturePath;
 
             if (application.Resume != null)
             {
@@ -60,14 +57,25 @@ namespace LinkedHU_CENG.Controllers
                 application.ResumePath = uniqueFileName;
             }
 
-            if (viewModel.certificate.File != null)
+            if (application.Certificate1 != null)
             {
-                string uniqueFileName = UploadedCertificate(viewModel.certificate);
-                viewModel.certificate.FilePath = uniqueFileName;
+                string uniqueFileName = UploadedCertificate1(application);
+                application.Certificate1Path = uniqueFileName;
+            }
+
+            if (application.Certificate2 != null)
+            {
+                string uniqueFileName = UploadedCertificate2(application);
+                application.Certificate2Path = uniqueFileName;
+            }
+
+            if (application.Certificate3 != null)
+            {
+                string uniqueFileName = UploadedCertificate3(application);
+                application.Certificate3Path = uniqueFileName;
             }
 
             db.Applications.Add(application);
-            db.Certificates.Add(viewModel.certificate);
             db.SaveChanges();
             return RedirectToAction("Index", "Advertisement");
         }
@@ -95,16 +103,44 @@ namespace LinkedHU_CENG.Controllers
             return uniqueFileName;
         }
 
-        private string UploadedCertificate(Certificate certificate)
+        private string UploadedCertificate1(Application application)
         {
             string uniqueFileName = null;
 
             string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Certificates");
-            uniqueFileName = Guid.NewGuid().ToString() + "_" + certificate.File.FileName;
+            uniqueFileName = Guid.NewGuid().ToString() + "_" + application.Certificate1.FileName;
             string filePath = Path.Combine(uploadsFolder, uniqueFileName);
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
-                certificate.File.CopyTo(fileStream);
+                application.Certificate1.CopyTo(fileStream);
+            }
+            return uniqueFileName;
+        }
+
+        private string UploadedCertificate2(Application application)
+        {
+            string uniqueFileName = null;
+
+            string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Certificates");
+            uniqueFileName = Guid.NewGuid().ToString() + "_" + application.Certificate2.FileName;
+            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                application.Certificate2.CopyTo(fileStream);
+            }
+            return uniqueFileName;
+        }
+
+        private string UploadedCertificate3(Application application)
+        {
+            string uniqueFileName = null;
+
+            string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Certificates");
+            uniqueFileName = Guid.NewGuid().ToString() + "_" + application.Certificate3.FileName;
+            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                application.Certificate3.CopyTo(fileStream);
             }
             return uniqueFileName;
         }
