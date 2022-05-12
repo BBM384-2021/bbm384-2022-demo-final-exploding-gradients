@@ -141,6 +141,24 @@ namespace LinkedHU_CENG.Controllers
             {
                 return NotFound();
             }
+
+            string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "postUploads");
+
+            if (post.PostImagePath != null && System.IO.File.Exists(Path.Combine(uploadsFolder, post.PostImagePath)))
+            {
+                System.IO.File.Delete(Path.Combine(uploadsFolder, post.PostImagePath));
+            }
+
+            if (post.PostVideoPath != null && System.IO.File.Exists(Path.Combine(uploadsFolder, post.PostVideoPath)))
+            {
+                System.IO.File.Delete(Path.Combine(uploadsFolder, post.PostVideoPath));
+            }
+
+            if (post.PostPdfPath != null && System.IO.File.Exists(Path.Combine(uploadsFolder, post.PostPdfPath)))
+            {
+                System.IO.File.Delete(Path.Combine(uploadsFolder, post.PostPdfPath));
+            }
+
             _db.Posts.Remove(post);
             _db.SaveChanges();
 

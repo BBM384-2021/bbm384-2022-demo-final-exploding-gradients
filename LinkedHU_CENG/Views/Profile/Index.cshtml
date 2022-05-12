@@ -1,6 +1,6 @@
 ﻿@using LinkedHU_CENG.Models
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Profile";
     var user = ViewData["User"] as User;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -120,8 +120,19 @@
                         </div>
                     </div>
                 </div>
+                @if(user.Role == "academician")
+                {
+                    @*                <div>
+                    <partial name="~/Views/Resource/Create.cshtml" view-data="ViewData" />
+                    </div>*@
+                    <div class="card mb-3">
+                        <partial name="~/Views/Resource/Create.cshtml" view-data="ViewData" />
+                    </div>
+                <div>
+                    @await Component.InvokeAsync("ResourceViewComponent")
+                </div>
+                }
             </div>
-
 
             <div class="col mt-3">
                 <div class="card mb-3">
