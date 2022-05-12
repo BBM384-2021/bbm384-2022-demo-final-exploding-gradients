@@ -9,7 +9,7 @@ namespace LinkedHU_CENG.Controllers
         private readonly ApplicationDbContext _db;
         private readonly ILogger<HomeController> _logger;
          
-        public HomeController(ApplicationDbContext db, ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext db, ILogger<HomeController> logger)  
         {
             _db = db;
             _logger = logger;

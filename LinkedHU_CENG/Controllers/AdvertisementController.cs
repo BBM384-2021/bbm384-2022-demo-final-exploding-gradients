@@ -14,11 +14,20 @@ namespace LinkedHU_CENG.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewData["StateAdvertisement"] = TempData["StateAdvertisement"];
             return View();
         }
 
         public IActionResult Create()
         {
+            ViewData["isBanUserValid"] = 1;
+            BannedUser banUser = db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+            if (banUser != null)
+            {
+                ViewData["isBanUserValid"] = 0;
+                TempData["StateAdvertisement"] = 3;
+                return RedirectToAction("Index", "Advertisement");
+            }
             return View();
         }
 

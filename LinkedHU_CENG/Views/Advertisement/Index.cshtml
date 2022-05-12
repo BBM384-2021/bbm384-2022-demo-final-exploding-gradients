@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Advertisement";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var stateAdvertisement = ViewData["StateAdvertisement"] as Int32?;
 }
 
 <div class="container" style="margin-top:150px;">
@@ -26,3 +27,33 @@
         </div>
     </form>
 </div>
+
+
+
+<div id="box-ban" class="alert alert-dismissible alert-danger" style="visibility:hidden; position:fixed; top: 70px; 
+    right: 0px; 
+    width: 40%;
+    z-index:9999; 
+    border-radius:0px; 
+    background-color:#FFC300">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <strong>Warning!</strong> The page is not displayed because you have been banned.
+</div>
+
+@{
+    if(stateAdvertisement == 3)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-ban");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-ban");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+}
