@@ -28,6 +28,11 @@ namespace LinkedHU_CENG.Controllers
         {
             if (ModelState.IsValid)
             {
+                BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+                if (banUser != null)
+                {
+                   
+               
                 var userId = HttpContext.Session.GetInt32("UserID");
                 announcement.UserId = userId;
                 var user = _db.Users.Find(userId);
@@ -37,6 +42,7 @@ namespace LinkedHU_CENG.Controllers
                 _db.Announcements.Add(announcement);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Home");
+                }
             }
             else
             {

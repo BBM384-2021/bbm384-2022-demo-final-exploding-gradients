@@ -20,15 +20,22 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult Create()
         {
-            ViewData["isBanUserValid"] = 1;
-            BannedUser banUser = db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
-            if (banUser != null)
+            if (HttpContext.Session.GetString("UserID") != null)
             {
-                ViewData["isBanUserValid"] = 0;
-                TempData["StateAdvertisement"] = 3;
-                return RedirectToAction("Index", "Advertisement");
+                ViewData["isBanUserValid"] = 1;
+                BannedUser banUser = db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+                if (banUser != null)
+                {
+                    ViewData["isBanUserValid"] = 0;
+                    TempData["StateAdvertisement"] = 3;
+                    return RedirectToAction("Index", "Advertisement");
+                }
+                return View();
             }
-            return View();
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpPost]
