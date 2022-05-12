@@ -6,9 +6,11 @@ namespace LinkedHU_CENG.Hubs
     public class ChatHub : Hub
     {
 
-        public async Task SendMessage (string user, string message)
+        public Task SendMessageToUser(string senderId, string receiverId, string message)
         {
-            await Clients.All.SendAsync ("ReceiveMessage", user, message);    
+            //based on the receiver name to query the database and get the connection id
+
+            return Clients.Client("connectionId").SendAsync("ReceiveMessage", senderId, message);
         }
     }
 }

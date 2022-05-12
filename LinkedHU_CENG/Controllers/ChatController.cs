@@ -33,6 +33,19 @@ namespace LinkedHU_CENG.Controllers
 
         }
 
+        [HttpPost]
+        public IActionResult Search()
+        {
+            string name = HttpContext.Request.Form["SearchName"];
+            string surname = HttpContext.Request.Form["SearchSurname"];
+            if (HttpContext.Session.GetInt32("UserID") != null)
+            {
+                List<User> users = _db.Users.Where(m => m.Name.Equals(name) && m.Surname.Equals(surname)).ToList();
+                ViewData["users"] = users;
+                return PartialView("ShowUsers");
+            }
+            return RedirectToAction("Index", "Chat");
+        }
         public IActionResult Create()
         {
             return PartialView("_NewChat", "Chat");
