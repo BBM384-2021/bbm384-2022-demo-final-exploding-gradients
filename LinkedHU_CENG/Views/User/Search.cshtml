@@ -20,6 +20,37 @@
                 {
                     @foreach (var usr in usrList)
                     {
+                        <div class="column" style="width:80%">
+                            @if (usr.ProfilePicture == null)
+                            {
+                                <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                                <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@usr.UserId"
+                           class="dropdown-item mx-2 w-75"> @usr.Name</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@usr.UserId" class="dropdown-item mx-2 w-75" style="width:75%; padding:0px; margin:0px;">
+                                    <img src="~/profilePictures/@usr.ProfilePicture" class="rounded-circle" width="60" asp-append-version="true" />
+                                    <span style="margin-left:5px; font-size:26px; text-shadow: 1px 1px black;"> @usr.Name</span>
+
+                                </a>
+                            }
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                        
                         <div class="card border p-3 mt-4  custom-shadow1" style="width:50%; margin:auto">
                                 
