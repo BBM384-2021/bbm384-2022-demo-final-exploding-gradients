@@ -42,81 +42,92 @@ namespace LinkedHU_CENG.Controllers
 
         public ActionResult Edit()
         {
-            var user = db.Users.FirstOrDefault(u => u.UserId.Equals(HttpContext.Session.GetInt32("UserID")) && u.Email.Equals(HttpContext.Session.GetString("Email")));
-
-            if (user == null)
+            if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                return NotFound();
+                var user = db.Users.FirstOrDefault(u => u.UserId.Equals(HttpContext.Session.GetInt32("UserID")) && u.Email.Equals(HttpContext.Session.GetString("Email")));
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                return View(user);
+
             }
 
-            return View(user);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         public ActionResult Edit(User user)
         {
-
-            if (ModelState.IsValid)
+            if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                var oldUser = db.Users.AsNoTracking().Where(x => x.UserId.Equals(user.UserId)).ToList()[0];
-                int sameMail = 0;
-                if (user.SecondEmail != null)
-                {
-                    sameMail = db.Users.AsNoTracking().Where(x => (x.Email == user.SecondEmail) || (x.SecondEmail == user.SecondEmail)).ToList().Count;
-                }
 
-
-                string uniqueFileName = UploadedFile(user);
-                if(uniqueFileName != null)
+                if (ModelState.IsValid)
                 {
-                    user.ProfilePicturePath = uniqueFileName;
-                }
-
-                var posts = db.Posts.Where(x => x.UserId == user.UserId).ToList();
-                foreach(Post post in posts)
-                {
-                    post.UserProfilePicture = user.ProfilePicturePath;
-                }
-
-                var announcements = db.Announcements.Where(x => x.UserId == user.UserId).ToList();
-                foreach (Announcement announcement in announcements)
-                {
-                    announcement.UserProfilePicture = user.ProfilePicturePath;
-                }
-
-                if(user.SecondEmail != null)
-                {
-                    var oneUserMoreRequest = db.MergeEmailRequests.AsNoTracking().Where(x=> x.UserId == user.UserId).ToList();
-                    if(oneUserMoreRequest.Count > 0)
+                    var oldUser = db.Users.AsNoTracking().Where(x => x.UserId.Equals(user.UserId)).ToList()[0];
+                    int sameMail = 0;
+                    if (user.SecondEmail != null)
                     {
-                        user.SecondEmail = oldUser.SecondEmail; // burası silinmeli
-                        // mailiniz güncellenmedi daha önce request etmiş uyarısı
+                        sameMail = db.Users.AsNoTracking().Where(x => (x.Email == user.SecondEmail) || (x.SecondEmail == user.SecondEmail)).ToList().Count;
                     }
-                    else if (sameMail == 0)
+
+
+                    string uniqueFileName = UploadedFile(user);
+                    if(uniqueFileName != null)
                     {
+                        user.ProfilePicturePath = uniqueFileName;
+                    }
+
+                    var posts = db.Posts.Where(x => x.UserId == user.UserId).ToList();
+                    foreach(Post post in posts)
+                    {
+                        post.UserProfilePicture = user.ProfilePicturePath;
+                    }
+
+                    var announcements = db.Announcements.Where(x => x.UserId == user.UserId).ToList();
+                    foreach (Announcement announcement in announcements)
+                    {
+                        announcement.UserProfilePicture = user.ProfilePicturePath;
+                    }
+
+                    if(user.SecondEmail != null)
+                    {
+                        var oneUserMoreRequest = db.MergeEmailRequests.AsNoTracking().Where(x=> x.UserId == user.UserId).ToList();
+                        if(oneUserMoreRequest.Count > 0)
+                        {
+                            user.SecondEmail = oldUser.SecondEmail; // burası silinmeli
+                            // mailiniz güncellenmedi daha önce request etmiş uyarısı
+                        }
+                        else if (sameMail == 0)
+                        {
                         
-                        MergeEmailRequest newRequest = new MergeEmailRequest();
-                        newRequest.UserId = user.UserId;
-                        newRequest.Email = user.Email;
-                        newRequest.Name = user.Name;
-                        newRequest.Surname = user.Surname;
-                        newRequest.SecondEmail = user.SecondEmail;
-                        db.MergeEmailRequests.Add(newRequest);
+                            MergeEmailRequest newRequest = new MergeEmailRequest();
+                            newRequest.UserId = user.UserId;
+                            newRequest.Email = user.Email;
+                            newRequest.Name = user.Name;
+                            newRequest.Surname = user.Surname;
+                            newRequest.SecondEmail = user.SecondEmail;
+                            db.MergeEmailRequests.Add(newRequest);
+                        }
                     }
+                    user.SecondEmail = oldUser.SecondEmail;
+
+                    db.Users.Update(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Profile");
                 }
-                user.SecondEmail = oldUser.SecondEmail;
+                else
+                {
+                    ModelState.AddModelError("", "Some error occured!");
+                }
 
-                db.Users.Update(user);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Profile");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Some error occured!");
+
+                return View();
             }
 
-
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
 
