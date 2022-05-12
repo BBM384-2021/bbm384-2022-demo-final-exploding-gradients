@@ -404,7 +404,8 @@ namespace LinkedHU_CENG.Controllers
 
                 List<DeleteRequest> requests = db.DeleteRequests.ToList();
                 ViewData["DeleteRequest"] = requests;
-
+                ViewData["stateAccept"] = TempData["stateAccept"];
+                ViewData["stateRevert"] = TempData["stateRevert"];
                 return View();
             }
             return RedirectToAction("Index", "Administrator");
@@ -444,11 +445,13 @@ namespace LinkedHU_CENG.Controllers
                     }
 
                     db.SaveChanges();
+                    TempData["stateAccept"] = 1;
 
                     return RedirectToAction("DeleteUser", "Administrator");
                 }
                 else
                 {
+                    TempData["stateAccept"] = -1;
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
                 }
@@ -468,11 +471,13 @@ namespace LinkedHU_CENG.Controllers
                     var deleteRequest = db.DeleteRequests.Find(id);
                     db.DeleteRequests.Remove(deleteRequest);
                     db.SaveChanges();
+                    TempData["stateRevert"] = 1;
 
                     return RedirectToAction("DeleteUser", "Administrator");
                 }
                 else
                 {
+                    TempData["stateRevert"] = -1;
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
                 }
