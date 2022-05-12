@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Register";
+    var date = ViewData["Date"] as string;
     Layout = "~/Views/Shared/_LayoutGuest.cshtml";
 }
 
@@ -39,7 +40,7 @@
 
             <div class="form-group">
                 <label asp-for="BirthDate" class="control-label">Birthdate</label>
-                <input asp-for="BirthDate" class="form-control" />
+                <input asp-for="BirthDate" class="form-control" max="@date"/>
                 <span asp-validation-for="BirthDate" class="text-danger"></span>
             </div>
             <div class="form-group" align="center">
