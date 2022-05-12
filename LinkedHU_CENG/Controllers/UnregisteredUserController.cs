@@ -70,15 +70,33 @@ namespace LinkedHU_CENG.Controllers
 
         public ActionResult Delete(int? id)
         {
-            var post = db.UnregisteredUsers.Find(id);
-            if (post == null)
+            if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
-                return NotFound();
-            }
-            db.UnregisteredUsers.Remove(post);
-            db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    var enRegistered = db.UnregisteredUsers.Find(id);
+                    if (enRegistered == null)
+                    {
+                        return NotFound();
+                    }
+                    TempData["stateRevert"] = 1;
+                    db.UnregisteredUsers.Remove(enRegistered);
+                    db.SaveChanges();
 
-            return RedirectToAction("VerifyAccounts", "Administrator");
+                    return RedirectToAction("VerifyAccounts", "Administrator");
+                }
+                else
+                {
+                    TempData["stateRevert"] = -1;
+                    ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Administrator");
+
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Administrator");
+            }
         }
 
 
