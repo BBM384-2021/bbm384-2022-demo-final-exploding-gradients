@@ -35,8 +35,11 @@ namespace LinkedHU_CENG.Controllers
         [HttpPost]
         public IActionResult Register(UnregisteredUser usr)
         {
-            if (ModelState.IsValid)
+            try
             {
+                if (ModelState.IsValid)
+                {
+                
                 var user1 = db.Users.FirstOrDefault(u => u.Email.Equals(usr.Email));
                 var user2 = db.Users.FirstOrDefault(u => u.Email.Equals(usr.SecondEmail));
                 var user3 = db.Users.FirstOrDefault(u => u.PhoneNum.Equals(usr.PhoneNum));
@@ -56,12 +59,13 @@ namespace LinkedHU_CENG.Controllers
                 //ELSE we need to give WARNING
                 return RedirectToAction("Login", "User");
             }
-            else
+            
+            }
+            catch
             {
                 TempData["RegisterState"] = 3;
-                ModelState.AddModelError("", "Some Error Occured!");
             }
-            return View();
+            return RedirectToAction("Login", "User");
         }
 
         public ActionResult Delete(int? id)
