@@ -10,6 +10,8 @@
     var passwordRequests = ViewData["PasswordRequest"] as List<ForgetPassword>;
     var posts = ViewData["Post"] as List<Post>;
     var announcements = ViewData["Announcement"] as List<Announcement>;
+    var mergeRequest = ViewData["MergeEmailRequest"] as List<MergeEmailRequest>;
+    var advertisements = ViewData["Advertisements"] as List<Advertisement>;
     var systemVersion = ViewData["SystemVersion"];
 }
 
@@ -38,7 +40,7 @@
                                 Number of Password Requests : @passwordRequests.Count
                             </li>
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                Number of Email Merge Requests : buraya merge request countu </>
+                                Number of Email Merge Requests : @mergeRequest.Count
                             </li>
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
                                 Number of Users Reported : @report.Count
@@ -59,7 +61,7 @@
                                 Number of Users Registered in the System : @user.Count
                             </li>
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                Number of Active Advertisements in the System : advert count sayısı
+                                Number of Active Advertisements in the System : @advertisements.Count
                             </li>
                             <li class="list-group-item justify-content-between align-items-center flex-wrap">
                                 Number of Posts in the System : @posts.Count

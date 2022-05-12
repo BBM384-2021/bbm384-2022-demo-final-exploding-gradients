@@ -204,11 +204,16 @@ namespace LinkedHU_CENG.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var post = _db.Posts.Find(id);
-                    ViewData["post"] = post;
-                    ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
-                    return View("ViewPost");
-
+                ViewData["isBanUserValid"] = 1;
+                BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+                if (banUser != null)
+                {
+                    ViewData["isBanUserValid"] = 0;
+                }
+                var post = _db.Posts.Find(id);
+                ViewData["post"] = post;
+                ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
+                return View("ViewPost");
                 }
                 else
                 {

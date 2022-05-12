@@ -59,6 +59,7 @@ namespace LinkedHU_CENG.Models
         public string? ProfilePicturePath { get; set; }
 
         public string? Title { get; set; }
+        public bool IsBannedBefore { get; set; } = false;
 
 
         public override string ToString()
@@ -72,6 +73,7 @@ namespace LinkedHU_CENG.Models
     {
         Academician,
         Graduate,
-        Student
+        Student,
+        studentRepresentative
     }
 }

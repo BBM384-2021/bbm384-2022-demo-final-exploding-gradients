@@ -1,8 +1,7 @@
 ﻿@{
     var userModel = ViewData["users"] as List<User>;
-    var banModel = ViewData["bannedUsers"] as List<BannedUser>;
+    var studentRepresentatives = ViewData["studentRepresentatives"] as List<User>;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    ViewData["Title"] = "BanUser";
 }
 
 
@@ -11,7 +10,7 @@
 
     
         <div style="margin-top:30px;">
-            <form asp-controller="Administrator" asp-action="BannedUserSearch">
+            <form asp-controller="Administrator" asp-action="StudentRepresentativeSearch">
                 <label for="fname">Search:</label><br>
                 <input type="text" id="fname" name="SearchName">
                 <input style="margin-top:-15px;" type="submit" class="btn btn-info" value="Search">
@@ -41,7 +40,7 @@
                             @{
                                 bool bool_ban = true;
 
-                                foreach (var ban in banModel)
+                                foreach (var ban in studentRepresentatives)
                                 {
                                     if (ban.UserId.Equals(obj.UserId))
                                     {
@@ -54,8 +53,8 @@
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Options</a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a asp-controller="Administrator" asp-action="BannedUserAccept" asp-route-id="@obj.UserId"
-                                   class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Ban User</a>
+                                            <a asp-controller="Administrator" asp-action="StudentRepresentativeAccept" asp-route-id="@obj.UserId"
+                                   class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Select Representative</a>
                                         </div>
                                     </div>
                                 }
@@ -64,8 +63,8 @@
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Options</a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a asp-controller="Administrator" asp-action="BannedUserRevert" asp-route-id="@obj.UserId"
-                                   class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Unbanned</a>
+                                            <a asp-controller="Administrator" asp-action="StudentRepresentativeRevert" asp-route-id="@obj.UserId"
+                                   class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Cancel Representatative</a>
                                         </div>
                                     </div>
 
@@ -82,7 +81,7 @@
 
     <div class="container p-3" style="margin-top:15px;">
         <table class="table table-bordered table-striped" style="width:100%">
-            <h5> Banned Users </h5>
+            <h5> Student Representatives </h5>
             <thead>
                 <tr>
                     <th>Name</th>
@@ -91,7 +90,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var obj in banModel)
+                @foreach (var obj in studentRepresentatives)
                 {
                     <tr>
                         <td> @obj.Name </td>
@@ -102,8 +101,8 @@
                             <div class="dropdown">
                                 <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Options</a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a asp-controller="Administrator" asp-action="BannedUserRevert" asp-route-id="@obj.UserId"
-                                   class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Unbanned</a>
+                                    <a asp-controller="Administrator" asp-action="StudentRepresentativeRevert" asp-route-id="@obj.UserId"
+                                   class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Cancel Representatative</a>
                                 </div>
                             </div>
                         </td>
