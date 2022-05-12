@@ -41,7 +41,9 @@ namespace LinkedHU_CENG.Controllers
         [HttpPost]
         public IActionResult Create(Post post)
         {
-            if (ModelState.IsValid)
+            if (HttpContext.Session.GetInt32("UserID") != null)
+            {
+                if (ModelState.IsValid)
             {
                 var userId = HttpContext.Session.GetInt32("UserID");
                 post.UserId = userId;
@@ -78,60 +80,72 @@ namespace LinkedHU_CENG.Controllers
 
             }
             return View(post);
+            }
+            return RedirectToAction("Index", "Home");
 
         }
 
         // GET
         public ActionResult Update(int? id)
         {
-            if (id == null || id == 0)
+            if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                return NotFound();
-            }
-            var post = _db.Posts.Find(id);
+                if (id == null || id == 0)
+                {
+                    return NotFound();
+                }
+                var post = _db.Posts.Find(id);
 
-            if (post == null)
-            {
-                return NotFound();
-            }
+                if (post == null)
+                {
+                    return NotFound();
+                }
 
-            return View(post);
+                return View(post);
+            }
+            return View("Index", "Home");
         }
+
 
         // POST
         [HttpPost]
         public ActionResult Update(Post post)
         {
-            if (ModelState.IsValid)
+            if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                string uniqueFileName = UploadedFile(post);
-                if (uniqueFileName != null)
+
+                if (ModelState.IsValid)
                 {
-                    string[] name = uniqueFileName.Split(".");
+                    string uniqueFileName = UploadedFile(post);
+                    if (uniqueFileName != null)
+                    {
+                        string[] name = uniqueFileName.Split(".");
 
-                    if (name[1] == "mp4")
-                    {
-                        post.PostVideoPath = uniqueFileName;
+                        if (name[1] == "mp4")
+                        {
+                            post.PostVideoPath = uniqueFileName;
+                        }
+                        else if (name[1] == "pdf")
+                        {
+                            post.PostPdfPath = uniqueFileName;
+                        }
+                        else
+                        {
+                            post.PostImagePath = uniqueFileName;
+                        }
                     }
-                    else if(name[1] == "pdf")
-                    {
-                        post.PostPdfPath = uniqueFileName;
-                    }
-                    else
-                    {
-                        post.PostImagePath = uniqueFileName;
-                    }
+
+                    _db.Posts.Update(post);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
                 }
-
-                _db.Posts.Update(post);
-                _db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                else
+                {
+                    ModelState.AddModelError("", "Some error occured!");
+                }
+                return View(post);
             }
-            else
-            {
-                ModelState.AddModelError("", "Some error occured!");
-            }
-            return View(post);
+            return View("Index", "Home");
         }
 
         public ActionResult Delete(int? id)
@@ -186,24 +200,25 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult ViewPost(int id)
         {
-            if (ModelState.IsValid)
+            if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                var post = _db.Posts.Find(id);
-                ViewData["post"] = post;
-                ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
-                return View("ViewPost");
+                if (ModelState.IsValid)
+                {
+                    var post = _db.Posts.Find(id);
+                    ViewData["post"] = post;
+                    ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
+                    return View("ViewPost");
 
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some error occured!");
+                }
+                return View();
             }
-            else
-            {
-                ModelState.AddModelError("", "Some error occured!");
-            }
-            return View();
-
+            return View("Index", "Home");
         }
-
-
-
-       
+     
     }
+        
 }
