@@ -2,6 +2,8 @@
     var userModel = ViewData["users"] as List<User>;
     var studentRepresentatives = ViewData["studentRepresentatives"] as List<User>;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var stateselect = ViewData["stateselect"] as Int32?;
+    var stateUnselect = ViewData["stateUnselect"] as Int32?;
 }
 
 
@@ -114,3 +116,110 @@
         </table>
     </div>
 </div>
+
+
+
+<div id="box-success-select" class="alert alert-dismissible alert-success" style="visibility:hidden; position:fixed; top: 70px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Well done!</strong> Student Representative has been successfully selected.
+</div>
+
+<div id="box-success-unselect" class="alert alert-dismissible alert-success" style="visibility:hidden; position:fixed; top: 70px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Well done!</strong> Student Representative title has been successfully removed.
+</div>
+
+
+
+
+<div id="box-fail-select" class="alert alert-dismissible alert-danger" style="visibility:hidden; position:fixed; top: 70px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Oh snap!</strong> There was an error in student representative selection.
+</div>
+
+<div id="box-fail-unselect" class="alert alert-dismissible alert-danger" style="visibility:hidden; position:fixed; top: 70px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Oh snap!</strong> There was an error removing the student representative title.
+</div>
+
+
+
+@{
+    if (stateselect == 1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-success-select");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-success-select");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if (stateUnselect == 1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-success-unselect");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-success-unselect");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if (stateselect == -1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-fail-select");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-fail-select");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if (stateUnselect == -1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-fail-unselect");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-fail-unselect");
+
+                box.style.visibility = "hidden";
+            },25000);
+        </script>
+    }
+
+}

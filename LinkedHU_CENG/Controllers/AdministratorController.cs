@@ -318,7 +318,8 @@ namespace LinkedHU_CENG.Controllers
                 ViewData["studentRepresentatives"] = representative;
                 List<User> users = new List<User>();
                 ViewData["users"] = users;
-
+                ViewData["stateselect"] = TempData["stateselect"];
+                ViewData["stateUnselect"] = TempData["stateUnselect"];
                 return View();
             }
             return RedirectToAction("Index", "Administrator");
@@ -350,11 +351,12 @@ namespace LinkedHU_CENG.Controllers
                     user.Role = "studentRepresentative";
                     db.Users.Update(user);
                     db.SaveChanges();
-
+                    TempData["stateselect"] = 1;
                     return RedirectToAction("StudentRepresentative", "Administrator");
                 }
                 else
                 {
+                    TempData["stateselect"] = 1;
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
                 }
@@ -375,11 +377,13 @@ namespace LinkedHU_CENG.Controllers
                     user.Role = "student";
                     db.Users.Update(user);
                     db.SaveChanges();
+                    TempData["stateUnselect"] = 1;
 
                     return RedirectToAction("StudentRepresentative", "Administrator");
                 }
                 else
                 {
+                    TempData["stateUnselect"] = -1;
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
                 }
