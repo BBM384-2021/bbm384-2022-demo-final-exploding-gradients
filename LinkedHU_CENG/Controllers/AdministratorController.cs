@@ -107,6 +107,11 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetString("Admin_UserName") != null)
             {
+                List<UnregisteredUser> unregisteredUsers = db.UnregisteredUsers.ToList();
+                ViewData["UnregisteredUsers"] = unregisteredUsers;
+                ViewData["stateAccept"] = TempData["stateAccept"];
+                ViewData["stateRevert"] = TempData["stateRevert"];
+
                 return View();
             }
             return RedirectToAction("Index", "Administrator");
@@ -124,11 +129,12 @@ namespace LinkedHU_CENG.Controllers
                     db.UnregisteredUsers.Remove(unregisteredUser);
                     db.Users.Add(user);
                     db.SaveChanges();
-
+                    TempData["stateAccept"] = 1;
                     return RedirectToAction("VerifyAccounts", "Administrator");
                 }
                 else
                 {
+                    TempData["stateAccept"] = -1;
                     ModelState.AddModelError("", "Some Error Occured!");
                     return RedirectToAction("Index", "Administrator");
 
