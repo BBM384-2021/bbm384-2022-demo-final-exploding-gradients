@@ -1,0 +1,115 @@
+﻿@{
+    var userModel = ViewData["users"] as List<User>;
+    var studentRepresentatives = ViewData["studentRepresentatives"] as List<User>;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="row ">
+
+    
+        <div style="margin-top:30px;">
+            <form asp-controller="Administrator" asp-action="StudentRepresentativeSearch">
+                <label for="fname">Search:</label><br>
+                <input type="text" id="fname" name="SearchName">
+                <input style="margin-top:-15px;" type="submit" class="btn btn-info" value="Search">
+            </form>
+        </div>
+
+
+    <div class="container p-3" style="margin-top:15px;">
+        <table class="table table-bordered table-striped" style="width:100%;">
+            <h5> Search Results </h5>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in userModel)
+                {
+                    <tr>
+                        <td> @obj.Name </td>
+                        <td> @obj.Surname </td>
+                        <td> @obj.Email </td>
+
+                        <td>
+                            @{
+                                bool bool_ban = true;
+
+                                foreach (var ban in studentRepresentatives)
+                                {
+                                    if (ban.UserId.Equals(obj.UserId))
+                                    {
+                                        bool_ban = false;
+                                    }
+                                }
+
+                                if (bool_ban)
+                                {
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Options</a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a asp-controller="Administrator" asp-action="StudentRepresentativeAccept" asp-route-id="@obj.UserId"
+                                   class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Select Representative</a>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Options</a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a asp-controller="Administrator" asp-action="StudentRepresentativeRevert" asp-route-id="@obj.UserId"
+                                   class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Cancel Representatative</a>
+                                        </div>
+                                    </div>
+
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+
+    <div class="container p-3" style="margin-top:15px;">
+        <table class="table table-bordered table-striped" style="width:100%">
+            <h5> Student Representatives </h5>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in studentRepresentatives)
+                {
+                    <tr>
+                        <td> @obj.Name </td>
+                        <td> @obj.Surname </td>
+                        <td> @obj.Email </td>
+
+                        <td>
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Options</a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a asp-controller="Administrator" asp-action="StudentRepresentativeRevert" asp-route-id="@obj.UserId"
+                                   class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Cancel Representatative</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>

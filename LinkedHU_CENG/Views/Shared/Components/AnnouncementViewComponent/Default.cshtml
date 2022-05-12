@@ -34,8 +34,20 @@
                             </div>
                         }
                     </div>
-
-                    <h5>@obj.UserName</h5>
+                    @if (obj.UserProfilePicture == null)
+                    {
+                        <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" /> 
+                        <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.UserId"
+                                       class="dropdown-item mx-2 w-75">  @obj.UserName</a>
+                    }
+                    else
+                    {
+                        <img src="~/profilePictures/@obj.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" /> 
+                        <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.UserId"
+                                       class="dropdown-item mx-2 w-75">  @obj.UserName</a>
+                    }
+                    @*<h5>@obj.UserName</h5>*@
+                    <br /> <br />
                     <small class="text-muted"> @obj.CreatedAt</small>
                     <br /> <br />
                     <h6>@obj.Content</h6>

@@ -1,0 +1,26 @@
+﻿@model LinkedHU_CENG.Models.ViewModels.PostCommentViewModel
+@{
+    var isUserValid = ViewData["isBanUserValid"] as int?;
+}
+@if (isUserValid == 1)
+{
+    <form asp-controller="Comment" asp-action="Create" method="post">
+        @Html.HiddenFor(model => model.postId)
+        <div class="mb-3" style="margin-top:30px;">
+            <h5 class="text-primary">Comment</h5>
+
+            <div class="form-group">
+                <input asp-for="@Model.comment.Content" class="form-control" placeholder="Write Comment...">
+                <span asp-validation-for="@Model.comment.Content" class="text-danger"></span>
+                <button class="btn btn-outline-light" style="margin-top:5px;" type="submit">Share</button>
+            </div>
+        </div>
+    </form>
+}
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}
+

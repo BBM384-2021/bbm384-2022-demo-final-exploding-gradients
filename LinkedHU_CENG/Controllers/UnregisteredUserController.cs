@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LinkedHU_CENG.Models;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace LinkedHU_CENG.Controllers
 {
@@ -35,12 +37,28 @@ namespace LinkedHU_CENG.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.UnregisteredUsers.Add(usr);
-                db.SaveChanges();
+                var user1 = db.Users.FirstOrDefault(u => u.Email.Equals(usr.Email));
+                var user2 = db.Users.FirstOrDefault(u => u.Email.Equals(usr.SecondEmail));
+                var user3 = db.Users.FirstOrDefault(u => u.PhoneNum.Equals(usr.PhoneNum));
+
+                //if user did not register with the same email and phone number before
+                if (user1 == null && user2 == null && user3 == null)
+                {
+                    usr.Password = Encrypt(usr.Password);
+                    db.UnregisteredUsers.Add(usr);
+                    db.SaveChanges();
+                    TempData["RegisterState"] = 1;
+                }
+                else
+                {
+                    TempData["RegisterState"] = 2;
+                }
+                //ELSE we need to give WARNING
                 return RedirectToAction("Login", "User");
             }
             else
             {
+                TempData["RegisterState"] = 3;
                 ModelState.AddModelError("", "Some Error Occured!");
             }
             return View();
@@ -58,5 +76,31 @@ namespace LinkedHU_CENG.Controllers
 
             return RedirectToAction("VerifyAccounts", "Administrator");
         }
+
+
+
+
+        private string Encrypt(string clearText)
+        {
+            string EncryptionKey = "MAKV2SPBNI99212";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    clearText = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return clearText;
+        }
+
     }
 }

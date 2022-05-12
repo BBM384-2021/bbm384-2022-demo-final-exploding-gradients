@@ -12712,3 +12712,101 @@ body {
 .custom-shadow1 {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+/* This CSS includes a few ways of styling PDF files */
+
+p:not(.cssonly) a[href$=".pdf"]:before {
+    /* PDF file */
+    width: 32px;
+    height: 32px;
+    background: url('http://wwwimages.adobe.com/content/dam/acom/en/legal/images/badges/Adobe_PDF_file_icon_32x32.png');
+    display: inline-block;
+    content: '  ';
+}
+
+
+/* If file size specified as data attribute, use that too */
+a[href$=".pdf"][data-size]:after {
+    content: " (PDF, " attr(data-size) ")";
+}
+
+html {
+    font-size: 1em;
+    line-height: 1.75;
+    font-weight: 200;
+    -webkit-font-smoothing: antialiased;
+    color: #585451;
+    font-family: sans-serif;
+}
+/* p {  background-color: gray; } */
+
+.cssonly a[href$=".pdf"]:after {
+    /* PDF file */
+    width: 16px;
+    vertical-align: middle;
+    margin: 4px 0 2px 4px;
+    padding: 4px 0 1px 0px;
+    background-color: #fff;
+    color: red;
+    border: 1px solid red;
+    border-top-right-radius: 7px;
+    box-shadow: 1px 1px #ccc;
+    font-size: 7.7px;
+    font-weight: 700;
+    font-family: sans-serif;
+    line-height: 16px;
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: content-box;
+    content: 'PDF';
+}
+
+.cssonly a[href$=".doc"]:after,
+.cssonly a[href$=".docx"]:after {
+    width: 16px;
+    vertical-align: middle;
+    margin: 4px 0 2px 4px;
+    padding: 4px 0 1px 0px;
+    background-color: #fff;
+    color: #00d;
+    border: 1px solid #00d;
+    border-top-right-radius: 7px;
+    box-shadow: 1px 1px #ccc;
+    font-size: 7.7px;
+    font-weight: 700;
+    font-family: sans-serif;
+    line-height: 16px;
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: content-box;
+    content: 'DOC';
+}
+
+.cssonly a[href$=".xls"]:after,
+.cssonly a[href$=".xlsx"]:after {
+    width: 16px;
+    vertical-align: middle;
+    margin: 4px 0 2px 4px;
+    padding: 4px 0 1px 0px;
+    background-color: #fff;
+    color: #090;
+    border: 1px solid #090;
+    border-top-right-radius: 7px;
+    box-shadow: 1px 1px #ccc;
+    font-size: 8px;
+    font-weight: 700;
+    font-family: tahoma, arial, sans-serif;
+    letter-spacing: 0.001em;
+    line-height: 16px;
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: content-box;
+    content: 'XLS';
+}

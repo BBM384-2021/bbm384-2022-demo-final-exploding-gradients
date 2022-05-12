@@ -1,0 +1,90 @@
+﻿@using LinkedHU_CENG.Models.ViewModels
+
+@{
+    var post = ViewData["post"] as Post;
+    var sessionUserID = ViewData["SessionUserId"] as Int32?;
+    var isUserValid = ViewData["isBanUserValid"] as int?;
+}
+
+<div class="container p-3">
+
+    <div class="card border p-3 mt-4  custom-shadow1">
+        <div class="custom-margin1">
+            <div class="text-end">
+                <div id="wrapperDiv">
+                    <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a href=#><i class="bi bi-chat-right-text"></i></a> </div>
+                    <div id="div2" style="padding:5px;float:right;color:#ffffff">
+                        <button onclick="copyText()"> <i class="bi bi-share"></i></button>
+                        <script>
+                            function copyText() {
+                                navigator.clipboard.writeText
+                                    ("https://localhost:7263/Post/ViewPost/" + post.PostId );
+                            }
+                        </script>
+                    </div>
+                    @if (sessionUserID == post.UserId)
+                    {
+                        <div id="div1" style="padding:5px;float:right;color:#ffffff">
+                            <div class="dropdown">
+                                <a class="dropdown-toggle my-2 my-sm-0" href="#" role="button" data-bs-toggle="dropdown">Edit</a>
+
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a asp-controller="Post" asp-action="Update" asp-route-id="@post.PostId"
+                                   class="dropdown-item mx-2 w-75"> <i class="bi bi-pencil-square"></i> Update</a>
+
+                                    <a asp-controller="Post" asp-action="Delete" asp-route-id="@post.PostId"
+                                   class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Delete</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            @if (post.UserProfilePicture == null)
+            {
+                <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@post.UserId"
+               class="dropdown-item mx-2 w-75">  @post.UserName</a>
+            }
+            else
+            {
+                <img src="~/profilePictures/@post.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@post.UserId"
+               class="dropdown-item mx-2 w-75">  @post.UserName</a>
+            }
+            @*<h5>@post.UserName</h5>*@
+            <br /> <br />
+            <small class="text-muted"> @post.CreatedAt</small>
+            <br /> <br />
+            <h6>@post.Content</h6>
+            @if (post.PostImagePath != null)
+            {
+                <img src="~/postUploads/@post.PostImagePath" class="col-sm-10 center" asp-append-version="true" width="300" height=auto />
+            }
+            @if (post.PostVideoPath != null)
+            {
+                <video width="320" height="240" class="center" controls="controls">
+                    <source src="~/postUploads/@post.PostVideoPath" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            }
+            @if (post.PostPdfPath != null)
+            {
+                <embed src="~/postUploads/@post.PostPdfPath" height="500px" width="100%" class="responsive" />
+                <a href="~/postUploads/@post.PostPdfPath">See & Download</a>
+            }
+        </div>
+        @{
+            PostCommentViewModel postCommentViewModel = new PostCommentViewModel();
+            postCommentViewModel.postId = post.PostId;
+
+        }
+        @if (isUserValid == 1){<partial name="~/Views/Comment/Create.cshtml" model=postCommentViewModel/>}
+        @{
+            bool takeAll = true;
+        }
+        @await Component.InvokeAsync("CommentViewComponent", new {post.PostId, takeAll})
+    </div>
+    <br />
+</div>

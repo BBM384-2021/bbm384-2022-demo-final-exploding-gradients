@@ -1,6 +1,6 @@
 ﻿@using LinkedHU_CENG.Models
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Profile";
     var user = ViewData["User"] as User;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -30,11 +30,11 @@
                         <div class="d-flex flex-column align-items-center text-center">
                             @if (user.ProfilePicturePath == null)
                             {
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                                <img src="~/profilePictures/default.png" alt="Admin" class="rounded-circle" width="150">
                             }
                             else
                             {
-                                <img src="~/images/@user.ProfilePicturePath" alt="Admin" class="rounded-circle" width="150">
+                                <img src="~/profilePictures/@user.ProfilePicturePath" alt="Admin" class="rounded-circle" height="150" width="150">
                             }
                             @*<img src="~/images/@user.ProfilePicturePath"  class="rounded-circle"height="40" width="40" asp-append-version="true" />  *@
                             <div class="mt-3">
@@ -120,14 +120,24 @@
                         </div>
                     </div>
                 </div>
+                @if(user.Role == "academician")
+                {
+                    @*                <div>
+                    <partial name="~/Views/Resource/Create.cshtml" view-data="ViewData" />
+                    </div>*@
+                    <div class="card mb-3">
+                        <partial name="~/Views/Resource/Create.cshtml" view-data="ViewData" />
+                    </div>
+                <div>
+                    @await Component.InvokeAsync("ResourceViewComponent")
+                </div>
+                }
             </div>
-
 
             <div class="col mt-3">
                 <div class="card mb-3">
                     <div class="card-body">
                         <div style="display:block; width:100%;">
-
                             @await Component.InvokeAsync("OwnedPostViewComponent")
                         </div>
                     </div>

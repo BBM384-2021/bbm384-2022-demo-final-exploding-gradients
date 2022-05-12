@@ -4,23 +4,32 @@ using System.Diagnostics;
 
 namespace LinkedHU_CENG.Controllers
 {
-    public class HomeController : Controller
-    {
+    public class HomeController : Controller  
+    { 
+        private readonly ApplicationDbContext _db;
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+         
+        public HomeController(ApplicationDbContext db, ILogger<HomeController> logger)  
         {
+            _db = db;
             _logger = logger;
         }
 
         public IActionResult Index()
+
         {
-            if (HttpContext.Session.GetString("UserID") == null)
+            if (HttpContext.Session.GetInt32("UserID") == null)
             {
                 return View("WelcomePage");
             }
             else
             {
+                ViewData["isBanUserValid"] = 1;
+                BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+                if (banUser != null)
+                {
+                    ViewData["isBanUserValid"] = 0;
+                }
                 return View("LoggedIn"); ;
             }
         }
