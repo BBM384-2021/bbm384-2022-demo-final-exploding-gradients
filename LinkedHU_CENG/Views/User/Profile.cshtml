@@ -4,6 +4,7 @@
     var posts = ViewData["Posts"] as List<Post>;
     Layout = "~/Views/Shared/_Layout.cshtml";
     var sessionUserID = ViewData["SessionUserId"] as Int32?;
+    var isFollow = ViewData["IsFollow"] as Int32?;
 }
 
 
@@ -15,15 +16,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - LinkedHU_CENG</title>
-    <link rel="stylesheet" href="~/css/BootstrapProfile.css" />
+    <link rel="stylesheet" href="~/css/superhero-bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PostgreSQL.styles.css" asp-append-version="true" />
 </head>
 
 
 
-<div class="container">
-    <div class="main-body">
+<div class="container"  style="margin-top: 64px;">
+    <div class="main-body"  style="margin-top: 64px;">
         <div class="row ">
 
             <div class="col">
@@ -49,6 +50,22 @@
                                 {
                                     <p class="text-secondary mb-1">@user.Title</p>
                                 }
+                            </div>
+                            <div class="mt-3">
+                            @{
+                                if (sessionUserID != user.UserId)
+                                    {
+                                    if(isFollow == 1){
+                                        <a asp-controller="Follow" asp-action="UnFollowing" asp-route-id="@user.UserId"
+                                                        class="btn btn-danger mx-2"> UnFollow</a>
+                                    }
+                                    else{
+                                        <a asp-controller="Follow" asp-action="Following" asp-route-id="@user.UserId"
+                                                            class="btn btn-danger mx-2"> Follow</a>
+                                    }
+                                 
+                                }
+                            }
                             </div>
                         </div>
                     </div>
@@ -144,7 +161,15 @@
 
                                             <div id="wrapperDiv">
                                                 <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a href=#><i class="bi bi-chat-right-text"></i></a> </div>
-                                                <div id="div2" style="padding:5px;float:right;color:#ffffff"> <a href=#> <i class="bi bi-share"></i></a></div>
+                                                <div id="div2" style="padding:5px;float:right;color:#ffffff">
+                                                    <button onclick="copyText()"> <i class="bi bi-share"></i></button>
+                                                    <script>
+                                                        function copyText() {
+                                                            navigator.clipboard.writeText
+                                                                ("https://localhost:7263/Post/ViewPost/" + @obj.PostId );
+                                                        }
+                                                    </script>
+                                                </div>
                                                 <div id="div2" style="padding:5px;float:right;color:#ffffff">
                                                     @if (sessionUserID == user.UserId)
                                                     {
@@ -189,6 +214,11 @@
                                             }
 
                                             <br />
+                                            @{
+                                                bool takeAll = false;
+                                            }
+                                            @await Component.InvokeAsync("CommentViewComponent", new {obj.PostId, takeAll})
+                                            <a asp-controller="Post" asp-action="ViewPost" asp-route-id="@obj.PostId"> Click here to see more comments.</a>
                                         </div>
                                     </div>
                                     <br />
