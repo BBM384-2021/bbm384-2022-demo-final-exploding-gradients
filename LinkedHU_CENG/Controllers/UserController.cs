@@ -75,6 +75,7 @@ namespace LinkedHU_CENG.Controllers
                 //HttpContext.Session.Clear();
                 HttpContext.Session.Remove("UserID");
                 HttpContext.Session.Remove("Email");
+                TempData["changePasswordToHome"] = TempData["changePassword"];
 
                 return RedirectToAction("Index", "Home");
             }
@@ -108,7 +109,7 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult ForgetPassword()
         {
-            return View();
+            return View("ForgetPassword");
         }
 
         [HttpPost]
@@ -116,6 +117,7 @@ namespace LinkedHU_CENG.Controllers
         {
             if (ModelState.IsValid)
             {
+                try { 
                 User user = db.Users.Where(m => (m.Email.Equals(forgetUser.Email) || m.SecondEmail.Equals(forgetUser.Email))).FirstOrDefault();
                 if (user != null)
                 {
@@ -123,15 +125,27 @@ namespace LinkedHU_CENG.Controllers
                     forgetUser.Surname = user.Surname;
                     db.ForgetPasswords.Add(forgetUser);
                     db.SaveChanges();
+                    TempData["ForgetPassword"] = 10;
                 }
-
+                else
+                {
+                    TempData["ForgetPassword"] = 15;
+                }
                 return RedirectToAction("Index", "Home");
+                }
+                catch
+                {
+                    TempData["ForgetPassword"] = -10;
+                    ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {
+                TempData["ForgetPassword"] = -10;
                 ModelState.AddModelError("", "Some Error Occured!");
+                return RedirectToAction("Index", "Home");
             }
-            return View();
         }
 
 

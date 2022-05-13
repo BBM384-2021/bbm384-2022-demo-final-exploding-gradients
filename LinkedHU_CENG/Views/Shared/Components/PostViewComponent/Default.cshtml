@@ -66,7 +66,24 @@
                     <div style="margin-top: 10px; margin-bottom:10px; color:#fff">
                         <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.post.Content</span>
                     </div>
+                     @if (obj.post.PostImagePath != null)
+                    {
+                        <img src="~/postUploads/@obj.post.PostImagePath" class="col-sm-10 center" asp-append-version="true" width="300" height=auto />
+                    }
+                    @if (obj.post.PostVideoPath != null)
+                    {
+                        <video width="320" height="240" class="center" controls="controls">
+                            <source src="~/postUploads/@obj.post.PostVideoPath" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    }
+                    @if (obj.post.PostPdfPath != null)
+                    {
+                        <embed src="~/postUploads/@obj.post.PostPdfPath" height="500px" width="100%" class="responsive" />
+                        <a href="~/postUploads/@obj.post.PostPdfPath">See & Download</a>
 
+                        @*<p>See & Download <a href="~/postUploads/@obj.PostPdfPath">@obj.PostPdfPath</a> here!</p>*@
+                    }
                     <partial name="~/Views/Comment/Create.cshtml" model="@obj" />
                     @* @Html.Partial("~/Views/Comment/Create.cshtml", model = obj)*@
                     @{
@@ -76,5 +93,5 @@
                     <a asp-controller="Post" asp-action="ViewPost" asp-route-id="@obj.postId"> Click here to see more comments.</a>
                 </div>
         }
-    }
+    
 </table>

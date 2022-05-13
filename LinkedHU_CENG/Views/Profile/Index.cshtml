@@ -3,6 +3,7 @@
     ViewData["Title"] = "Profile";
     var user = ViewData["User"] as User;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var stateChangePassword = ViewData["changePassword"] as Int32?;
 }
 
 
@@ -19,9 +20,7 @@
 </head>
 
 
-<br />
-<br />
-<br />
+
 <div class="container">
     <div class="main-body">
         <div class="row ">
@@ -159,3 +158,30 @@
 
 
 
+<div id="box-wrongPassword" class="alert alert-dismissible alert-danger" style="visibility:hidden; position:fixed; top: 75px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px;
+    background-color:#FFC300">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Warning!</strong> Your current password was entered incorrectly.
+</div>
+
+@{
+    if (stateChangePassword == -1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-wrongPassword");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-wrongPassword");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+}

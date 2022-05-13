@@ -25,24 +25,24 @@
 
     <div class="row gutters-sm" style="margin-top:20px; font-size:14px;">
         <div class="col-sm-6 mb-3">
-            <div class="card h-100">
+            <div  style="background-color: #e5e7e8;" class="card h-100">
                 <div class="card-body">
                     <h5 align="center" ; class="align-items-center mb-3">Admin Panel Statistics</h5>
                     <div class="card-aboutme col">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                        <ul  style="background-color: #e5e7e8;" class="list-group list-group-flush">
+                            <li style="background-color: #e5e7e8; color:black" class="list-group-item justify-content-between align-items-center flex-wrap">
                                 Number of Users Waiting for Approval : @unregisteredUser.Count
                             </li>
-                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                            <li style="background-color: #e5e7e8;color:black" class="list-group-item justify-content-between align-items-center flex-wrap">
                                 Number of Account Deletion Requests : @deleteRequests.Count
                             </li>
-                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                            <li style="background-color: #e5e7e8;color:black" class="list-group-item justify-content-between align-items-center flex-wrap">
                                 Number of Password Requests : @passwordRequests.Count
                             </li>
-                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                            <li style="background-color: #e5e7e8;color:black" class="list-group-item justify-content-between align-items-center flex-wrap">
                                 Number of Email Merge Requests : @mergeRequest.Count
                             </li>
-                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                            <li style="background-color: #e5e7e8;color:black" class="list-group-item justify-content-between align-items-center flex-wrap">
                                 Number of Users Reported : @report.Count
                             </li>
 
@@ -52,24 +52,24 @@
             </div>
         </div>
         <div class="col-sm-6 mb-3">
-            <div class="card h-100">
+            <div  style="background-color: #e5e7e8;" class="card h-100">
                 <div class="card-body">
                     <h5 align="center" ; class="align-items-center mb-3">System Statistics</h5>
                     <div class="card-aboutme col">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                            <li style="background-color: #e5e7e8;color:black" class="list-group-item justify-content-between align-items-center flex-wrap">
                                 Number of Users Registered in the System : @user.Count
                             </li>
-                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                            <li style="background-color: #e5e7e8;color:black" class="list-group-item justify-content-between align-items-center flex-wrap">
                                 Number of Active Advertisements in the System : @advertisements.Count
                             </li>
-                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                            <li style="background-color: #e5e7e8;color:black" class="list-group-item justify-content-between align-items-center flex-wrap">
                                 Number of Posts in the System : @posts.Count
                             </li>
-                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                            <li style="background-color: #e5e7e8;color:black" class="list-group-item justify-content-between align-items-center flex-wrap">
                                 Number of Announcements in the System : @announcements.Count
                             </li>
-                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
+                            <li style="background-color: #e5e7e8;color:black" class="list-group-item justify-content-between align-items-center flex-wrap">
                                 System Version Number : @systemVersion
                             </li>
 
@@ -84,7 +84,7 @@
 
 
     <div class="card-profile">
-        <div class="card">
+        <div  style="background-color: #e5e7e8;" class="card">
             <h5 align="center" style="margin-top:10px;" class="align-items-center mb-3">Last 5 Registered Users</h5>
             <div class="d-flex flex-column align-items-center text-center">
                 <table class="table table-bordered table-striped" style="width:100%">
@@ -120,9 +120,6 @@
                                 <td> @obj.PhoneNum </td>
                                 <td> @obj.BirthDate </td>
                                 <td> @obj.Role </td>
-
-                                <td>
-                                </td>
                             </tr>
                         }
                     </tbody>

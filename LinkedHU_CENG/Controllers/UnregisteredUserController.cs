@@ -24,6 +24,7 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetString("UserID") == null)
             {
+                ViewData["Date"] = DateTime.Now.AddYears(-18).ToString("yyyy-MM-dd");
                 return View();
             }
             else
