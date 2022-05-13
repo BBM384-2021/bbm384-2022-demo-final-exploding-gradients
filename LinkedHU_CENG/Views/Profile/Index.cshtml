@@ -29,29 +29,29 @@
 
 <div class="container">
     <div class="main-body">
-        <div class="row ">
+        <div class="row">
 
-            <div class="col">
+            <div class="col" >
                 <div class="card-profile">
                     <div class="card" style="background-color:#ffffff">
                         <div class="d-flex flex-column align-items-center text-center">
                             @if (user.ProfilePicturePath == null)
                             {
-                                <img src="~/profilePictures/default.png" alt="Admin" class="rounded-circle" width="150">
+                                    <img src="~/profilePictures/default.png" alt="Admin" class="rounded-circle" width="150">
                             }
                             else
                             {
-                                <img src="~/profilePictures/@user.ProfilePicturePath" alt="Admin" class="rounded-circle" height="150" width="150">
+                                    <img src="~/profilePictures/@user.ProfilePicturePath" alt="Admin" class="rounded-circle" height="150" width="150">
                             }
                             <div class="mt-3">
                                 <h4>@user.Name @user.Surname</h4>
                                 @if (user.Title == null)
                                 {
-                                    <p class="text-secondary mb-1"></p>
+                                        <p class="text-secondary mb-1"></p>
                                 }
                                 else
                                 {
-                                    <p class="text-secondary mb-1">@user.Title</p>
+                                        <p class="text-secondary mb-1">@user.Title</p>
                                 }
                             </div>
                         </div>
@@ -59,37 +59,37 @@
                 </div>
 
                 <div class="row gutters-sm">
-                    <div class="col-sm-6 mb-3">
+                    <div  class="col-sm-6 mb-3" >
                         <div class="card h-100 " style="background-color:#ffffff">
                             <div class="card-body">
                                 <h6 align="center" ; class="align-items-center mb-3">Personal Information</h6>
                                 <div class="card-aboutme col" style="background-color:#ffffff">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
-                                            <h6 class="mb-0"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> Phone Number</span></h6>
-                                            <h6 class="text-secondary h6-custom"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> @user.PhoneNum</span></h6>
+                                            <h6 class="mb-0"><span style="font-size:15px; color:rgb(39, 55, 76);"> Phone Number</span></h6>
+                                            <h6 class="text-secondary h6-custom"><span style=" font-size:15px; color:rgb(39, 55, 76);"> @user.PhoneNum</span></h6>
                                         </li>
                                         <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
-                                            <h6 class="mb-0"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> Email Address</span></h6>
-                                            <h6 class="text-secondary h6-custom"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> @user.Email</span>
+                                            <h6 class="mb-0"><span style="font-size:15px; color:rgb(39, 55, 76);"> Email Address</span></h6>
+                                            <h6 class="text-secondary h6-custom"><span style="font-size:15px; color:rgb(39, 55, 76);"> @user.Email</span>
                                         </li>
                                         @if (@user.Location == null)
                                         {
-                                            <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
-                                                <h6 class="mb-0"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> Location</span></h6>
-                                                <h6 class="text-secondary h6-custom"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> You can add your location information.</span></h6>
-                                            </li>
+                                                <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
+                                                    <h6 class="mb-0"><span style="font-size:15px; color:rgb(39, 55, 76);"> Location</span></h6>
+                                                    <h6 class="text-secondary h6-custom"><span style="font-size:15px; color:rgb(39, 55, 76);">You can add your location information.</span></h6>
+                                                </li>
                                         }
                                         else
                                         {
-                                            <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
-                                                <h6 class="mb-0"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> Location<span></h6>
-                                                <h6 class="text-secondary h6-custom"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> @user.Location</span></h6>
-                                            </li>
+                                                <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
+                                                    <h6 class="mb-0"><span style="font-size:15px; color:rgb(39, 55, 76);"> Location<span></h6>
+                                                    <h6 class="text-secondary h6-custom"><span style=" font-size:15px; color:rgb(39, 55, 76);"> @user.Location</span></h6>
+                                                </li>
                                         }
                                         <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
-                                            <h6 class="mb-0"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> Birthdate</span></h6>
-                                            <h6 class="text-secondary h6-custom"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> @user.BirthDate</span></h6>
+                                            <h6 class="mb-0"><span style=" font-size:15px; color:rgb(39, 55, 76);"> Birthdate</span></h6>
+                                            <h6 class="text-secondary h6-custom"><span style="font-size:15px; color:rgb(39, 55, 76);"> @user.BirthDate</span></h6>
                                         </li>
                                     </ul>
                                 </div>
@@ -101,28 +101,28 @@
                             <div class="card-body">
                                 @if (@user.About == null)
                                 {
-                                    <h6 align="center" ; class="align-items-center mb-3">About Me</h6>
-                                    <div class="card-aboutme col" style="background-color:#ffffff">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
-                                                <h6 class="mb-0 h6-custom">
-                                                    <span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);">  You can write about your years of experience, industry, or skills. People also talk about their achievements or previous job experiences.</span>
-                                                </h6>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                        <h6 align="center" ; class="align-items-center mb-3">About Me</h6>
+                                        <div class="card-aboutme col" style="background-color:#ffffff">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
+                                                    <h6 class="mb-0 h6-custom">
+                                                        <span style=" font-size:15px; color:rgb(39, 55, 76);">You can write about your years of experience, industry, or skills. People also talk about their achievements or previous job experiences.</span>
+                                                    </h6>
+                                                </li>
+                                            </ul>
+                                        </div>
                                 }
                                 else
                                 {
-                                    <h6 align="center" ; class="align-items-center mb-3">About Me</h6>
-                                    <div class="card-aboutme col " style="background-color:#ffffff">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
-                                                <span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> @user.About</span>
+                                        <h6 align="center" ; class="align-items-center mb-3">About Me</h6>
+                                        <div class="card-aboutme col " style="background-color:#ffffff">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
+                                                    <span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> @user.About</span>
 
-                                            </li>
-                                        </ul>
-                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
                                 }
 
                             </div>
@@ -136,19 +136,19 @@
                         </div>*@
                     @if (isUserValid == 1)
                     {
-                        <div class="card custom-shadow1" style="margin-left:22px; width:495px; background-color:#ffffff;">
-                            <partial name="~/Views/Resource/Create.cshtml" view-data="ViewData" />
-                        </div>
+                                <div class="card custom-shadow1" style="margin-left:22px; width:495px; background-color:#ffffff;">
+                                    <partial name="~/Views/Resource/Create.cshtml" view-data="ViewData" />
+                                </div>
                     }
-                    <br />
-                    <section id='title-wrapper' style="margin-left:22px; margin-top:0px;width:495px;">
-                        <div class='line'></div>
-                        <div class='title'><span style=" font-size:15px; color:rgb(39, 55, 76, 0.5); ;"> resources</span></div>
-                        <div class='line'></div>
-                    </section>
-                    <div>
+                        <br />
+                        <section id='title-wrapper' style="margin-left:22px; margin-top:0px;width:495px;">
+                            <div class='line'></div>
+                            <div class='title'><span style=" font-size:15px; color:rgb(39, 55, 76, 0.5); ;"> resources</span></div>
+                            <div class='line'></div>
+                        </section>
+                        <div>
                         @await Component.InvokeAsync("ResourceViewComponent")
-                    </div>
+                        </div>
                 }
             </div>
 
@@ -243,19 +243,19 @@
     if (stateChangePassword == -1)
     {
         <script>
-            setTimeout(()=>{
-                const box = document.getElementById("box-wrongPassword");
+                    setTimeout(()=>{
+                        const box = document.getElementById("box-wrongPassword");
 
-                box.style.visibility = "visible";
-            },50);
-            setTimeout(()=>{
-                const box = document.getElementById("box-wrongPassword");
+                        box.style.visibility = "visible";
+                    },50);
+                    setTimeout(()=>{
+                        const box = document.getElementById("box-wrongPassword");
 
-                box.style.visibility = "hidden";
-            },2500);
+                        box.style.visibility = "hidden";
+                    },2500);
         </script>
     }
-}
+
     else if (stateMerge == 1)
     {
 <script>
@@ -347,3 +347,4 @@
 </script>
     }
 }
+
