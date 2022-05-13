@@ -27,6 +27,7 @@ namespace LinkedHU_CENG.Controllers
                         u => u.UserId.Equals(HttpContext.Session.GetInt32("UserID")) && u.Email.Equals(HttpContext.Session.GetString("Email")));
                     ViewData["User"] = user;
                     ViewData["changePassword"] = TempData["changePassword"];
+                    ViewData["stateMerge"] = TempData["stateMerge"];
                     return View();
                 }
 
@@ -93,8 +94,7 @@ namespace LinkedHU_CENG.Controllers
                         var oneUserMoreRequest = db.MergeEmailRequests.AsNoTracking().Where(x=> x.UserId == user.UserId).ToList();
                         if(oneUserMoreRequest.Count > 0)
                         {
-                            user.SecondEmail = oldUser.SecondEmail; // burası silinmeli
-                            // mailiniz güncellenmedi daha önce request etmiş uyarısı
+                            TempData["stateMerge"] = -2;
                         }
                         else if (sameMail == 0)
                         {
@@ -106,7 +106,16 @@ namespace LinkedHU_CENG.Controllers
                             newRequest.Surname = user.Surname;
                             newRequest.SecondEmail = user.SecondEmail;
                             db.MergeEmailRequests.Add(newRequest);
+                            TempData["stateMerge"] = 1;
                         }
+                        else
+                        {
+                            TempData["stateMerge"] = -3;
+                        }
+                    }
+                    else if((oldUser.SecondEmail != null) && user.SecondEmail == null)
+                    {
+                        TempData["stateMerge"] = -1;
                     }
                     user.SecondEmail = oldUser.SecondEmail;
 
