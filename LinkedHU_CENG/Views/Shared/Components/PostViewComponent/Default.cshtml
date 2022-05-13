@@ -11,24 +11,24 @@
 
 
 
-<table class="table table-bordered table-striped" style="width:100%">
+
+<table class="table  table-striped" style="width:100%">
         @foreach (var obj in Model.OrderByDescending(a => a.post.PostId))
         {
-            <div class="card text-white bg-secondary mb-3" style="margin-top:10px; width:840px; max-height:auto; padding: 10px; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;">
+            <div class="container text-whitemb-3" style="margin-top:10px; width:600px; margin-left:250px; max-height:auto; padding: 10px; background:#FFFFFF; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;">
                     <div class="row" style="margin:0px;">
                         <div class="column" style="width:80%">
                             @if (obj.post.UserProfilePicture == null)
                             {
-                                <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId" class="dropdown-item mx-2 w-75" style="width:75%; padding:0px; margin:0px;">
-                                <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="50" width="50" asp-append-version="true" />
-                                <span style="margin-left:5px; font-size:26px; text-shadow: 1px 1px black;"> @obj.post.UserName</span> </a>
-                                
+                                <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                                <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId"
+                           class="dropdown-item mx-2 w-75"> <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.post.UserName</span></a>
                             }
                             else
                             {
                                 <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId" class="dropdown-item mx-2 w-75" style="width:75%; padding:0px; margin:0px;">
-                                    <img src="~/profilePictures/@obj.post.UserProfilePicture" class="rounded-circle" height="50" width="50" asp-append-version="true" />
-                                    <span style="margin-left:5px; font-size:26px; text-shadow: 1px 1px black;"> @obj.post.UserName</span>
+                                    <img src="~/profilePictures/@obj.post.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" />
+                                     <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.post.UserName</span>
 
                                 </a>
                             }
@@ -62,11 +62,9 @@
                             </div>
                         </div>
                     </div>
-                    <small class="text-muted"> @obj.post.CreatedAt</small>
+                    <span style="margin-left:5px; font-size:12px; color:rgb(39, 55, 76, 0.7);"> @obj.post.CreatedAt</span>
                     <div style="margin-top: 10px; margin-bottom:10px; color:#fff">
-                        <span>
-                            @obj.post.Content
-                        </span>
+                        <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.post.Content</span>
                     </div>
                      @if (obj.post.PostImagePath != null)
                     {

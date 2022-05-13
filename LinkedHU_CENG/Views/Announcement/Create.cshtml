@@ -6,12 +6,13 @@
 }
 @if (isUserValid == 1)
 {
-    <form asp-controller="Announcement" asp-action="Create" method="post" enctype="multipart/form-data" style="margin-left:30px; margin-top:80px; width:420px;">
-        <div class="border p-3 mt-4 custom-margin1 custom-shadow1" style="margin-top:64px; background:#E7E7E5; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px">
+    <div style="margin-bottom:89px;">
+        <form asp-controller="Announcement" asp-action="Create" method="post" enctype="multipart/form-data" style="margin-left:250px; margin-top:20px; width:360px;height:100px">
+        <div class=" p-3 mt-4 custom-margin1 custom-shadow1" style="margin-top:64px; background:#FFFFFF; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px">
             <div class="mb-3 ">
-                <h3 class="text-primary">Share Announcement</h3>
+                <h5 class="text-primary" style="">Share Announcement</h5>
                 <div class="form-group">
-                    <textarea asp-for="Content" class="form-control" id="exampleTextarea" style="border-style: double;" rows="3"></textarea>
+                    <textarea asp-for="Content" class="form-control" id="exampleTextarea" style="border:solid 0.5px #abb6c2; box-shadow: inset 2px 2px 2px 0px #ddd;" rows="3"></textarea>
                 </div>
                 <span asp-validation-for="Content" class="text-danger"></span>
 
@@ -21,4 +22,12 @@
             </div>
         </div>
     </form>
+    </div>
+    <br /><br />
+    <section id='title-wrapper' style="margin-left:250px; margin-top:85px; width:360px;">
+  <div class='line'></div>
+  <div class='title'><span style=" font-size:15px; color:rgb(39, 55, 76, 0.5);"> announcements</span></div>
+  <div class='line'></div>
+</section>
+    
 }

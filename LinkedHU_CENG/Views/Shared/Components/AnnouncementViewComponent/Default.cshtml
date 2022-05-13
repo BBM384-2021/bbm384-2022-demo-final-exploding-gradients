@@ -4,18 +4,17 @@
     var sessionUserID = ViewData["SessionUserId"] as Int32?;
 }
 
-<div class="container p-3">
+<div class="container p-3" style=" margin-top:-80px;">
     <br /><br />
 
 
-    <table class="table table-bordered table-striped" style="width:100%">
+    <table class="table table-bordered table-striped" style="width:100%;">
 
 
         @foreach (var obj in Model.OrderByDescending(a => a.AnnouncementId))
         {
 
-            <div class="card border p-3 mt-4  custom-shadow1">
-                <div class="custom-margin1">
+            <div class="container p-3 mt-4  custom-shadow1" style="; background:#FFFFFF; margin-left:233px;width:362px;height:100px ;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">        
                     <div class="text-end">
                         @if (sessionUserID == obj.UserId)
                         {
@@ -38,20 +37,20 @@
                     {
                         <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" /> 
                         <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.UserId"
-                                       class="dropdown-item mx-2 w-75">  @obj.UserName</a>
+                                       class="dropdown-item mx-2 w-75">   <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.UserName</span></a>
                     }
                     else
                     {
                         <img src="~/profilePictures/@obj.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" /> 
                         <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.UserId"
-                                       class="dropdown-item mx-2 w-75">  @obj.UserName</a>
+                                       class="dropdown-item mx-2 w-75">   <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.UserName</span>e</a>
                     }
                     @*<h5>@obj.UserName</h5>*@
                     <br /> <br />
                     <small class="text-muted"> @obj.CreatedAt</small>
                     <br /> <br />
                     <h6>@obj.Content</h6>
-                </div>
+
             </div>
 
             <br />

@@ -21,13 +21,13 @@
 
 
 
-<div class="container" style="margin-top:70px">
+<div class="container">
     <div class="main-body">
         <div class="row ">
 
             <div class="col">
                 <div class="card-profile">
-                    <div class="card">
+                    <div class="card" style="background-color:#ffffff">
                         <div class="d-flex flex-column align-items-center text-center">
                             @if (user.ProfilePicturePath == null)
                             {
@@ -55,36 +55,36 @@
 
                 <div class="row gutters-sm">
                     <div class="col-sm-6 mb-3">
-                        <div class="card h-100">
+                        <div class="card h-100 " style="background-color:#ffffff">
                             <div class="card-body">
                                 <h6 align="center" ; class="align-items-center mb-3">Personal Information</h6>
-                                <div class="card-aboutme col">
+                                <div class="card-aboutme col" style="background-color:#ffffff">
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0">Phone Number</h6>
-                                            <h6 class="text-secondary h6-custom">@user.PhoneNum</h6>
+                                        <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
+                                            <h6 class="mb-0"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> Phone Number</span></h6>
+                                            <h6 class="text-secondary h6-custom"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> @user.PhoneNum</span></h6>
                                         </li>
-                                        <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0">Email Address</h6>
-                                            <h6 class="text-secondary h6-custom">@user.Email</h6>
+                                        <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
+                                            <h6 class="mb-0"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> Email Address</span></h6>
+                                            <h6 class="text-secondary h6-custom"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> @user.Email</span>
                                         </li>
                                         @if (@user.Location == null)
                                         {
-                                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                                <h6 class="mb-0">Location</h6>
-                                                <h6 class="text-secondary h6-custom">You can add your location information.</h6>
+                                            <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
+                                                <h6 class="mb-0"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> Location</span></h6>
+                                                <h6 class="text-secondary h6-custom"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> You can add your location information.</span></h6>
                                             </li>
                                         }
                                         else
                                         {
-                                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                                <h6 class="mb-0">Location</h6>
-                                                <h6 class="text-secondary h6-custom">@user.Location</h6>
+                                            <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
+                                                <h6 class="mb-0"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> Location<span></h6>
+                                                <h6 class="text-secondary h6-custom"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> @user.Location</span></h6>
                                             </li>
                                         }
-                                        <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0">Birth Date</h6>
-                                            <h6 class="text-secondary h6-custom">@user.BirthDate</h6>
+                                        <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
+                                            <h6 class="mb-0"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> Birthdate</span></h6>
+                                            <h6 class="text-secondary h6-custom"><span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> @user.BirthDate</span></h6>
                                         </li>
                                     </ul>
                                 </div>
@@ -92,15 +92,17 @@
                         </div>
                     </div>
                     <div class="col-sm-6 mb-3">
-                        <div class="card h-100">
+                        <div class="card h-100" style="background-color:#ffffff">
                             <div class="card-body">
                                 @if (@user.About == null)
                                 {
                                     <h6 align="center" ; class="align-items-center mb-3">About Me</h6>
-                                    <div class="card-aboutme col">
+                                    <div class="card-aboutme col" style="background-color:#ffffff">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                                <h6 class="mb-0 h6-custom">You can write about your years of experience, industry, or skills. People also talk about their achievements or previous job experiences.</h6>
+                                            <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
+                                                <h6 class="mb-0 h6-custom">
+                                                    <span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);">  You can write about your years of experience, industry, or skills. People also talk about their achievements or previous job experiences.</span>
+                                                </h6>
                                             </li>
                                         </ul>
                                     </div>
@@ -108,10 +110,11 @@
                                 else
                                 {
                                     <h6 align="center" ; class="align-items-center mb-3">About Me</h6>
-                                    <div class="card-aboutme col">
+                                    <div class="card-aboutme col " style="background-color:#ffffff">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item justify-content-between align-items-center flex-wrap">
-                                                <h6 class="mb-0 h6-custom">@user.About</h6>
+                                            <li class="list-group-item justify-content-between align-items-center flex-wrap" style="background-color:#ffffff">
+                                                <span style="margin-left:5px; font-size:15px; color:rgb(39, 55, 76);"> @user.About</span>
+
                                             </li>
                                         </ul>
                                     </div>
@@ -121,22 +124,22 @@
                         </div>
                     </div>
                 </div>
-                @if(user.Role == "academician")
+                @if (user.Role == "academician")
                 {
                     @*                <div>
-                    <partial name="~/Views/Resource/Create.cshtml" view-data="ViewData" />
-                    </div>*@
-                    <div class="card mb-3">
+                        <partial name="~/Views/Resource/Create.cshtml" view-data="ViewData" />
+                        </div>*@
+                    <div class="card custom-shadow1" style="margin-left:22px; width:495px; background-color:#ffffff;">
                         <partial name="~/Views/Resource/Create.cshtml" view-data="ViewData" />
                     </div>
-                <div>
-                    @await Component.InvokeAsync("ResourceViewComponent")
-                </div>
+                    <div>
+                        @await Component.InvokeAsync("ResourceViewComponent")
+                    </div>
                 }
             </div>
 
             <div class="col mt-3">
-                <div class="card mb-3">
+                <div class="card mb-3 custom-shadow1" style=" background-color:#ffffff">
                     <div class="card-body">
                         <div style="display:block; width:100%;">
                             @await Component.InvokeAsync("OwnedPostViewComponent")
