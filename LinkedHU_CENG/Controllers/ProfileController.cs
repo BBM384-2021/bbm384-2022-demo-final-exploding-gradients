@@ -28,6 +28,7 @@ namespace LinkedHU_CENG.Controllers
                     ViewData["User"] = user;
                     ViewData["changePassword"] = TempData["changePassword"];
                     ViewData["stateMerge"] = TempData["stateMerge"];
+                    ViewData["stateDeleteAccount"] = TempData["stateDeleteAccount"];
                     return View();
                 }
 
