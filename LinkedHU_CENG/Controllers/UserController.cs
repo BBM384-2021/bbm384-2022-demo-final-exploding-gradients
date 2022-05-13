@@ -210,9 +210,11 @@ namespace LinkedHU_CENG.Controllers
             {
                 var user = db.Users.Find(id);
                 List<Post> posts = db.Posts.OrderByDescending(x => x.CreatedAt).Where(x => x.UserId == id).ToList();
+                List<Resource> resources = db.Resources.OrderByDescending(x => x.CreatedAt).Where(x => x.UserId == id).ToList();
                 ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
                 ViewData["User"] = user;
                 ViewData["Posts"] = posts;
+                ViewData["Resources"] = resources;
                 var followState = db.Follows.Where(x => (x.FollowerId == HttpContext.Session.GetInt32("UserID")) && (x.FollowingId == id)).ToList();
                 if (followState.Count > 0) { ViewData["IsFollow"] = 1; }
                 else { ViewData["IsFollow"] = 0; }

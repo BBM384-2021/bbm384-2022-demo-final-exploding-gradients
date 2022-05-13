@@ -49,15 +49,17 @@
                     </div>
                     @if (obj.post.UserProfilePicture == null)
                     {
-                        <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
-                        <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId"
-               class="dropdown-item mx-2 w-75">  <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.post.UserName</span></a>
+                        <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId" class="dropdown-item mx-2 w-75" style="width:75%; padding:0px; margin:0px;">
+                            <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="50" width="50" asp-append-version="true" />
+                            <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.post.UserName</span>
+                        </a>
                     }
                     else
                     {
-                        <img src="~/profilePictures/@obj.post.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" />
-                        <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId"
-               class="dropdown-item mx-2 w-75">  <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.post.UserName</span></a>
+                        <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId" class="dropdown-item mx-2 w-75" style="width:75%; padding:0px; margin:0px;">
+                            <img src="~/profilePictures/@obj.post.UserProfilePicture" class="rounded-circle" height="50" width="50" asp-append-version="true" />
+                            <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.post.UserName</span>
+                        </a>
                     }
                     @*<h5>@obj.post.UserName</h5>*@
                     <span style="margin-left:5px; font-size:12px; color:rgb(39, 55, 76, 0.7);"> @obj.post.CreatedAt</span>

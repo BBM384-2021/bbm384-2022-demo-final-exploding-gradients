@@ -24,15 +24,7 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                ViewData["isBanUserValid"] = 1;
-                BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
-
-                if (banUser != null)
-                {
-                    ViewData["isBanUserValid"] = 0;
-                }
                 return View();
-
             }
             return RedirectToAction("Index", "Profile");
 

@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Resource";
 }
-<form asp-controller="Post" asp-action="Update" method="post" enctype="multipart/form-data">
+<form asp-controller="Resource" asp-action="Update" method="post" enctype="multipart/form-data">
     @Html.HiddenFor(model => model.ResourceId)
     @Html.HiddenFor(model => model.UserId)
     @Html.HiddenFor(model => model.CreatedAt)
