@@ -6,6 +6,7 @@
     List<List<User>> arrayList = new List<List<User>> { nameSurname, name, surname };
     var sessionUserID = ViewData["SessionUserId"] as Int32?;
     ViewData["Title"] = "Search";
+    var atLeastOneSearch = ViewData["atLeastOneSearch"] as Int32?;
 }
 
 
@@ -52,3 +53,33 @@
            
     </div>
 </div>
+
+
+<div id="box-no-search" class="alert alert-dismissible alert-danger" style="visibility:hidden; position:fixed; top: 70px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px;
+    background-color:#FFC300">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Warning!</strong> No results were found matching the search.
+</div>
+
+
+@{
+    if(atLeastOneSearch == -1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-no-search");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-no-search");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+}
