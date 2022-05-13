@@ -3,7 +3,8 @@
     ViewData["Title"] = "Profile";
     var user = ViewData["User"] as User;
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var stateChangePassword = ViewData["changePassword"] as Int32?;
+    var isUserValid = ViewData["isBanUserValid"] as Int32?;
+    var stateChangePassword = ViewData["changePassword"] as Int32?;    
 }
 
 
@@ -129,9 +130,12 @@
                     @*                <div>
                         <partial name="~/Views/Resource/Create.cshtml" view-data="ViewData" />
                         </div>*@
-                    <div class="card custom-shadow1" style="margin-left:22px; width:495px; background-color:#ffffff;">
-                        <partial name="~/Views/Resource/Create.cshtml" view-data="ViewData" />
-                    </div>
+                    @if (isUserValid == 1)
+                    {
+                        <div class="card custom-shadow1" style="margin-left:22px; width:495px; background-color:#ffffff;">
+                            <partial name="~/Views/Resource/Create.cshtml" view-data="ViewData" />
+                        </div>
+                    }
                     <div>
                         @await Component.InvokeAsync("ResourceViewComponent")
                     </div>

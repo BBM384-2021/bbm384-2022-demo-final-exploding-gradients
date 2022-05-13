@@ -21,17 +21,25 @@ namespace LinkedHU_CENG.Controllers
         {
 
 
-                if (HttpContext.Session.GetInt32("UserID") != null)
-                {
-                    var user = db.Users.FirstOrDefault(
-                        u => u.UserId.Equals(HttpContext.Session.GetInt32("UserID")) && u.Email.Equals(HttpContext.Session.GetString("Email")));
-                    ViewData["User"] = user;
-                    ViewData["changePassword"] = TempData["changePassword"];
-                    return View();
-                }
+            if (HttpContext.Session.GetInt32("UserID") != null)
+            {
+                var user = db.Users.FirstOrDefault(
+                    u => u.UserId.Equals(HttpContext.Session.GetInt32("UserID")) && u.Email.Equals(HttpContext.Session.GetString("Email")));
+                ViewData["User"] = user;
+                ViewData["changePassword"] = TempData["changePassword"];
 
-                return RedirectToAction("Index", "Home");
-           
+                ViewData["isBanUserValid"] = 1;
+                BannedUser banUser = db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+
+                if (banUser != null)
+                {
+                    ViewData["isBanUserValid"] = 0;
+                }
+                return View();
+            }
+
+            return RedirectToAction("Index", "Home");
+
         }
 
         public ActionResult Edit()
@@ -71,13 +79,13 @@ namespace LinkedHU_CENG.Controllers
 
 
                     string uniqueFileName = UploadedFile(user);
-                    if(uniqueFileName != null)
+                    if (uniqueFileName != null)
                     {
                         user.ProfilePicturePath = uniqueFileName;
                     }
 
                     var posts = db.Posts.Where(x => x.UserId == user.UserId).ToList();
-                    foreach(Post post in posts)
+                    foreach (Post post in posts)
                     {
                         post.UserProfilePicture = user.ProfilePicturePath;
                     }
@@ -88,17 +96,17 @@ namespace LinkedHU_CENG.Controllers
                         announcement.UserProfilePicture = user.ProfilePicturePath;
                     }
 
-                    if(user.SecondEmail != null)
+                    if (user.SecondEmail != null)
                     {
-                        var oneUserMoreRequest = db.MergeEmailRequests.AsNoTracking().Where(x=> x.UserId == user.UserId).ToList();
-                        if(oneUserMoreRequest.Count > 0)
+                        var oneUserMoreRequest = db.MergeEmailRequests.AsNoTracking().Where(x => x.UserId == user.UserId).ToList();
+                        if (oneUserMoreRequest.Count > 0)
                         {
                             user.SecondEmail = oldUser.SecondEmail; // burası silinmeli
                             // mailiniz güncellenmedi daha önce request etmiş uyarısı
                         }
                         else if (sameMail == 0)
                         {
-                        
+
                             MergeEmailRequest newRequest = new MergeEmailRequest();
                             newRequest.UserId = user.UserId;
                             newRequest.Email = user.Email;

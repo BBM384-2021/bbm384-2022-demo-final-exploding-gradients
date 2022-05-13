@@ -395,12 +395,6 @@ namespace LinkedHU_CENG.Controllers
         }
 
 
-
-
-
-
-
-
         public IActionResult DeleteUser()
         {
             if (HttpContext.Session.GetString("Admin_UserName") != null)
@@ -424,6 +418,8 @@ namespace LinkedHU_CENG.Controllers
                     List<Post> posts = db.Posts.Where(m => m.UserId == id).ToList<Post>();
                     List<Announcement> announcements = db.Announcements.Where(m => m.UserId == id).ToList<Announcement>();
                     List<Comment> comments = db.Comments.Where(m => m.UserId == id).ToList<Comment>();
+                    List<Resource> resources = db.Resources.Where(m => m.UserId == id).ToList<Resource>();
+                    List<Advertisement> advertisements = db.Advertisements.Where(m => m.UserId == id).ToList<Advertisement>();
                     foreach (var post in posts)
                     {
                         db.Posts.Remove(post);
@@ -435,6 +431,14 @@ namespace LinkedHU_CENG.Controllers
                     foreach (var comment in comments)
                     {
                         db.Comments.Remove(comment);
+                    }
+                    foreach (var resource in resources)
+                    {
+                        db.Resources.Remove(resource);
+                    }
+                    foreach (var advertisement in advertisements)
+                    {
+                        db.Advertisements.Remove(advertisement);
                     }
 
                     var deleteRequest = db.DeleteRequests.Find(id);
