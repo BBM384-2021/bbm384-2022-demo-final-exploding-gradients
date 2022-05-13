@@ -13,9 +13,10 @@
                   <div class="row ">
                       <div class="col">
                           <div id="mySidenav" class="sidenav">
-                              <a asp-area="" asp-controller="Advertisement" asp-action="Create">Add Advertisement</a>
+                            <input type="button" value="Add Advertisement" onclick="@("window.location.href='" + @Url.Action("Create", "Advertisement") + "'");" />
                               <br>
-                              <a asp-area="" asp-controller="Application" asp-action="Index">My Applications</a>
+                              <br>
+                              <input type="button" value="My Applications" onclick="@("window.location.href='" + @Url.Action("Index", "Application") + "'");" />
                           </div>
                       </div>
                       <div class="col" style= "margin-left:-200px; width:1000px ">
