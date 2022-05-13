@@ -7,7 +7,7 @@
 @foreach (var obj in Model.OrderByDescending(a => a.CommentId))
 {
 
-    <div class="card border p-3 mt-4  custom-shadow1">
+    <div class="card p-3 mt-4  custom-shadow1 " style= "background:#FFFFFF;">
         <div class="custom-margin1">
             <div class="text-end">
                 <div id="wrapperDiv">
@@ -24,19 +24,17 @@
             {
                 <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
                 <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.UserId"
-                                       class="dropdown-item mx-2 w-75">  @obj.UserName</a>
+                                       class="dropdown-item mx-2 w-75">  <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.UserName</span></a>
             }
             else
             {
                 <img src="~/profilePictures/@obj.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" /> 
                 <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.UserId"
-                                       class="dropdown-item mx-2 w-75">  @obj.UserName</a>
+                                       class="dropdown-item mx-2 w-75">  <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.UserName</span></a>
             }
-            @*<h5>@obj.UserName</h5>*@
+            <small class="text-muted"> <span style="margin-left:5px; font-size:12px; color:rgb(39, 55, 76, 0.6);"> @obj.CreatedAt</span></small>
             <br /> <br />
-            <small class="text-muted"> @obj.CreatedAt</small>
-            <br /> <br />
-            <h6>@obj.Content</h6>
+            <h6><span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.Content</span></h6>
 
         </div>
         <div>

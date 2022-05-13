@@ -11559,3 +11559,21 @@ label,
 .modal-header, .modal-footer {
   background-color: rgba(255, 255, 255, 0.075);
 }
+
+#title-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    flex-wrap: wrap;
+    margin: 0 10px 0 10px;
+    text-align: center;
+}
+
+.line {
+    flex: 1;
+    height: 1px;
+    background-color: rgb(39, 55, 76, 0.3);
+   
+}

@@ -11,7 +11,7 @@
 
 
 
-<table class="table table-bordered table-striped" style="width:100%">
+<table class="table table-striped" style="width:100%; background-color:#ffffff;">
 
 
     @foreach (var obj in Model.OrderByDescending(a => a.post.PostId))
@@ -19,8 +19,8 @@
 
         @if (sessionUserID == obj.post.UserId)
         {
-            <div class="card">
-                <div class="custom-margin1">
+            <div class="container">
+                <div class="">
 
                     <div id="wrapperDiv">
                         <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a href=#><i class="bi bi-chat-right-text"></i></a> </div>
@@ -51,19 +51,19 @@
                     {
                         <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
                         <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId"
-               class="dropdown-item mx-2 w-75">  @obj.post.UserName</a>
+               class="dropdown-item mx-2 w-75">  <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.post.UserName</span></a>
                     }
                     else
                     {
                         <img src="~/profilePictures/@obj.post.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" />
                         <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.post.UserId"
-               class="dropdown-item mx-2 w-75">  @obj.post.UserName</a>
+               class="dropdown-item mx-2 w-75">  <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.post.UserName</span></a>
                     }
                     @*<h5>@obj.post.UserName</h5>*@
                     <br /> <br />
-                    <small class="text-muted"> @obj.post.CreatedAt</small>
-                    <br /> <br />
-                    <h6>@obj.post.Content</h6>
+                    <span style="margin-left:5px; font-size:12px; color:rgb(39, 55, 76, 0.7);"> @obj.post.CreatedAt</span>
+
+                    <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.post.Content</span>
                     <br />
                     @if (obj.post.PostImagePath != null)
                     {

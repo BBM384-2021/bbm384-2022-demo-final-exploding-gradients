@@ -8,15 +8,20 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<div class="container" style="margin-top:90px;">
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="container">
     <form asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data">
         @Html.HiddenFor(model => model.ProfilePicturePath)
         <div class="main-body">
             <div class="row ">
                 <div class="col">
-                    <div class="row gutters-sm">
+                    <div class="row gutters-sm ">
                         <div class="col-sm-6 mb-3">
-                            <div class="card h-100">
+                            <div class="card h-100 " style="background-color:#ffffff">
                                 <div class="card-body">
                                     <h6 align="center" ; class="align-items-center mb-3"><b>Account Settings</b></h6>
                                     <div class="card-aboutme col">
@@ -53,7 +58,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6 mb-3">
-                            <div class="card h-100">
+                            <div class="card h-100 custom-shadow1" style="background-color:#ffffff">
                                 <div class="card-body">
                                     <h6 align="center" ; class="align-items-center mb-3"><b>Personal Information</b></h6>
                                     <div class="card-aboutme col">
@@ -98,14 +103,14 @@
                                 </div>
                             </div>
                         </div>
-                        
+
 
                     </div>
                 </div>
 
 
                 <div class="col-sm-6 mb-3">
-                    <div class="card h-100">
+                    <div class="card h-100 custom-shadow1" style="background-color:#ffffff">
                         <div class="card-body">
 
                             <h6 align="center" ; class="align-items-center" style="margin-bottom: 40px;"><b>About Me</b></h6>
@@ -122,7 +127,7 @@
 
                 </div>
     </form>
-   
+
 </div>
 
 
