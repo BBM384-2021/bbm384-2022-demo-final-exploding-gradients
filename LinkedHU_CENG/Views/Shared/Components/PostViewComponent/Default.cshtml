@@ -38,7 +38,7 @@
                             <div class="row">
                                 <div class="column" style="width:50%;">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle my-2 my-sm-0" href="#" role="button" data-bs-toggle="dropdown"><i class="fa-solid fa-gears"></i>Edit</a>
+                                        <a class="dropdown-toggle my-2 my-sm-0" href="#" role="button" data-bs-toggle="dropdown" style="text-decoration: none;"><i class="fa-solid fa-gears"></i>Edit</a>
 
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a asp-controller="Post" asp-action="Update" asp-route-id="@obj.post.PostId"
@@ -90,7 +90,7 @@
                         bool takeAll2 = false;
                     }
                     @await Component.InvokeAsync("CommentViewComponent", new {obj.postId, takeAll2})
-                    <a asp-controller="Post" asp-action="ViewPost" asp-route-id="@obj.postId"> Click here to see more comments.</a>
+                    <a asp-controller="Post" asp-action="ViewPost" asp-route-id="@obj.postId" style="rgb(141, 182, 205);text-decoration: none;"> Click here to see more comments</a>
                 </div>
         }
     

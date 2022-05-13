@@ -19,7 +19,7 @@
 
         @if (sessionUserID == obj.post.UserId)
         {
-            <div class="container">
+            <div class="container" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
                 <div class="">
 
                     <div id="wrapperDiv">
@@ -35,7 +35,7 @@
                         </div>
                         <div id="div2" style="padding:5px;float:right;color:#ffffff">
                             <div class="dropdown text-end">
-                                <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Edit</a>
+                                <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="text-decoration: none;">Edit</a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <a asp-controller="Post" asp-action="Update" asp-route-id="@obj.post.PostId"
                                class="dropdown-item mx-2 w-75"> <i class="bi bi-pencil-square"></i> Update</a>
@@ -60,9 +60,9 @@
                class="dropdown-item mx-2 w-75">  <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.post.UserName</span></a>
                     }
                     @*<h5>@obj.post.UserName</h5>*@
-                    <br /> <br />
                     <span style="margin-left:5px; font-size:12px; color:rgb(39, 55, 76, 0.7);"> @obj.post.CreatedAt</span>
 
+                    <br />
                     <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.post.Content</span>
                     <br />
                     @if (obj.post.PostImagePath != null)
@@ -83,13 +83,12 @@
                     }
                     <br />
                     <div>
-                        @*                <partial name="~/Views/Comment/Create.cshtml" model="@obj" />*@
-                        @* @Html.Partial("~/Views/Comment/Create.cshtml", model = obj)*@
                         @{
                             bool takeAll = false;
                         }
                         @await Component.InvokeAsync("CommentViewComponent", new {obj.postId, takeAll})
                         <a asp-controller="Post" asp-action="ViewPost" asp-route-id="@obj.postId"> Click here to see more comments.</a>
+                        <br /><br />
 
                     </div>
                 </div>

@@ -14,13 +14,13 @@
         @foreach (var obj in Model.OrderByDescending(a => a.AnnouncementId))
         {
 
-            <div class="container p-3 mt-4  custom-shadow1" style="; background:#FFFFFF; margin-left:233px;width:362px;height:100px ;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">        
+            <div class="container p-3 mt-4  custom-shadow1" style="; background:#FFFFFF; margin-left:233px;width:362px ;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">        
                     <div class="text-end">
                         @if (sessionUserID == obj.UserId)
                         {
 
                             <div class="dropdown">
-                                <a class="dropdown-toggle my-2 my-sm-0" href="#" role="button" data-bs-toggle="dropdown">Edit</a>
+                                <a class="dropdown-toggle my-2 my-sm-0" href="#" role="button" data-bs-toggle="dropdown" style="text-decoration: none;">Edit</a>
 
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <a asp-controller="Announcement" asp-action="Update" asp-route-id="@obj.AnnouncementId"
@@ -45,11 +45,9 @@
                         <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@obj.UserId"
                                        class="dropdown-item mx-2 w-75">   <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.UserName</span>e</a>
                     }
-                    @*<h5>@obj.UserName</h5>*@
+                    <span style="margin-left:5px; font-size:12px; color:rgb(39, 55, 76);"> @obj.CreatedAt</span>
                     <br /> <br />
-                    <small class="text-muted"> @obj.CreatedAt</small>
-                    <br /> <br />
-                    <h6>@obj.Content</h6>
+                    <h6><span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @obj.Content</span></h6>
 
             </div>
 

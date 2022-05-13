@@ -4,19 +4,19 @@
     var sessionUserID = ViewData["SessionUserId"] as Int32?;
 }
 
-<div class="container p-3">
+<div class="container p-3" style= "background-color:#ffffff;">
     <br /><br />
 
 
-    <table class="table table-bordered table-striped" style="width:100%">
+    <table class="table table-striped" style="width:100%">
 
 
         @foreach (var obj in Model.OrderByDescending(a => a.Advertisement.AdvertisementId))
         {
             if (obj.Advertisement.IsActive)
             {
-                <div class="card border p-3 mt-4  custom-shadow1">
-                <div class="custom-margin1">
+                <div class="card border p-3 mt-4  custom-shadow1" style="background-color:#ffffff;">
+                <div class="custom-margin1" style="padding:20px;">
                     <h3>@obj.Advertisement.Title</h3>
                     <h6>@obj.Advertisement.Company</h6>
                     <h6>@obj.Advertisement.Type</h6>
