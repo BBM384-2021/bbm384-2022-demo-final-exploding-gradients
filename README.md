@@ -19,11 +19,11 @@ update-database<br><br>
 
 ### Welcome Page
 
-![welcome page](readmeImages/welcome page.png)
+![welcome page](readmeImages/welcome%20page.png)
 
 ### Main Page
 
-![main page](readmeImages/main page.png)
+![main page](readmeImages/main%20page.png)
 
 ### Profile Page
 
