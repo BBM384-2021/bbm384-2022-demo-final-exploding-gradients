@@ -2,7 +2,6 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var isUserValid = ViewData["isBanUserValid"] as int?;
-    var userRole = ViewData["UserRole"] as string;
 }
 
 @{
@@ -12,12 +11,9 @@
 
 <div style="display:block; width:100%; margin-top:100px;">
     <div style="width:65%; float: left; display: inline-block;">
-        @if (isUserValid == 1)
-        {
-            <div style="margin-top:-100px">
-                <partial name="~/Views/Post/Create.cshtml" view-data="ViewData" />
-            </div>
-        }
+        <div style="margin-top:-100px">
+            <partial name="~/Views/Post/Create.cshtml" view-data="ViewData" />
+        </div>
         <section id='title-wrapper' style="margin-left:250px;">
             <div class='line'></div>
             <div class='title'><span style=" font-size:15px; color:rgb(39, 55, 76, 0.5);"> posts</span></div>
@@ -28,15 +24,11 @@
         </div>
     </div>
     <div style="width:35%; float: left; display: inline-block;">
-        @if (isUserValid == 1)
-        {
-            @if (userRole != "student")
-            {
-                <div style="margin-top:-100px">
-                    <partial name="~/Views/Announcement/Create.cshtml" view-data="ViewData" />
-                </div>
-            }
-        }
+        <div style="margin-top:-100px">
+            <partial name="~/Views/Announcement/Create.cshtml" view-data="ViewData" />
+        </div>
+
+
         <section id='title-wrapper' style="margin-left:250px; margin-top:80px; width:360px;">
             <div class='line'></div>
             <div class='title'><span style=" font-size:15px; color:rgb(39, 55, 76, 0.5);"> announcements</span></div>

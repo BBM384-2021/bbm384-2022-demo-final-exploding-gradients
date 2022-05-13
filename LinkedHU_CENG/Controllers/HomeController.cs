@@ -32,12 +32,6 @@ namespace LinkedHU_CENG.Controllers
                 {
                     ViewData["isBanUserValid"] = 0;
                 }
-                else
-                {
-                    User user = _db.Users.Find(HttpContext.Session.GetInt32("UserID"));
-                    ViewData["UserRole"] = user.Role;
-                }
-                
                 return View("LoggedIn"); ;
             }
         }
