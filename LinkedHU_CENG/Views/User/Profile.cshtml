@@ -203,61 +203,59 @@
                             <table class="table table-bordered table-striped" style="width:100%">
                                 @foreach (var obj in posts)
                                 {
-                                                    <div class="card" style="background-color:#ffffff; padding:30px;">
-                                                        <div class="custom-margin1">
-                                                            <div id="wrapperDiv">
-                                                                <div id="div2" style="padding:5px;float:right;color:#ffffff">
-                                                                    <button onclick="copyText()"> <i class="bi bi-share"></i></button>
-                                                                    <script>
-                                                                        function copyText() {
-                                                                            navigator.clipboard.writeText
-                                                                                ("https://localhost:7263/Post/ViewPost/" + @obj.PostId );
-                                                                        }
-                                                                    </script>
-                                                                </div>
-                                                                <div id="div2" style="padding:5px;float:right;color:#ffffff">
+                                    <div class="card" style="background-color:#ffffff; padding:30px;">
+                                        <div class="custom-margin1">
+                                            <div id="wrapperDiv">
+                                                <div id="div2" style="padding:5px;float:right;color:#ffffff">
+                                                    <button onclick="copyText()"> <i class="bi bi-share"></i></button>
+                                                    <script>
+                                                        function copyText() {
+                                                            navigator.clipboard.writeText
+                                                                ("https://localhost:7263/Post/ViewPost/" + @obj.PostId );
+                                                        }
+                                                    </script>
                                                 </div>
+                                                              
                                                 <div id="div2" style="padding:5px;float:right;color:#ffffff">
                                                     @if (sessionUserID == user.UserId)
                                                     {
-                                                                                        <div class="dropdown text-end">
-                                                                                            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Edit</a>
-                                                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                                                <a style=" color:rgb(39, 55, 76);"  asp-controller="Post" asp-action="Update" asp-route-id="@obj.PostId"
-                                                           class="dropdown-item mx-2 w-75"> <i class="bi bi-pencil-square"></i> Update</a>
+                                                        <div class="dropdown text-end">
+                                                            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Edit</a>
+                                                            <div class="dropdown-menu dropdown-menu-end">
+                                                                <a style=" color:rgb(39, 55, 76);"  asp-controller="Post" asp-action="Update" asp-route-id="@obj.PostId"
+                            class="dropdown-item mx-2 w-75"> <i class="bi bi-pencil-square"></i> Update</a>
 
-                                                                                                <a  style=" color:rgb(39, 55, 76);"  asp-controller="Post" asp-action="Delete" asp-route-id="@obj.PostId"
-                                                           class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Delete</a>
+                                                            <a  style=" color:rgb(39, 55, 76);"  asp-controller="Post" asp-action="Delete" asp-route-id="@obj.PostId"
+                        class="dropdown-item mx-2 w-75"> <i class="bi bi-trash-fill"></i> Delete</a>
 
-                                                                                            </div>
-                                                                                        </div>
-                                                    }
-                                                                </div>
                                                             </div>
+                                                        </div>
+                                                    }
+                                                 </div>
+                                            </div>
                                             @if (obj.UserProfilePicture == null)
                                             {
-                                                                                <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @obj.UserName
+                                                <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @obj.UserName
                                             }
                                             else
                                             {
-                                                                                <img src="~/profilePictures/@obj.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @obj.UserName
+                                                <img src="~/profilePictures/@obj.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" /> @obj.UserName
                                             }
-                                            @*<h5>@obj.UserName</h5>*@
-                                                            <br /> 
-                                                            <small class="text-muted"> <span style="color:rgb(39, 55, 76);">@obj.CreatedAt</span></small>
-                                                            <br /> <br />
-                                                            <h6>@obj.Content</h6>
 
-                                                               <br />
+                                            <br /> 
+                                            <small class="text-muted"> <span style="color:rgb(39, 55, 76);">@obj.CreatedAt</span></small>
+                                            <br /> <br />
+                                            <h6>@obj.Content</h6>
+                                            <br />
                                             @{
-                                                bool takeAll = false;
+                                                bool takeAll = false;}
                                             <a asp-controller="Post" asp-action="ViewPost" asp-route-id="@obj.PostId"> Click here to see more comments.</a>
                                         </div>
                                     </div>
                                     <br />
 
 
-                                }
+                                }}
 
                             </table>
                         </div>
@@ -269,9 +267,7 @@
 
 </div>
 
-</div>
 
-</div>
 
 
 
