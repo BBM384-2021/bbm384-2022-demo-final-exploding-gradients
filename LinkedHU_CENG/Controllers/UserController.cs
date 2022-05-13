@@ -197,7 +197,14 @@ namespace LinkedHU_CENG.Controllers
                 ViewData["NameSurname"] = nameSurnameList;
                 ViewData["Name"] = nameList;
                 ViewData["Surname"] = surnameList;
-
+                if((nameSurnameList.Count > 0) || (nameList.Count > 0) && (surnameList.Count > 0))
+                {
+                    ViewData["atLeastOneSearch"] = 1;
+                }
+                else
+                {
+                    ViewData["atLeastOneSearch"] = -1;
+                }
                 return View();
             }
             return RedirectToAction("Index", "Home");
