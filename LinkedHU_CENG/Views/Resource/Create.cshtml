@@ -9,13 +9,13 @@
         <div class="mb-3 ">
             <h3 class="text-primary"><span style="margin-left:5px; font-size:20px; color:rgb(39, 55, 76);">Share Resources</span></h3>
             <h5 class="text-primary"><span style="margin-left:5px; font-size:22px; color:rgb(39, 55, 76);">Title</span></h5>
-            <input asp-for="Title" class="form-control" />
+            <input style="background-color:white;" asp-for="Title" class="form-control card" />
             <span asp-validation-for="Title" class="text-danger"></span>
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="UploadedFile" class="control-label"></label>
                     <div class="custom-file">
-                        <input asp-for="UploadedFile" type="file" accept=".ppt,.pptx,.xls,.xlsx,.doc,.docx,.mp4,.pdf" />
+                        <input  asp-for="UploadedFile" type="file" accept=".ppt,.pptx,.xls,.xlsx,.doc,.docx,.mp4,.pdf" />
                     </div>
                     <span asp-validation-for="UploadedFile" class="text-danger"></span>
                 </div>
@@ -25,11 +25,6 @@
     </div>
 </form>
 
-<section id='title-wrapper'>
-  <div class='line'></div>
-  <div class='title'><span style=" font-size:15px; color:rgb(39, 55, 76, 0.5);"> resources</span></div>
-  <div class='line'></div>
-</section>
 
 @section scripts{
 <script type="text/javascript">

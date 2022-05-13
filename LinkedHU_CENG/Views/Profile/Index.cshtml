@@ -140,6 +140,12 @@
                             <partial name="~/Views/Resource/Create.cshtml" view-data="ViewData" />
                         </div>
                     }
+                    <br />
+                    <section id='title-wrapper' style="margin-left:22px; margin-top:0px;width:495px;">
+                        <div class='line'></div>
+                        <div class='title'><span style=" font-size:15px; color:rgb(39, 55, 76, 0.5); ;"> resources</span></div>
+                        <div class='line'></div>
+                    </section>
                     <div>
                         @await Component.InvokeAsync("ResourceViewComponent")
                     </div>
@@ -252,92 +258,92 @@
 }
     else if (stateMerge == 1)
     {
-        <script>
-            setTimeout(()=>{
-                const box = document.getElementById("box-success-merge");
+<script>
+    setTimeout(()=>{
+        const box = document.getElementById("box-success-merge");
 
-                box.style.visibility = "visible";
-            },50);
-            setTimeout(()=>{
-                const box = document.getElementById("box-success-merge");
+        box.style.visibility = "visible";
+    },50);
+    setTimeout(()=>{
+        const box = document.getElementById("box-success-merge");
 
-                box.style.visibility = "hidden";
-            },2500);
-        </script>
+        box.style.visibility = "hidden";
+    },2500);
+</script>
     }
     else if (stateMerge == -1)
     {
-        <script>
-            setTimeout(()=>{
-                const box = document.getElementById("box-emptyMerge");
+<script>
+    setTimeout(()=>{
+        const box = document.getElementById("box-emptyMerge");
 
-                box.style.visibility = "visible";
-            },50);
-            setTimeout(()=>{
-                const box = document.getElementById("box-emptyMerge");
+        box.style.visibility = "visible";
+    },50);
+    setTimeout(()=>{
+        const box = document.getElementById("box-emptyMerge");
 
-                box.style.visibility = "hidden";
-            },2500);
-        </script>
+        box.style.visibility = "hidden";
+    },2500);
+</script>
     }
     else if (stateMerge == -2)
     {
-        <script>
-            setTimeout(()=>{
-                const box = document.getElementById("box-failMoreRequest");
+<script>
+    setTimeout(()=>{
+        const box = document.getElementById("box-failMoreRequest");
 
-                box.style.visibility = "visible";
-            },50);
-            setTimeout(()=>{
-                const box = document.getElementById("box-failMoreRequest");
+        box.style.visibility = "visible";
+    },50);
+    setTimeout(()=>{
+        const box = document.getElementById("box-failMoreRequest");
 
-                box.style.visibility = "hidden";
-            },2500);
-        </script>
+        box.style.visibility = "hidden";
+    },2500);
+</script>
     }
     else if (stateMerge == -3)
     {
-        <script>
-            setTimeout(()=>{
-                const box = document.getElementById("box-sameMail");
+<script>
+    setTimeout(()=>{
+        const box = document.getElementById("box-sameMail");
 
-                box.style.visibility = "visible";
-            },50);
-            setTimeout(()=>{
-                const box = document.getElementById("box-sameMail");
+        box.style.visibility = "visible";
+    },50);
+    setTimeout(()=>{
+        const box = document.getElementById("box-sameMail");
 
-                box.style.visibility = "hidden";
-            },2500);
-        </script>
+        box.style.visibility = "hidden";
+    },2500);
+</script>
     }
     else if (stateDeleteAccount == 1)
     {
-        <script>
-            setTimeout(()=>{
-                const box = document.getElementById("box-deleteAccount-success");
+<script>
+    setTimeout(()=>{
+        const box = document.getElementById("box-deleteAccount-success");
 
-                box.style.visibility = "visible";
-            },50);
-            setTimeout(()=>{
-                const box = document.getElementById("box-deleteAccount-success");
+        box.style.visibility = "visible";
+    },50);
+    setTimeout(()=>{
+        const box = document.getElementById("box-deleteAccount-success");
 
-                box.style.visibility = "hidden";
-            },2500);
-        </script>
+        box.style.visibility = "hidden";
+    },2500);
+</script>
     }
     else if (stateDeleteAccount == -1)
     {
-        <script>
-            setTimeout(()=>{
-                const box = document.getElementById("box-deleteAccount-moreRequest");
+<script>
+    setTimeout(()=>{
+        const box = document.getElementById("box-deleteAccount-moreRequest");
 
-                box.style.visibility = "visible";
-            },50);
-            setTimeout(()=>{
-                const box = document.getElementById("box-deleteAccount-moreRequest");
+        box.style.visibility = "visible";
+    },50);
+    setTimeout(()=>{
+        const box = document.getElementById("box-deleteAccount-moreRequest");
 
-                box.style.visibility = "hidden";
-            },2500);
-        </script>
+        box.style.visibility = "hidden";
+    },2500);
+</script>
     }
 }

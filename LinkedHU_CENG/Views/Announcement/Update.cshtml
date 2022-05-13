@@ -3,6 +3,10 @@
     ViewData["Title"] = "Update";
     var isUserValid = ViewData["isBanUserValid"] as int?;
 }
+
+<br />
+<br />
+<br />
 @if (isUserValid == 1)
 {
     <form asp-controller="Announcement" asp-action="Update" method="post">

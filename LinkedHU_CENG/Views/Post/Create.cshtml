@@ -5,7 +5,10 @@
 }
 
 @if (isUserValid == 1)
-{
+{   <br />
+    <br />
+    <br />
+    <br />
     <form asp-controller="Post" asp-action="Create" method="post" enctype="multipart/form-data" style="margin-top:20px; margin-left:250px; width:600px;">
         <div class=" p-3 mt-4 custom-margin1 custom-shadow1" style="margin-top:64px; background:#FFFFFF; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px">
             <div class="mb-3 ">
@@ -33,11 +36,7 @@
 
 }
 
-<section id='title-wrapper' style="margin-left:250px;">
-  <div class='line'></div>
-  <div class='title'><span style=" font-size:15px; color:rgb(39, 55, 76, 0.5);"> posts</span></div>
-  <div class='line'></div>
-</section>
+
 @section scripts{
 <script type="text/javascript">
 
