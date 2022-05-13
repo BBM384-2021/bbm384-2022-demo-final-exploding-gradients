@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace LinkedHU_CENG.Controllers
 {
     public class HomeController : Controller  
-    { 
+    {  
         private readonly ApplicationDbContext _db;
         private readonly ILogger<HomeController> _logger;
          
@@ -20,6 +20,8 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetInt32("UserID") == null)
             {
+                ViewData["ForgetPassword"] = TempData["ForgetPassword"];
+                ViewData["changePasswordToHome"] = TempData["changePasswordToHome"];
                 return View("WelcomePage");
             }
             else
@@ -36,10 +38,18 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("UserID") == null)
+            {
+                return View("PrivacyLoggedIn");
+            }
+            else
+            {
+                return View();
+            }
+           
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)] 
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

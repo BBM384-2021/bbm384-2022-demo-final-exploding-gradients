@@ -13,15 +13,16 @@
                   <div class="row ">
                       <div class="col">
                           <div id="mySidenav" class="sidenav">
-                              <a asp-area="" asp-controller="Advertisement" asp-action="Create">Add Advertisement</a>
+                            <input type="button"class="btn btn-secondary my-2 my-sm-0" style="width:180px;text-align:left;" value="Add Advertisement" onclick="@("window.location.href='" + @Url.Action("Create", "Advertisement") + "'");" />
                               <br>
-                              <a asp-area="" asp-controller="Application" asp-action="Index">My Applications</a>
+                              <br>
+                              <input type="button" class="btn btn-secondary my-2 my-sm-0" style="width:180px;text-align:left" value="My Applications" onclick="@("window.location.href='" + @Url.Action("Index", "Application") + "'");" />
                           </div>
                       </div>
                       <div class="col" style= "margin-left:-200px; width:1000px ">
 
                               <div class="col-sm-6 mb-3">
-                                  <div class="card h-100"  style= "width:300px ">
+                                  <div class="container h-100"  style= "width:330px; margin-left:10px;box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;background-color:#ffffff">
                                       <div class="card-body">
                                           <h6 align="center" ; class="align-items-center mb-3"><b>Add a New Advertisement</b></h6>
                                           <div class="card-aboutme col">
@@ -29,7 +30,7 @@
                                                   <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                                   <div class="form-group">
                                                       <label asp-for="Title" class="control-label"></label>
-                                                      <input asp-for="Title" class="form-control" />
+                                                      <input asp-for="Title" class="form-control" style="border:solid 0.5px #abb6c2; box-shadow: inset 2px 2px 2px 0px #ddd;" />
                                                       <span asp-validation-for="Title" class="text-danger"></span>
                                                 </div>
 
@@ -48,17 +49,17 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="Company" class="control-label"></label>
-                                                        <input asp-for="Company" class="form-control" />
+                                                        <input asp-for="Company" class="form-control"  style="border:solid 0.5px #abb6c2; box-shadow: inset 2px 2px 2px 0px #ddd;" />
                                                         <span asp-validation-for="Company" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="Location" class="control-label"></label>
-                                                        <input asp-for="Location" class="form-control" />
+                                                        <input asp-for="Location" class="form-control"  style="border:solid 0.5px #abb6c2; box-shadow: inset 2px 2px 2px 0px #ddd;" />
                                                         <span asp-validation-for="Location" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="Description" class="control-label"></label>
-                                                        <input asp-for="Description" class="form-control" style="height: 200px;" />
+                                                        <input asp-for="Description" class="form-control"  style="border:solid 0.5px #abb6c2; box-shadow: inset 2px 2px 2px 0px #ddd;height: 200px;" />
                                                         <span asp-validation-for="Description" class="text-danger"></span>
                                                     </div>
                                                     <br />
@@ -82,8 +83,8 @@
                             </div>
                         </div>
                         <div class="col-sm-6 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body">
+                            <div class="container h-100">
+                                <div class="card-body" style="background-color:#ffffff;box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
                                     <h6 align="center" ; class="align-items-center mb-3"><b>My Advertisements</b></h6>
                                     @await Component.InvokeAsync("OwnedAdvertisementViewComponent")
                                 </div>

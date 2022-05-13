@@ -1897,19 +1897,19 @@ progress {
 }
 
 .table {
-  --bs-table-bg: transparent;
-  --bs-table-accent-bg: rgba(255, 255, 255, 0.05);
-  --bs-table-striped-color: #ebebeb;
-  --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
-  --bs-table-active-color: #ebebeb;
-  --bs-table-active-bg: rgba(0, 0, 0, 0.1);
-  --bs-table-hover-color: #ebebeb;
-  --bs-table-hover-bg: rgba(255, 255, 255, 0.075);
-  width: 100%;
-  margin-bottom: 1rem;
-  color: #ebebeb;
-  vertical-align: top;
-  border-color: rgba(0, 0, 0, 0.15);
+    --bs-table-bg: #fafdff;
+    --bs-table-accent-bg: rgba(255, 255, 255, 0.05);
+    --bs-table-striped-color: #ebebeb;
+    --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+    --bs-table-active-color: #ebebeb;
+    --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+    --bs-table-hover-color: #ebebeb;
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.075);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #655e5e;
+    vertical-align: top;
+    border-color: rgba(0, 0, 0, 0.15);
 }
 
 .table > :not(caption) > * > * {
@@ -1956,8 +1956,8 @@ progress {
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) > * {
-  --bs-table-accent-bg: var(--bs-table-striped-bg);
-  color: var(--bs-table-striped-color);
+    --bs-table-accent-bg: var(--bs-table-striped-bg);
+    color: #413e3e;
 }
 
 .table-active {
@@ -3744,20 +3744,20 @@ fieldset:disabled .btn {
 }
 
 .dropdown-menu {
-  position: absolute;
-  z-index: 1000;
-  display: none;
-  min-width: 10rem;
-  padding: 0.5rem 0;
-  margin: 0;
-  font-size: 1rem;
-  color: #ebebeb;
-  text-align: left;
-  list-style: none;
-  background-color: #4e5d6c;
-  background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0;
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #ebebeb;
+    text-align: left;
+    list-style: none;
+    background-color: #ebebeb;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0;
 }
 
 .dropdown-menu[data-bs-popper] {
@@ -11462,8 +11462,8 @@ fieldset:disabled .btn {
 }
 
 .table a:not(.btn) {
-  color: #fff;
-  text-decoration: underline;
+    color: #655e5e;
+    text-decoration: underline;
 }
 
 .table .dropdown-menu a {
@@ -11558,4 +11558,22 @@ label,
 
 .modal-header, .modal-footer {
   background-color: rgba(255, 255, 255, 0.075);
+}
+
+#title-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    flex-wrap: wrap;
+    margin: 0 10px 0 10px;
+    text-align: center;
+}
+
+.line {
+    flex: 1;
+    height: 1px;
+    background-color: rgb(39, 55, 76, 0.3);
+   
 }

@@ -33,6 +33,7 @@ namespace LinkedHU_CENG.Controllers
             if (HttpContext.Session.GetInt32("UserID") == null)
             {
                 ViewData["RegisterState"] = TempData["RegisterState"];
+                ViewData["LoginState"] = TempData["LoginState"];
                 return View();
             }
             else
@@ -44,15 +45,26 @@ namespace LinkedHU_CENG.Controllers
         
         public IActionResult Login(User usr)
         {
-            
-            var info = db.Users.FirstOrDefault(u => (u.Email.Equals(usr.Email) || u.SecondEmail.Equals(usr.Email)) && u.Password.Equals(Encrypt(usr.Password)));
-            if (info != null)
+            try
             {
-                HttpContext.Session.SetInt32("UserID", info.UserId);
-                HttpContext.Session.SetString("Email", info.Email);
-                return RedirectToAction("Index", "Home");
+                var info = db.Users.FirstOrDefault(u => (u.Email.Equals(usr.Email) || u.SecondEmail.Equals(usr.Email)) && u.Password.Equals(Encrypt(usr.Password)));
+                if (info != null)
+                {
+                    HttpContext.Session.SetInt32("UserID", info.UserId);
+                    HttpContext.Session.SetString("Email", info.Email);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["LoginState"] = 2;
+                    return RedirectToAction("Login", "User");
+                }
             }
-            return View();
+            catch
+            {
+                TempData["LoginState"] = 3;
+            }
+            return RedirectToAction("Login", "User");
         }
 
 
@@ -63,6 +75,7 @@ namespace LinkedHU_CENG.Controllers
                 //HttpContext.Session.Clear();
                 HttpContext.Session.Remove("UserID");
                 HttpContext.Session.Remove("Email");
+                TempData["changePasswordToHome"] = TempData["changePassword"];
 
                 return RedirectToAction("Index", "Home");
             }
@@ -76,15 +89,26 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                var deleteUser = db.Users.Find(id);
-                DeleteRequest request = new DeleteRequest();
-                request.UserId = id;
-                request.Name = deleteUser.Name;
-                request.Email = deleteUser.Email;
-                request.Surname = deleteUser.Surname;
-                request.Role = deleteUser.Role;
-                db.DeleteRequests.Add(request);
-                db.SaveChanges();
+                var oneUserMoreRequest = db.DeleteRequests.AsNoTracking().Where(x => x.UserId == id).ToList();
+                if (oneUserMoreRequest.Count > 0)
+                {
+                    TempData["stateDeleteAccount"] = -1;
+                }
+                else
+                {
+                    var deleteUser = db.Users.Find(id);
+                    DeleteRequest request = new DeleteRequest();
+                    request.UserId = id;
+                    request.Name = deleteUser.Name;
+                    request.Email = deleteUser.Email;
+                    request.Surname = deleteUser.Surname;
+                    request.Role = deleteUser.Role;
+                    db.DeleteRequests.Add(request);
+                    db.SaveChanges();
+                    TempData["stateDeleteAccount"] = 1;
+
+                }
+
 
                 return RedirectToAction("Index", "Profile");
             }
@@ -96,7 +120,7 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult ForgetPassword()
         {
-            return View();
+            return View("ForgetPassword");
         }
 
         [HttpPost]
@@ -104,6 +128,7 @@ namespace LinkedHU_CENG.Controllers
         {
             if (ModelState.IsValid)
             {
+                try { 
                 User user = db.Users.Where(m => (m.Email.Equals(forgetUser.Email) || m.SecondEmail.Equals(forgetUser.Email))).FirstOrDefault();
                 if (user != null)
                 {
@@ -111,15 +136,27 @@ namespace LinkedHU_CENG.Controllers
                     forgetUser.Surname = user.Surname;
                     db.ForgetPasswords.Add(forgetUser);
                     db.SaveChanges();
+                    TempData["ForgetPassword"] = 10;
                 }
-
+                else
+                {
+                    TempData["ForgetPassword"] = 15;
+                }
                 return RedirectToAction("Index", "Home");
+                }
+                catch
+                {
+                    TempData["ForgetPassword"] = -10;
+                    ModelState.AddModelError("", "Some Error Occured!");
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {
+                TempData["ForgetPassword"] = -10;
                 ModelState.AddModelError("", "Some Error Occured!");
+                return RedirectToAction("Index", "Home");
             }
-            return View();
         }
 
 
@@ -173,9 +210,11 @@ namespace LinkedHU_CENG.Controllers
             {
                 var user = db.Users.Find(id);
                 List<Post> posts = db.Posts.OrderByDescending(x => x.CreatedAt).Where(x => x.UserId == id).ToList();
+                List<Resource> resources = db.Resources.OrderByDescending(x => x.CreatedAt).Where(x => x.UserId == id).ToList();
                 ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
                 ViewData["User"] = user;
                 ViewData["Posts"] = posts;
+                ViewData["Resources"] = resources;
                 var followState = db.Follows.Where(x => (x.FollowerId == HttpContext.Session.GetInt32("UserID")) && (x.FollowingId == id)).ToList();
                 if (followState.Count > 0) { ViewData["IsFollow"] = 1; }
                 else { ViewData["IsFollow"] = 0; }

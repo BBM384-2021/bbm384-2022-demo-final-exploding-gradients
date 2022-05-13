@@ -27,7 +27,7 @@ namespace LinkedHU_CENG.Controllers
             {
                 ViewData["isBanUserValid"] = 1;
                 BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
-                if(banUser != null)
+                if (banUser != null)
                 {
                     ViewData["isBanUserValid"] = 0;
                 }
@@ -41,97 +41,124 @@ namespace LinkedHU_CENG.Controllers
         [HttpPost]
         public IActionResult Create(Post post)
         {
-            if (ModelState.IsValid)
+            if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                var userId = HttpContext.Session.GetInt32("UserID");
-                post.UserId = userId;
-                var user = _db.Users.Find(userId);
-                post.UserName = user.Name + " " + user.Surname;
-                post.UserProfilePicture = user.ProfilePicturePath;
-
-                if(post.PostUpload != null)
+                if (ModelState.IsValid)
                 {
-                    string uniqueFileName = UploadedFile(post);
-                    string[] name = uniqueFileName.Split(".");
+                    var userId = HttpContext.Session.GetInt32("UserID");
+                    post.UserId = userId;
+                    var user = _db.Users.Find(userId);
+                    post.UserName = user.Name + " " + user.Surname;
+                    post.UserProfilePicture = user.ProfilePicturePath;
 
-                    if (name[1] == "mp4")
+                    if (post.PostUpload != null)
                     {
-                        post.PostVideoPath = uniqueFileName;
+                        string uniqueFileName = UploadedFile(post);
+                        string[] name = uniqueFileName.Split(".");
+
+                        if (name[1] == "mp4")
+                        {
+                            post.PostVideoPath = uniqueFileName;
+                        }
+                        else if (name[1] == "pdf")
+                        {
+                            post.PostPdfPath = uniqueFileName;
+                        }
+                        else
+                        {
+                            post.PostImagePath = uniqueFileName;
+                        }
                     }
-                    else if (name[1] == "pdf")
-                    {
-                        post.PostPdfPath = uniqueFileName;
-                    }
-                    else
-                    {
-                        post.PostImagePath = uniqueFileName;
-                    }
+
+                    _db.Posts.Add(post);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
                 }
-                
-                _db.Posts.Add(post);
-                _db.SaveChanges();
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Some Error Occured!");
+                else
+                {
+                    ModelState.AddModelError("", "Some Error Occured!");
 
+                }
+                ViewData["isBanUserValid"] = 1;
+                BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+                if (banUser != null)
+                {
+                    ViewData["isBanUserValid"] = 0;
+                }
+                return View(post);
             }
-            return View(post);
+            return RedirectToAction("Index", "Home");
 
         }
 
         // GET
         public ActionResult Update(int? id)
         {
-            if (id == null || id == 0)
+            if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                return NotFound();
-            }
-            var post = _db.Posts.Find(id);
+                if (id == null || id == 0)
+                {
+                    return NotFound();
+                }
+                var post = _db.Posts.Find(id);
 
-            if (post == null)
-            {
-                return NotFound();
-            }
+                if (post == null)
+                {
+                    return NotFound();
+                }
 
-            return View(post);
+                ViewData["isBanUserValid"] = 1;
+                BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+                if (banUser != null)
+                {
+                    ViewData["isBanUserValid"] = 0;
+                }
+
+                return View(post);
+            }
+            return View("Index", "Home");
         }
+
 
         // POST
         [HttpPost]
         public ActionResult Update(Post post)
         {
-            if (ModelState.IsValid)
+            if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                string uniqueFileName = UploadedFile(post);
-                if (uniqueFileName != null)
+
+                if (ModelState.IsValid)
                 {
-                    string[] name = uniqueFileName.Split(".");
+                    string uniqueFileName = UploadedFile(post);
+                    if (uniqueFileName != null)
+                    {
+                        string[] name = uniqueFileName.Split(".");
 
-                    if (name[1] == "mp4")
-                    {
-                        post.PostVideoPath = uniqueFileName;
+                        if (name[1] == "mp4")
+                        {
+                            post.PostVideoPath = uniqueFileName;
+                        }
+                        else if (name[1] == "pdf")
+                        {
+                            post.PostPdfPath = uniqueFileName;
+                        }
+                        else
+                        {
+                            post.PostImagePath = uniqueFileName;
+                        }
                     }
-                    else if(name[1] == "pdf")
-                    {
-                        post.PostPdfPath = uniqueFileName;
-                    }
-                    else
-                    {
-                        post.PostImagePath = uniqueFileName;
-                    }
+
+                    _db.Posts.Update(post);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
                 }
-
-                _db.Posts.Update(post);
-                _db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                else
+                {
+                    ModelState.AddModelError("", "Some error occured!");
+                }
+                return View(post);
             }
-            else
-            {
-                ModelState.AddModelError("", "Some error occured!");
-            }
-            return View(post);
+            return View("Index", "Home");
         }
 
         public ActionResult Delete(int? id)
@@ -204,30 +231,30 @@ namespace LinkedHU_CENG.Controllers
 
         public IActionResult ViewPost(int id)
         {
-            if (ModelState.IsValid)
+            if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                ViewData["isBanUserValid"] = 1;
-                BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
-                if (banUser != null)
+                if (ModelState.IsValid)
                 {
-                    ViewData["isBanUserValid"] = 0;
+                    ViewData["isBanUserValid"] = 1;
+                    BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+                    if (banUser != null)
+                    {
+                        ViewData["isBanUserValid"] = 0;
+                    }
+                    var post = _db.Posts.Find(id);
+                    ViewData["post"] = post;
+                    ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
+                    return View("ViewPost");
                 }
-                var post = _db.Posts.Find(id);
-                ViewData["post"] = post;
-                ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
-                return View("ViewPost");
-
+                else
+                {
+                    ModelState.AddModelError("", "Some error occured!");
+                }
+                return View();
             }
-            else
-            {
-                ModelState.AddModelError("", "Some error occured!");
-            }
-            return View();
-
+            return View("Index", "Home");
         }
 
-
-
-       
     }
+
 }

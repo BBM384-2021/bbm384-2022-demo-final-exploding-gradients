@@ -1563,11 +1563,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\murat\\Desktop\\Projectbbm384\\develop_profile_humeyra_murat\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
+      "projectUniqueName": "C:\\Users\\murat\\Desktop\\exploding gradient\\V1\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
       "projectName": "LinkedHU_CENG",
-      "projectPath": "C:\\Users\\murat\\Desktop\\Projectbbm384\\develop_profile_humeyra_murat\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
+      "projectPath": "C:\\Users\\murat\\Desktop\\exploding gradient\\V1\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
       "packagesPath": "C:\\Users\\murat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\murat\\Desktop\\Projectbbm384\\develop_profile_humeyra_murat\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\obj\\",
+      "outputPath": "C:\\Users\\murat\\Desktop\\exploding gradient\\V1\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\murat\\AppData\\Roaming\\NuGet\\NuGet.Config",

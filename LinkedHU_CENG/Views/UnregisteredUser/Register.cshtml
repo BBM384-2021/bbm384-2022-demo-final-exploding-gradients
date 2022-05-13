@@ -2,8 +2,11 @@
 
 @{
     ViewData["Title"] = "Register";
+    var date = ViewData["Date"] as string;
     Layout = "~/Views/Shared/_LayoutGuest.cshtml";
 }
+
+<br />
 
 <form asp-action="Register" , asp-controller="UnregisteredUser">
     <div>
@@ -23,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" type="email" pattern="[a-z0-9._%+-]+@@[a-z0-9._%+-]*hacettepe.edu.tr" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,7 +42,7 @@
 
             <div class="form-group">
                 <label asp-for="BirthDate" class="control-label">Birthdate</label>
-                <input asp-for="BirthDate" class="form-control" />
+                <input asp-for="BirthDate" class="form-control" max="@date"/>
                 <span asp-validation-for="BirthDate" class="text-danger"></span>
             </div>
             <div class="form-group" align="center">

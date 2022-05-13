@@ -38,10 +38,7 @@
                 <li class="nav-item">
                     <a class="nav-link" style="text-align:center; margin:-5px;margin-right:2px" asp-controller="Advertisement" asp-action="Index"><i class="fa-solid fa-suitcase"></i><br /><span>Advertisements</span></a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" style="text-align:center; margin:-5px;margin-right:2px" href="#"><i class="fa-solid fa-comments"></i><br /><span>Messages</span></a>
-                </li>                
+            
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" style="text-align:center; margin:-5px; margin-right:2px" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i><br /><span>Profile</span></a>
@@ -49,13 +46,13 @@
 
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                        <a class="dropdown-item" asp-controller="Profile" asp-action="Index">View Profile </a>
-                        <a class="dropdown-item" asp-controller="Profile" asp-action="Edit">Edit Profile</a>
+                        <a class="dropdown-item" asp-controller="Profile" style="color:rgb(39, 55, 76);" asp-action="Index">View Profile </a>
+                        <a class="dropdown-item" asp-controller="Profile" style=" color:rgb(39, 55, 76);" asp-action="Edit">Edit Profile</a>
 
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-controller="Report" asp-action="Index">Send Report</a>
+                        <a class="dropdown-item" asp-controller="Report" style=" color:rgb(39, 55, 76);" asp-action="Index">Send Report</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-controller="User" asp-action="Logout">Log out</a>
+                        <a class="dropdown-item" asp-controller="User"style=" color:rgb(39, 55, 76);"  asp-action="Logout">Log out</a>
         </div>
     </nav>
 </header>

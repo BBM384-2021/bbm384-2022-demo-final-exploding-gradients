@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CVfvRmqV3shZYpyxVOslHkUimpGzfxhZ/DNwKb+eMLaqWFeenatGglBnPwBq0Gaku+nC/u6cze57soxWG+Si5w==",
+  "dgSpecHash": "4KlzDGEmL07vFK60j9jZcs/sQQ9jaO0A83GpJALV6WzxRWWQnSR+WkEpQLGhUIzZnAj4VpYSfkNUb1EqW4UqAA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\murat\\Desktop\\Projectbbm384\\develop_profile_humeyra_murat\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
+  "projectFilePath": "C:\\Users\\murat\\Desktop\\exploding gradient\\V1\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\murat\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\murat\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\6.0.4\\microsoft.aspnetcore.mvc.razor.extensions.6.0.4.nupkg.sha512",
