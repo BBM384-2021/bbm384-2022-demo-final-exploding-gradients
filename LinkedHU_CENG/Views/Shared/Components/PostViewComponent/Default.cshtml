@@ -56,6 +56,16 @@
                                         function copyText() {
                                             navigator.clipboard.writeText
                                                 ("https://localhost:7263/Post/ViewPost/" + @obj.post.PostId );
+                                            setTimeout(()=>{
+                                                const box = document.getElementById("box-success");
+
+                                                box.style.visibility = "visible";
+                                            },50);
+                                            setTimeout(()=>{
+                                                const box = document.getElementById("box-success");
+
+                                                box.style.visibility = "hidden";
+                                            },2500);
                                         }
                                     </script>
                                 </div>
@@ -95,3 +105,13 @@
         }
     
 </table>
+
+
+<div id="box-success" class="alert alert-dismissible alert-success" style="visibility:hidden; position:fixed; top: 70px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Well done!</strong> Link successfully copied.
+</div>
