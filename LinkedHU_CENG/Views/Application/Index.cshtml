@@ -10,19 +10,19 @@
             <div class="row ">
                 <div class="col">
                     <div id="mySidenav" class="sidenav">
-                        <input type="button" value="Add Advertisement" onclick="@("window.location.href='" + @Url.Action("Create", "Advertisement") + "'");" />
+                        <input class="btn btn-secondary my-2 my-sm-0 "type="button"  style="width:180px;text-align:left;"  value="Add Advertisement" onclick="@("window.location.href='" + @Url.Action("Create", "Advertisement") + "'");" />
                         <br>
                         <br>
-                        <input type="button" value="My Applications" onclick="@("window.location.href='" + @Url.Action("Index", "Application") + "'");" />
+                        <input class="btn btn-secondary my-2 my-sm-0 "type="button"  style="width:180px;text-align:left;" value="My Applications" onclick="@("window.location.href='" + @Url.Action("Index", "Application") + "'");" />
                     </div>
                 </div>
                 <center>
                <div class="col-sm-6 mb-3">
-                    <div class="card h-100">
+                    <div class="container h-100" style="background-color:#ffffff; margin-top:-100px;box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
                         <div class="card-body">
 
                    
-                                    <h4 align="center" ; class="align-items-center mb-3"><b>My Applications</b></h4>
+                                    <h4 align="center" ; class="align-items-center mb-3" style="margin-top:10px;"><b>My Applications</b></h4>
                 
                                     @foreach (var obj in applications.OrderByDescending(a => a.ApplicationId))
                                     {

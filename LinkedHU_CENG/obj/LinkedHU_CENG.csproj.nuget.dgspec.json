@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\murat\\Desktop\\Projectbbm384\\develop_profile_humeyra_murat\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj": {}
+    "D:\\Documents\\Git\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj": {}
   },
   "projects": {
-    "C:\\Users\\murat\\Desktop\\Projectbbm384\\develop_profile_humeyra_murat\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj": {
+    "D:\\Documents\\Git\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\murat\\Desktop\\Projectbbm384\\develop_profile_humeyra_murat\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
+        "projectUniqueName": "D:\\Documents\\Git\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
         "projectName": "LinkedHU_CENG",
-        "projectPath": "C:\\Users\\murat\\Desktop\\Projectbbm384\\develop_profile_humeyra_murat\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
-        "packagesPath": "C:\\Users\\murat\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\murat\\Desktop\\Projectbbm384\\develop_profile_humeyra_murat\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\obj\\",
+        "projectPath": "D:\\Documents\\Git\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
+        "packagesPath": "C:\\Users\\ABRA\\.nuget\\packages\\",
+        "outputPath": "D:\\Documents\\Git\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\murat\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ABRA\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -77,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
