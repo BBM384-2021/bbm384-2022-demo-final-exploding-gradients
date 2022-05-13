@@ -26,13 +26,17 @@ namespace LinkedHU_CENG.Controllers
         public IActionResult Create(Announcement announcement)
 
         {
+            ViewData["isBanUserValid"] = 1;
+            BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+            if (banUser != null)
+            {
+                ViewData["isBanUserValid"] = 0;
+            }
+
             if (ModelState.IsValid)
             {
-                BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
                 if (banUser != null)
                 {
-                   
-               
                 var userId = HttpContext.Session.GetInt32("UserID");
                 announcement.UserId = userId;
                 var user = _db.Users.Find(userId);
@@ -66,6 +70,12 @@ namespace LinkedHU_CENG.Controllers
                 return NotFound();
             }
 
+            ViewData["isBanUserValid"] = 1;
+            BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+            if (banUser != null)
+            {
+                ViewData["isBanUserValid"] = 0;
+            }
             return View(announcement);
         }
 

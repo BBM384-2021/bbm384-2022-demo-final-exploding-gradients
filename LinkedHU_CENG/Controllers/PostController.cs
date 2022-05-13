@@ -27,7 +27,7 @@ namespace LinkedHU_CENG.Controllers
             {
                 ViewData["isBanUserValid"] = 1;
                 BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
-                if(banUser != null)
+                if (banUser != null)
                 {
                     ViewData["isBanUserValid"] = 0;
                 }
@@ -44,42 +44,48 @@ namespace LinkedHU_CENG.Controllers
             if (HttpContext.Session.GetInt32("UserID") != null)
             {
                 if (ModelState.IsValid)
-            {
-                var userId = HttpContext.Session.GetInt32("UserID");
-                post.UserId = userId;
-                var user = _db.Users.Find(userId);
-                post.UserName = user.Name + " " + user.Surname;
-                post.UserProfilePicture = user.ProfilePicturePath;
-
-                if(post.PostUpload != null)
                 {
-                    string uniqueFileName = UploadedFile(post);
-                    string[] name = uniqueFileName.Split(".");
+                    var userId = HttpContext.Session.GetInt32("UserID");
+                    post.UserId = userId;
+                    var user = _db.Users.Find(userId);
+                    post.UserName = user.Name + " " + user.Surname;
+                    post.UserProfilePicture = user.ProfilePicturePath;
 
-                    if (name[1] == "mp4")
+                    if (post.PostUpload != null)
                     {
-                        post.PostVideoPath = uniqueFileName;
+                        string uniqueFileName = UploadedFile(post);
+                        string[] name = uniqueFileName.Split(".");
+
+                        if (name[1] == "mp4")
+                        {
+                            post.PostVideoPath = uniqueFileName;
+                        }
+                        else if (name[1] == "pdf")
+                        {
+                            post.PostPdfPath = uniqueFileName;
+                        }
+                        else
+                        {
+                            post.PostImagePath = uniqueFileName;
+                        }
                     }
-                    else if (name[1] == "pdf")
-                    {
-                        post.PostPdfPath = uniqueFileName;
-                    }
-                    else
-                    {
-                        post.PostImagePath = uniqueFileName;
-                    }
+
+                    _db.Posts.Add(post);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
                 }
-                
-                _db.Posts.Add(post);
-                _db.SaveChanges();
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Some Error Occured!");
+                else
+                {
+                    ModelState.AddModelError("", "Some Error Occured!");
 
-            }
-            return View(post);
+                }
+                ViewData["isBanUserValid"] = 1;
+                BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+                if (banUser != null)
+                {
+                    ViewData["isBanUserValid"] = 0;
+                }
+                return View(post);
             }
             return RedirectToAction("Index", "Home");
 
@@ -99,6 +105,13 @@ namespace LinkedHU_CENG.Controllers
                 if (post == null)
                 {
                     return NotFound();
+                }
+
+                ViewData["isBanUserValid"] = 1;
+                BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+                if (banUser != null)
+                {
+                    ViewData["isBanUserValid"] = 0;
                 }
 
                 return View(post);
@@ -222,16 +235,16 @@ namespace LinkedHU_CENG.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                ViewData["isBanUserValid"] = 1;
-                BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
-                if (banUser != null)
-                {
-                    ViewData["isBanUserValid"] = 0;
-                }
-                var post = _db.Posts.Find(id);
-                ViewData["post"] = post;
-                ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
-                return View("ViewPost");
+                    ViewData["isBanUserValid"] = 1;
+                    BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+                    if (banUser != null)
+                    {
+                        ViewData["isBanUserValid"] = 0;
+                    }
+                    var post = _db.Posts.Find(id);
+                    ViewData["post"] = post;
+                    ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
+                    return View("ViewPost");
                 }
                 else
                 {
@@ -241,7 +254,7 @@ namespace LinkedHU_CENG.Controllers
             }
             return View("Index", "Home");
         }
-     
+
     }
-        
+
 }
