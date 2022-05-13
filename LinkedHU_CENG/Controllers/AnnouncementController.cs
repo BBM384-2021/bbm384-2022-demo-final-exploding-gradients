@@ -35,7 +35,7 @@ namespace LinkedHU_CENG.Controllers
 
             if (ModelState.IsValid)
             {
-                if (banUser != null)
+                if (banUser == null)
                 {
                 var userId = HttpContext.Session.GetInt32("UserID");
                 announcement.UserId = userId;

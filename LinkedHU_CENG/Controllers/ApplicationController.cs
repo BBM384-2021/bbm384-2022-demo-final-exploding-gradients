@@ -31,6 +31,8 @@ namespace LinkedHU_CENG.Controllers
 
             var userId = HttpContext.Session.GetInt32("UserID");
             List<Application> applications = db.Applications.Where(a => (a.UserId == userId) && (a.AdvertisementId == viewModel.AdvertisementId)).ToList();
+            Application newApplication = new Application();
+            viewModel.Application = newApplication;
             if(applications.Count > 0)
             {
                 return RedirectToAction("ViewApplication", "Application", applications.First());
