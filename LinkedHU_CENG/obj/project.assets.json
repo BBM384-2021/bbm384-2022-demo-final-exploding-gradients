@@ -1558,19 +1558,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ABRA\\.nuget\\packages\\": {}
+    "C:\\Users\\murat\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Documents\\Git\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
+      "projectUniqueName": "C:\\Users\\murat\\Desktop\\exploding gradient\\V1\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
       "projectName": "LinkedHU_CENG",
-      "projectPath": "D:\\Documents\\Git\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
-      "packagesPath": "C:\\Users\\ABRA\\.nuget\\packages\\",
-      "outputPath": "D:\\Documents\\Git\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\obj\\",
+      "projectPath": "C:\\Users\\murat\\Desktop\\exploding gradient\\V1\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\LinkedHU_CENG.csproj",
+      "packagesPath": "C:\\Users\\murat\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\murat\\Desktop\\exploding gradient\\V1\\bbm384-2022-demo-final-exploding-gradients\\LinkedHU_CENG\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ABRA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\murat\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1633,7 +1633,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }
