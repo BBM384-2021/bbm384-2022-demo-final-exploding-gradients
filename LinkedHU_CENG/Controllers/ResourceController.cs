@@ -95,6 +95,13 @@ namespace LinkedHU_CENG.Controllers
                 return NotFound();
             }
 
+            ViewData["isBanUserValid"] = 1;
+            BannedUser banUser = _db.BannedUsers.Find(HttpContext.Session.GetInt32("UserID"));
+            if (banUser != null)
+            {
+                ViewData["isBanUserValid"] = 0;
+            }
+
             return View(resource);
         }
 
