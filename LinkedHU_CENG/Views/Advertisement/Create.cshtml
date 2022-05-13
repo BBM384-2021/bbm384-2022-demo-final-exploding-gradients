@@ -13,17 +13,17 @@
                   <div class="row ">
                       <div class="col">
                           <div id="mySidenav" class="sidenav">
-                            <input type="button" value="Add Advertisement" onclick="@("window.location.href='" + @Url.Action("Create", "Advertisement") + "'");" />
+                            <input type="button"class="btn btn-secondary my-2 my-sm-0" style="width:180px;text-align:left;" value="Add Advertisement" onclick="@("window.location.href='" + @Url.Action("Create", "Advertisement") + "'");" />
                               <br>
                               <br>
-                              <input type="button" value="My Applications" onclick="@("window.location.href='" + @Url.Action("Index", "Application") + "'");" />
+                              <input type="button" class="btn btn-secondary my-2 my-sm-0" style="width:180px;text-align:left" value="My Applications" onclick="@("window.location.href='" + @Url.Action("Index", "Application") + "'");" />
                           </div>
                       </div>
                       <div class="col" style= "margin-left:-200px; width:1000px ">
 
                               <div class="col-sm-6 mb-3">
-                                  <div class="card h-100"  style= "width:300px ">
-                                      <div class="card-body" style="background-color:#ffffff">
+                                  <div class="container h-100"  style= "width:330px; margin-left:10px;box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;background-color:#ffffff">
+                                      <div class="card-body">
                                           <h6 align="center" ; class="align-items-center mb-3"><b>Add a New Advertisement</b></h6>
                                           <div class="card-aboutme col">
                                               <ul class="list-group list-group-flush">
@@ -83,8 +83,8 @@
                             </div>
                         </div>
                         <div class="col-sm-6 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body" style="background-color:#ffffff">
+                            <div class="container h-100">
+                                <div class="card-body" style="background-color:#ffffff;box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
                                     <h6 align="center" ; class="align-items-center mb-3"><b>My Advertisements</b></h6>
                                     @await Component.InvokeAsync("OwnedAdvertisementViewComponent")
                                 </div>

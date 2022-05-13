@@ -5,8 +5,7 @@
 }
 
 <div class="container p-3" style= "background-color:#ffffff;">
-    <br /><br />
-
+    <h4 style="text-align:center">Advertisements</h4>
 
     <table class="table table-striped" style="width:100%">
 
@@ -17,7 +16,7 @@
             {
                 <div class="card border p-3 mt-4  custom-shadow1" style="background-color:#ffffff;">
                 <div class="custom-margin1" style="padding:20px;">
-                    <h3>@obj.Advertisement.Title</h3>
+                    <h5>@obj.Advertisement.Title</h5>
                     <h6>@obj.Advertisement.Company</h6>
                     <h6>@obj.Advertisement.Type</h6>
                     <h6>@obj.Advertisement.Location</h6>
@@ -25,7 +24,7 @@
                     <br> <br/>
                     <h6>@obj.Advertisement.Description</h6>
 				    <br> 
-                    <center><input type="button" value="Apply" onclick="@("window.location.href='" + @Url.Action("Create", "Application",  obj) + "'");" /></center>
+                    <center><input type="button "  class="btn btn-secondary my-2 my-sm-0"value="Apply" onclick="@("window.location.href='" + @Url.Action("Create", "Application",  obj) + "'");" /></center>
                 </div>
             </div>
             <br/>
