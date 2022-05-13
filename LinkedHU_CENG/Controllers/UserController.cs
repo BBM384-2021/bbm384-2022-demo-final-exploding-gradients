@@ -89,15 +89,26 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                var deleteUser = db.Users.Find(id);
-                DeleteRequest request = new DeleteRequest();
-                request.UserId = id;
-                request.Name = deleteUser.Name;
-                request.Email = deleteUser.Email;
-                request.Surname = deleteUser.Surname;
-                request.Role = deleteUser.Role;
-                db.DeleteRequests.Add(request);
-                db.SaveChanges();
+                var oneUserMoreRequest = db.DeleteRequests.AsNoTracking().Where(x => x.UserId == id).ToList();
+                if (oneUserMoreRequest.Count > 0)
+                {
+                    TempData["stateDeleteAccount"] = -1;
+                }
+                else
+                {
+                    var deleteUser = db.Users.Find(id);
+                    DeleteRequest request = new DeleteRequest();
+                    request.UserId = id;
+                    request.Name = deleteUser.Name;
+                    request.Email = deleteUser.Email;
+                    request.Surname = deleteUser.Surname;
+                    request.Role = deleteUser.Role;
+                    db.DeleteRequests.Add(request);
+                    db.SaveChanges();
+                    TempData["stateDeleteAccount"] = 1;
+
+                }
+
 
                 return RedirectToAction("Index", "Profile");
             }
@@ -199,9 +210,11 @@ namespace LinkedHU_CENG.Controllers
             {
                 var user = db.Users.Find(id);
                 List<Post> posts = db.Posts.OrderByDescending(x => x.CreatedAt).Where(x => x.UserId == id).ToList();
+                List<Resource> resources = db.Resources.OrderByDescending(x => x.CreatedAt).Where(x => x.UserId == id).ToList();
                 ViewData["SessionUserId"] = HttpContext.Session.GetInt32("UserID");
                 ViewData["User"] = user;
                 ViewData["Posts"] = posts;
+                ViewData["Resources"] = resources;
                 var followState = db.Follows.Where(x => (x.FollowerId == HttpContext.Session.GetInt32("UserID")) && (x.FollowingId == id)).ToList();
                 if (followState.Count > 0) { ViewData["IsFollow"] = 1; }
                 else { ViewData["IsFollow"] = 0; }
