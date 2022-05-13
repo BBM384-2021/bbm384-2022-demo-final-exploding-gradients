@@ -89,15 +89,26 @@ namespace LinkedHU_CENG.Controllers
         {
             if (HttpContext.Session.GetInt32("UserID") != null)
             {
-                var deleteUser = db.Users.Find(id);
-                DeleteRequest request = new DeleteRequest();
-                request.UserId = id;
-                request.Name = deleteUser.Name;
-                request.Email = deleteUser.Email;
-                request.Surname = deleteUser.Surname;
-                request.Role = deleteUser.Role;
-                db.DeleteRequests.Add(request);
-                db.SaveChanges();
+                var oneUserMoreRequest = db.DeleteRequests.AsNoTracking().Where(x => x.UserId == id).ToList();
+                if (oneUserMoreRequest.Count > 0)
+                {
+                    TempData["stateDeleteAccount"] = -1;
+                }
+                else
+                {
+                    var deleteUser = db.Users.Find(id);
+                    DeleteRequest request = new DeleteRequest();
+                    request.UserId = id;
+                    request.Name = deleteUser.Name;
+                    request.Email = deleteUser.Email;
+                    request.Surname = deleteUser.Surname;
+                    request.Role = deleteUser.Role;
+                    db.DeleteRequests.Add(request);
+                    db.SaveChanges();
+                    TempData["stateDeleteAccount"] = 1;
+
+                }
+
 
                 return RedirectToAction("Index", "Profile");
             }

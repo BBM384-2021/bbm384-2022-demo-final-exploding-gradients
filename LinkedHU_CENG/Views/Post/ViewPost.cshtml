@@ -4,15 +4,21 @@
     var post = ViewData["post"] as Post;
     var sessionUserID = ViewData["SessionUserId"] as Int32?;
     var isUserValid = ViewData["isBanUserValid"] as int?;
+    ViewData["Title"] = "ViewPost";
 }
 
-<div class="container p-3">
 
-    <div class="card border p-3 mt-4  custom-shadow1">
-        <div class="custom-margin1">
+
+<br />
+<br />
+<br />
+<br />
+<div class="container p-3 row justify-content-center">
+
+    <div class="container p-3 mt-4 " style="background-color:#ffffff;width:700px;box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+        <div class="custom-margin1 ">
             <div class="text-end">
                 <div id="wrapperDiv">
-                    <div id="div3" style="padding:5px;;float:right;color:#ffffff"> <a href=#><i class="bi bi-chat-right-text"></i></a> </div>
                     <div id="div2" style="padding:5px;float:right;color:#ffffff">
                         <button onclick="copyText()"> <i class="bi bi-share"></i></button>
                         <script>
@@ -45,17 +51,15 @@
             {
                 <img src="https://static.thenounproject.com/png/2518416-200.png" class="rounded-circle" height="40" width="40" asp-append-version="true" />
                 <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@post.UserId"
-               class="dropdown-item mx-2 w-75">  @post.UserName</a>
+               class="dropdown-item mx-2 w-75">  <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @post.UserName</span></a>
             }
             else
             {
                 <img src="~/profilePictures/@post.UserProfilePicture" class="rounded-circle" height="40" width="40" asp-append-version="true" />
                 <a asp-controller="User" asp-action="ViewProfile" asp-route-id="@post.UserId"
-               class="dropdown-item mx-2 w-75">  @post.UserName</a>
+               class="dropdown-item mx-2 w-75">  <span style="margin-left:5px; font-size:18px; color:rgb(39, 55, 76);"> @post.UserName</span></a>
             }
-            @*<h5>@post.UserName</h5>*@
-            <br /> <br />
-            <small class="text-muted"> @post.CreatedAt</small>
+            <small class="text-muted">  <span style="margin-left:5px; font-size:12px; color:rgb(39, 55, 76, 0.6);"> @post.CreatedAt</span></small>
             <br /> <br />
             <h6>@post.Content</h6>
             @if (post.PostImagePath != null)
@@ -72,7 +76,7 @@
             @if (post.PostPdfPath != null)
             {
                 <embed src="~/postUploads/@post.PostPdfPath" height="500px" width="100%" class="responsive" />
-                <a href="~/postUploads/@post.PostPdfPath">See & Download</a>
+                <a href="~/postUploads/@post.PostPdfPath"> <span style="margin-left:5px; font-size:12px; color:rgb(39, 55, 76);"> See & Download</span></a>
             }
         </div>
         @{
