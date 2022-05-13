@@ -4,13 +4,13 @@
     var sessionUserID = ViewData["SessionUserId"] as Int32?;
 }
 
-<table class="table table-bordered table-striped" style="width:100%">
+<table class="table table-striped" style="width:100%">
        @foreach(var obj in Model.OrderByDescending(a=>a.AdvertisementId))
        {
         @if(sessionUserID == obj.UserId)
         {
             <div class = "card">
-                <div class="custom-margin1">
+                <div class="custom-margin1" style="background-color:#ffffff;padding:25px;box-shadow: inset 2px 2px 2px 0px #ddd;">
                     <div id="wrapperDiv">
                         <div id="div2" style="padding:5px;float:right;color:#ffffff"> 
                                     <div class="dropdown text-end">

@@ -11,8 +11,10 @@
 
             <div class="form-group">
                 <input asp-for="@Model.comment.Content" class="form-control border" placeholder="Write Comment...">
-                <span asp-validation-for="@Model.comment.Content" class="text-danger "></span>
-                <button class="btn btn-outline-light" style="margin-top:5px;" type="submit">Share</button>
+                
+                <span asp-validation-for="@Model.comment.Content" class="text-danger " ></span>
+                <br />
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit" > <span style="margin-top:4px;"> Share</span></button>
             </div>
         </div>
     </form>

@@ -4,7 +4,9 @@
     var user = ViewData["User"] as User;
     Layout = "~/Views/Shared/_Layout.cshtml";
     var isUserValid = ViewData["isBanUserValid"] as Int32?;
-    var stateChangePassword = ViewData["changePassword"] as Int32?;    
+    var stateChangePassword = ViewData["changePassword"] as Int32?;
+    var stateMerge = ViewData["stateMerge"] as Int32?;
+    var stateDeleteAccount = ViewData["stateDeleteAccount"] as Int32?;
 }
 
 
@@ -21,6 +23,9 @@
 </head>
 
 
+<br />
+<br />
+<br />
 
 <div class="container">
     <div class="main-body">
@@ -143,7 +148,7 @@
             </div>
 
             <div class="col mt-3">
-                <div class="card mb-3 custom-shadow1" style=" background-color:#ffffff">
+                <div class="card mb-3 custom-shadow1" style=" background-color:#ffffff;">
                     <div class="card-body">
                         <div style="display:block; width:100%;">
                             @await Component.InvokeAsync("OwnedPostViewComponent")
@@ -172,6 +177,63 @@
     <strong>Warning!</strong> Your current password was entered incorrectly.
 </div>
 
+
+
+<div id="box-success-merge" class="alert alert-dismissible alert-success" style="visibility:hidden; position:fixed; top: 70px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Well done!</strong> Merge request successfully forwarded to admin.
+</div>
+<div id="box-emptyMerge" class="alert alert-dismissible alert-danger" style="visibility:hidden; position:fixed; top: 75px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px;
+    background-color:#FFC300">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Warning!</strong> You cannot leave your second e-mail blank.
+</div>
+<div id="box-failMoreRequest" class="alert alert-dismissible alert-danger" style="visibility:hidden; position:fixed; top: 75px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px;
+    background-color:#FFC300">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Warning!</strong> You have made more than one merge email request. Your request could not be sent to the admin.
+</div>
+<div id="box-sameMail" class="alert alert-dismissible alert-danger" style="visibility:hidden; position:fixed; top: 75px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px;
+    background-color:#FFC300">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Warning!</strong> This e-mail cannot be received because it is in the system.
+</div>
+
+
+<div id="box-deleteAccount-success" class="alert alert-dismissible alert-success" style="visibility:hidden; position:fixed; top: 70px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Well done!</strong> Your account deletion request has been successfully delivered to the admin.
+</div>
+<div id="box-deleteAccount-moreRequest" class="alert alert-dismissible alert-danger" style="visibility:hidden; position:fixed; top: 75px;
+    right: 0px;
+    width: 40%;
+    z-index:9999;
+    border-radius:0px;
+    background-color:#FFC300">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Warning!</strong> It's not being sent again because you've submitted a request before.
+</div>
+
 @{
     if (stateChangePassword == -1)
     {
@@ -183,6 +245,97 @@
             },50);
             setTimeout(()=>{
                 const box = document.getElementById("box-wrongPassword");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+}
+    else if (stateMerge == 1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-success-merge");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-success-merge");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if (stateMerge == -1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-emptyMerge");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-emptyMerge");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if (stateMerge == -2)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-failMoreRequest");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-failMoreRequest");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if (stateMerge == -3)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-sameMail");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-sameMail");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if (stateDeleteAccount == 1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-deleteAccount-success");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-deleteAccount-success");
+
+                box.style.visibility = "hidden";
+            },2500);
+        </script>
+    }
+    else if (stateDeleteAccount == -1)
+    {
+        <script>
+            setTimeout(()=>{
+                const box = document.getElementById("box-deleteAccount-moreRequest");
+
+                box.style.visibility = "visible";
+            },50);
+            setTimeout(()=>{
+                const box = document.getElementById("box-deleteAccount-moreRequest");
 
                 box.style.visibility = "hidden";
             },2500);

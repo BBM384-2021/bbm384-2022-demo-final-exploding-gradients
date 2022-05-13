@@ -420,6 +420,7 @@ namespace LinkedHU_CENG.Controllers
                     List<Comment> comments = db.Comments.Where(m => m.UserId == id).ToList<Comment>();
                     List<Resource> resources = db.Resources.Where(m => m.UserId == id).ToList<Resource>();
                     List<Advertisement> advertisements = db.Advertisements.Where(m => m.UserId == id).ToList<Advertisement>();
+                    List<Application> applications = db.Applications.Where(m => m.UserId == id).ToList<Application>();
                     foreach (var post in posts)
                     {
                         db.Posts.Remove(post);
@@ -439,6 +440,10 @@ namespace LinkedHU_CENG.Controllers
                     foreach (var advertisement in advertisements)
                     {
                         db.Advertisements.Remove(advertisement);
+                    }
+                    foreach (var application in applications)
+                    {
+                        db.Applications.Remove(application);
                     }
 
                     var deleteRequest = db.DeleteRequests.Find(id);
