@@ -28,7 +28,18 @@ namespace LinkedHU_CENG.Controllers
         public IActionResult Create(AdvertisementViewModel viewModel)
         {
             viewModel.Advertisement = db.Advertisements.Find(viewModel.AdvertisementId);
-            return View(viewModel);
+
+            var userId = HttpContext.Session.GetInt32("UserID");
+            List<Application> applications = db.Applications.Where(a => (a.UserId == userId) && (a.AdvertisementId == viewModel.AdvertisementId)).ToList();
+            if(applications.Count > 0)
+            {
+                return RedirectToAction("ViewApplication", "Application", applications.First());
+            }
+            else
+            {
+                return View(viewModel);
+            }
+            
         }
 
         [HttpPost]
